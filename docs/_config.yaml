@@ -1,7 +1,6 @@
-title: Flask Project Template
-description: A starter Flask, Jinja and SQLite project
-author: Digital Technologies Dept.
+title: Meal planner Project
+description: A system for letting people plan meals within their household
+author: Avery Rainbow
 
-# If development is true, guides will be shown
 development: true
 picotheme: azure
