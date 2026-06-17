@@ -13,6 +13,8 @@ The app has the following key features:
 
 ## Supporting Documents
 
+All documentation is hosted on [Github pages](https://waimea-jrainbow.github.io/level-3-project-meal-planner/)
+
 Task Instructions:
 - [Instruction documents](docs/instructions/)
 
