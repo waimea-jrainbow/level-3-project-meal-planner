@@ -5,10 +5,10 @@
 This is an app that lets people plan meals within their household
 
 The app has the following key features:
-- Feature one
-- Feature two
-- Feature three
-- ...
+- Planning meals on a calendar for households
+- Making an account and joining other users in a household using a join code
+- Saving recipes to use within meal plans by saving links
+
 
 
 ## Supporting Documents

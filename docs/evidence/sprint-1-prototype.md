@@ -3,11 +3,12 @@
 
 ## Sprint Goals
 
-Develop a design for the database and a UI prototype that simulates the key functionality of the system. Test and refine the UI so that it can serve as the model for the next phase of development in Sprint 2.
+Develop a design for the database and a UI prototype that 
+simulates the key functionality of the system. Test and 
+refine the UI so that it can serve as the model for the next 
+phase of development in Sprint 2.
 
 ### Specific Goals
-
-**Edit these goals as needed**
 
 - Design the database:
     - Tables
@@ -25,9 +26,11 @@ Develop a design for the database and a UI prototype that simulates the key func
 
 ## Initial Database Design
 
-Replace this text with notes regarding the DB design.
+Decided against shopping list functionality 
 
-![DB Design](screenshots/placeholder.png)
+Family members is a linking table between users and household members
+
+![DB Design](screenshots/initial_DB_design.png)
 
 
 ### Required Data Input
