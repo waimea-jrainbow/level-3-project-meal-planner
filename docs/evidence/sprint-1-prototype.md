@@ -71,19 +71,11 @@ The first stage of prototyping was to explore how the UI might 'flow' between st
 
 This Penpot demo shows the initial design for the UI 'flow':
 
-<iframe 
-  src="https://design.penpot.app/#/view?file-id=5ab5eb30-5b3a-81d5-8008-296de403f502&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=696916e9-ba66-80aa-8008-55be7e5b26db" 
-  width="100%" 
-  height="500px" 
-  frameborder="0" 
-  allowfullscreen
-  >
-</iframe>
 
 
-
-
-
+![Version 1](screenshots/DB_version_1.png)
+https://design.penpot.app/#/view?file-id=5ab5eb30-5b3a-81d5-8008-296de403f502&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=696916e9-ba66-80aa-8008-55be7e5b26db
+  
 
 
 ### Testing
