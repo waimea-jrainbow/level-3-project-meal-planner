@@ -72,22 +72,25 @@ The first stage of prototyping was to explore how the UI might 'flow' between st
 This Penpot demo shows the initial design for the UI 'flow':
 
 
+[Version 1](https://design.penpot.app/#/view?file-id=5ab5eb30-5b3a-81d5-8008-296de403f502&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=696916e9-ba66-80aa-8008-55be7e5b26db)
+![Version 1](screenshots/flow_version_1.png)
 
-![Version 1](screenshots/DB_version_1.png)
-https://design.penpot.app/#/view?file-id=5ab5eb30-5b3a-81d5-8008-296de403f502&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=696916e9-ba66-80aa-8008-55be7e5b26db
-  
 
 
 ### Testing
 
-Replace this text with notes about what you did to test the UI flow and the outcome of the testing.
+I let my end-user test my initial design and asked them for any feedback they may have
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
+"How do I get a join code?"
 
-*IMPROVED FIGMA FLOW - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT*
+Added household management section for the owner of a household that lets them generate a 
+join code, remove members and transfer ownership
 
+
+[Version 2](https://design.penpot.app/#/view?file-id=7cd71457-8d32-8044-8008-55c06bb7eb9f&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=4ff7ff5f-2875-80f9-8008-5a766a89e56a)
+![Version 2](screenshots/flow_version_2.png)
 
 ## Initial UI Prototype
 
