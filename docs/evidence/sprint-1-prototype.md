@@ -95,11 +95,8 @@ join code, remove members and transfer ownership
 ## Initial UI Prototype
 
 The next stage of prototyping was to develop the layout for each screen of the UI.
-
-This Figma demo shows the initial layout design for the UI:
-
-*FIGMA PROTOTYPE - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT*
-
+[Initial design](https://design.penpot.app/#/view?file-id=64054412-1123-81ed-8008-5d18aa4b8fad&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=20)
+![Initial design](screenshots/initial_prototype.png)
 ### Testing
 
 Replace this text with notes about what you did to test the UI flow and the outcome of the testing.

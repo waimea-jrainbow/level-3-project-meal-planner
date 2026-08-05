@@ -15,22 +15,21 @@
 #     SEED_DATA = "INSERT INTO name (...)" or None
 #----------------------------------------------------------------------------
 
-class NoteTable:
+class UserTable:
 
-    NAME = "note"
+    NAME = "users"
 
     SCHEMA = """
-        CREATE TABLE note (
-            id      INTEGER PRIMARY KEY AUTOINCREMENT,
-            title   TEXT NOT NULL,
-            body    TEXT,
-            pinned  INTEGER DEFAULT 0,
-            created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
+        CREATE TABLE `users`(
+        `id` INTEGER NOT NULL AUTOINCREMENT PRIMARY KEY,
+        `email` TEXT NOT NULL,
+        `password_hash` TEXT NOT NULL,
+        `display_name` TEXT NOT NULL
+    )
     """
-
+    #TODO fill tables
     SEED_DATA = """
-        INSERT INTO note (title, pinned, body)
+        INSERT INTO users ("email", "password_hash", "display_name")
         VALUES
             ("Welcome!",      1, "This is a demo application using Flask, Jinja and SQLite."),
             ("Shopping List", 0, "Milk\nBread\nEggs\nCheese"),
@@ -38,9 +37,75 @@ class NoteTable:
             ("Recipe: Pasta", 0, "Ingredients:\n- 500g pasta\n- Tomato sauce\n- Garlic\n\nCook pasta, add sauce, enjoy!"),
             ("Important!",    1, "Remember to backup your database regularly.")
     """
+    
+    
+class HouseholdTable:
+    
+    NAME = "households"
 
-# Add more table classes here...
+    SCHEMA = """
+        CREATE TABLE `households`(
+        `id` INTEGER NOT NULL AUTOINCREMENT PRIMARY KEY,
+        `name` TEXT NOT NULL,
+        `join_code` INTEGER NOT NULL UNIQUE,
+        
+        `created_by` TEXT NOT NULL 
+        
+        FOREIGN KEY(created_by) REFERENCES users(id)
+    )
+    """
 
+
+class HouseholdMembersTable:
+    
+    NAME = "householdMembers"
+    
+    SCHEMA = """
+        CREATE TABLE `household_members`(
+        'household_id` INTEGER NOT NULL PRIMARY KEY,
+        `user_id` INTEGER NOT NULL PRIMARY KEY,
+        `role` TEXT NOT NULL,
+        
+        FOREIGN KEY(household_id) REFERENCES households(id)
+        FOREIGN KEY(user_id) REFERENCES users(id)        
+    )
+    """
+    
+class RecipeTable:
+    
+    NAME = "recipes"
+    
+    SCHEMA = """
+        CREATE TABLE `recipes`(
+        `id` INTEGER NOT NULL AUTOINCREMENT PRIMARY KEY,
+        `household_id` INTEGER NOT NULL,
+        `title` TEXT NOT NULL,
+        `url` TEXT NOT NULL,
+        `image_url` TEXT NOT NULL,
+        `notes` TEXT NOT NULL
+        
+        FOREIGN KEY(household_id) REFERENCES households(id)
+    )
+    """
+    
+    
+    
+class MealPlanTable:
+    
+    NAME = "mealPlan"
+
+    SCHEMA = """
+        CREATE TABLE `meal_plan`(
+            `family_id` INTEGER NOT NULL PRIMARY KEY,
+            `date` DATETIME NOT NULL PRIMARY KEY,
+            `meal_type` TEXT NOT NULL PRIMARY KEY,
+            `recipe_id` INTEGER NOT NULL,
+            
+            FOREIGN KEY(household_id) REFERENCES households(id)
+            FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+
+    )
+    """
 
 
 #----------------------------------------------------------------------------
@@ -59,7 +124,10 @@ class NoteTable:
 #----------------------------------------------------------------------------
 
 TABLES = [
-    NoteTable,
-    # Add more tables here...
+    UserTable,
+    HouseholdTable,
+    HouseholdMembersTable,
+    RecipeTable,
+    MealPlanTable
 ]
 
