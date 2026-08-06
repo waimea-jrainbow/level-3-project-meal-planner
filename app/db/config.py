@@ -70,7 +70,7 @@ class HouseholdMembersTable:
         FOREIGN KEY(user_id) REFERENCES users(id)        
     )
     """
-    
+    # TODO add personal recipes options
 class RecipeTable:
     
     NAME = "recipes"
