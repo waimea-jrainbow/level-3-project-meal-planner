@@ -94,6 +94,10 @@ join code, remove members and transfer ownership
 
 ## Initial UI Prototype
 
+<!-- TODO make personal recipe overlays -->
+
+<!-- TODO change from image link to upload image -->
+
 The next stage of prototyping was to develop the layout for each screen of the UI.
 [Initial design](https://design.penpot.app/#/view?file-id=64054412-1123-81ed-8008-5d18aa4b8fad&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=20)
 ![Initial design](screenshots/initial_prototype.png)
