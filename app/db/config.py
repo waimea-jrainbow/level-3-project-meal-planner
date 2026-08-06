@@ -27,7 +27,7 @@ class UserTable:
         `display_name` TEXT NOT NULL
     )
     """
-    #TODO fill tables
+    #TODO fill tables with test data
     SEED_DATA = """
         INSERT INTO users ("email", "password_hash", "display_name")
         VALUES
@@ -70,7 +70,6 @@ class HouseholdMembersTable:
         FOREIGN KEY(user_id) REFERENCES users(id)        
     )
     """
-    # TODO add personal recipes options
 class RecipeTable:
     
     NAME = "recipes"
@@ -80,10 +79,11 @@ class RecipeTable:
         `id` INTEGER NOT NULL AUTOINCREMENT PRIMARY KEY,
         `household_id` INTEGER NOT NULL,
         `title` TEXT NOT NULL,
-        `url` TEXT NOT NULL,
-        `image_url` TEXT NOT NULL,
-        `notes` TEXT NOT NULL
-        
+        `url` TEXT,
+        `image_path` TEXT,
+        `notes` TEXT,
+        'ingredients' TEXT,
+        'method' TEXT
         FOREIGN KEY(household_id) REFERENCES households(id)
     )
     """

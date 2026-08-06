@@ -94,27 +94,55 @@ join code, remove members and transfer ownership
 
 ## Initial UI Prototype
 
-<!-- TODO make personal recipe overlays -->
-
-<!-- TODO change from image link to upload image -->
 
 The next stage of prototyping was to develop the layout for each screen of the UI.
-[Initial design](https://design.penpot.app/#/view?file-id=64054412-1123-81ed-8008-5d18aa4b8fad&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=20)
 ![Initial design](screenshots/initial_prototype.png)
 ### Testing
 
-Replace this text with notes about what you did to test the UI flow and the outcome of the testing.
+Showed to end user and got them to test all features, They suggested the option of writing your own
+recipes alongside the current option to use a link. Also suggested changing image link to uploading images 
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
+Added personal recipe option when add a new recipe and in both option changed the user inputting a link 
+to an image to them uploading the image file to the server
+![Initial_design_2](docs/evidence/screenshots/personal_recipe.png)
 
-*FIGMA IMPROVED PROTOTYPE - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT*
+Full design
+![Initial_design_2](docs/evidence/screenshots/initial_prototype_2.png)
+[Initial_design_2_penpot](https://design.penpot.app/#/view?file-id=64054412-1123-81ed-8008-5d18aa4b8fad&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=bd31e32d-d69f-81e2-8008-5f7dcab9d9d6)
 
 
-## Refined UI Prototype
+
+## Refined UI Prototype <!--TODO refined ui-->
 
 Having established the layout of the UI screens, the prototype was refined visually, in terms of colour, fonts, etc.
+
+
+Colour: 
+
+![Colours 1](screenshots/Colour_1.png)
+--text: #100b05;
+--background: #fbf6ef;
+--primary: #c7843d;
+--secondary: #bee29c;
+--accent: #79d56d;
+
+![Colours 2](screenshots/Colour_2.png)
+--text: #100e0a;
+--background: #fcfaf8;
+--primary: #b88f4c;
+--secondary: #dabe90;
+--accent: #d5a962;
+
+![Colours 3](screenshots/Colour_3.png)
+--text: #0f190f;
+--background: #f7fbf7;
+--primary: #4dc255;
+--secondary: #96e59b;
+--accent: #5be465;
+
+
 
 This Figma demo shows the UI with refinements applied:
 

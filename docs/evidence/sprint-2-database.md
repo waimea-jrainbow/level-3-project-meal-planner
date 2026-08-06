@@ -7,8 +7,6 @@ Implement the database, populated with test data. Create queries that retrieve t
 
 ### Specific Goals
 
-**Edit these goals as needed**
-
 - Implement the database
 - Add test data to the database
 - Create the following web pages:
