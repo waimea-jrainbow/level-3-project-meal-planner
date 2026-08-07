@@ -119,7 +119,7 @@ Full design
 Having established the layout of the UI screens, the prototype was refined visually, in terms of colour, fonts, etc.
 
 
-Colour: 
+### Colour: 
 
 ![Colours 1](screenshots/Colour_1.png)
 --text: #100b05;
@@ -141,6 +141,20 @@ Colour:
 --primary: #4dc255;
 --secondary: #96e59b;
 --accent: #5be465;
+
+![Colours 4](screenshots/colour_4.png)
+--text: #111106;
+--background: #fafaf1;
+--primary: #c1c14e;
+--secondary: #bedd9d;
+--accent: #88ca68;
+
+![Colours 5](screenshots/colour_5.png)
+--text: #25250c;
+--background: #dcdcae;
+--primary: #c2d851;
+--secondary: #bedd9d;
+--accent: #2b5616;
 
 
 
