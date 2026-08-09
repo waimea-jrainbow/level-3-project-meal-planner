@@ -156,6 +156,29 @@ Having established the layout of the UI screens, the prototype was refined visua
 --secondary: #bedd9d;
 --accent: #2b5616;
 
+Stakeholder chose Colours 5 as it uses earthy tones that 
+illicit thoughts of nature and health
+
+### Font
+
+Macondo
+![Font 1](screenshots/Font_1.png)
+
+Maple mono
+![Font 2](screenshots/Font_2.png)
+
+Delius Swash Caps
+![Font 3](screenshots/Font_3.png)
+
+Taviraj
+![Font 3](screenshots/Font_3.png)
+
+Aref Ruqaa Ink
+![Font 5](screenshots/Font_5.png)
+
+End-user chose font 3 due to its interesting appearance and 'whimsy' while
+still being readable
+
 
 
 This Figma demo shows the UI with refinements applied:
