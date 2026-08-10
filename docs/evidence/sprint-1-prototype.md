@@ -106,10 +106,10 @@ recipes alongside the current option to use a link. Also suggested changing imag
 
 Added personal recipe option when add a new recipe and in both option changed the user inputting a link 
 to an image to them uploading the image file to the server
-![Initial_design_2](docs/evidence/screenshots/personal_recipe.png)
+![Initial_design_2](screenshots/personal_recipe.png)
 
 Full design
-![Initial_design_2](docs/evidence/screenshots/initial_prototype_2.png)
+![Initial_design_2](screenshots/initial_prototype_2.png)
 [Initial_design_2_penpot](https://design.penpot.app/#/view?file-id=64054412-1123-81ed-8008-5d18aa4b8fad&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=bd31e32d-d69f-81e2-8008-5f7dcab9d9d6)
 
 
