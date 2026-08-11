@@ -183,7 +183,7 @@ still being readable
 
 This Figma demo shows the UI with refinements applied:
 
-*FIGMA REFINED PROTOTYPE - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT*
+[Refined UI](https://design.penpot.app/#/view?file-id=3be9e5e1-190f-8090-8008-7551976816b3&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=3be9e5e1-190f-8090-8008-76e2e2a347ed)
 
 ### Testing
 
