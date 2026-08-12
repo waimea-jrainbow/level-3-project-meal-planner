@@ -27,17 +27,16 @@ class UserTable:
         `display_name` TEXT NOT NULL
     )
     """
-    #TODO fill tables with test data
+
     SEED_DATA = """
         INSERT INTO users ("email", "password_hash", "display_name")
         VALUES
-            ("goober@gmail.com", "1234", "goober"),
-            
+            ("goober@gmail.com", "1234", "goober");
     """
-    
-    
+
+
 class HouseholdTable:
-    
+
     NAME = "households"
 
     SCHEMA = """
@@ -45,48 +44,47 @@ class HouseholdTable:
         `id` INTEGER PRIMARY KEY AUTOINCREMENT,
         `name` TEXT NOT NULL,
         `join_code` INTEGER NOT NULL UNIQUE,
-        
-        `created_by` TEXT NOT NULL, 
+        `created_by` INTEGER NOT NULL,
         
         FOREIGN KEY(created_by) REFERENCES users(id)
     )
     """
-    
+
     SEED_DATA = """
-        INSERT INTO users ("name", "join_code", "created_by")
+        INSERT INTO households ("name", "join_code", "created_by")
         VALUES
-            ("Goobers house", "goobers join code", "1"),
+            ("Goobers house", 123456, 1);
     """
 
 
 class HouseholdMembersTable:
-    
-    NAME = "householdMembers"
-    
+
+    NAME = "household_members"
+
     SCHEMA = """
         CREATE TABLE `household_members`(
         `household_id` INTEGER,
-        `user_id` INTEGER NOT NULL ,
+        `user_id` INTEGER NOT NULL,
         `role` TEXT NOT NULL,
-        
-        PRIMARY KEY(household_id, user_id)
-        
+
+        PRIMARY KEY(household_id, user_id),
+
         FOREIGN KEY(household_id) REFERENCES households(id),
-        FOREIGN KEY(user_id) REFERENCES users(id)        
+        FOREIGN KEY(user_id) REFERENCES users(id)
     )
     """
-    
+
     SEED_DATA = """
-        INSERT INTO users ("household_id", "user_id", "role")
+        INSERT INTO household_members ("household_id", "user_id", "role")
         VALUES
-            ("1","1","owner"),
+            (1, 1, "owner");
     """
-    
-    
+
+
 class RecipeTable:
-    
+
     NAME = "recipes"
-    
+
     SCHEMA = """
         CREATE TABLE `recipes`(
         `id` INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -95,23 +93,39 @@ class RecipeTable:
         `url` TEXT,
         `image_path` TEXT,
         `notes` TEXT,
-        'ingredients' TEXT,
-        'method' TEXT
+        `ingredients` TEXT,
+        `method` TEXT,
+
         FOREIGN KEY(household_id) REFERENCES households(id)
     )
     """
-    
-    
+
     SEED_DATA = """
-        INSERT INTO users ("title", "url","image_path", "notes", "ingredients", "method")
+        INSERT INTO recipes (
+            "household_id",
+            "title",
+            "url",
+            "image_path",
+            "notes",
+            "ingredients",
+            "method"
+        )
         VALUES
-            ("goober food", "goobermeals.com", "images/goobermeal.png", "notes for noting", "goober meat", "cook goober meat"
+            (
+                1,
+                "Goober Food",
+                "https://goobermeals.com",
+                "images/goobermeal.png",
+                "Notes for noting",
+                "Goober meat",
+                "Cook goober meat"
+            );
     """
-    
-    
+
+
 class MealPlanTable:
-    
-    NAME = "mealPlan"
+
+    NAME = "meal_plan"
 
     SCHEMA = """
         CREATE TABLE `meal_plan`(
@@ -119,19 +133,18 @@ class MealPlanTable:
             `date` DATETIME,
             `meal_type` TEXT,
             `recipe_id` INTEGER NOT NULL,
-            
-            PRIMARY KEY(family_id, date, meal_type)
-            
-            FOREIGN KEY(household_id) REFERENCES households(id)
-            FOREIGN KEY(recipe_id) REFERENCES recipes(id)
 
-    )
+            PRIMARY KEY(family_id, date, meal_type),
+
+            FOREIGN KEY(family_id) REFERENCES households(id),
+            FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+        )
     """
-    
+
     SEED_DATA = """
-        INSERT INTO users ("date", "meal_type", "recipe_id")
+        INSERT INTO meal_plan ("family_id", "date", "meal_type", "recipe_id")
         VALUES
-            ("1/1/1111", "breakfast", "1"),
+            (1, "2026-08-13 08:00:00", "breakfast", 1);
     """
 
 
