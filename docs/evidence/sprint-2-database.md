@@ -19,9 +19,9 @@ Implement the database, populated with test data. Create queries that retrieve t
     - Etc.
 
 
-## Testing FEATURE NAME HERE
+## Testing Database initialization
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
+Ran docker compose up to test whether the DB initializes correctly with all tables and seed data
 
 **PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
 
