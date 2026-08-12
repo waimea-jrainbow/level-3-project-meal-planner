@@ -183,17 +183,24 @@ still being readable
 
 This Figma demo shows the UI with refinements applied:
 
-[Refined UI](https://design.penpot.app/#/view?file-id=3be9e5e1-190f-8090-8008-7551976816b3&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=3be9e5e1-190f-8090-8008-76e2e2a347ed)
-
+[Refined UI V1](https://design.penpot.app/#/view?file-id=3be9e5e1-190f-8090-8008-7551976816b3&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=3be9e5e1-190f-8090-8008-76e2e2a347ed)
+<!--TODO include screenshot of refined ui v1 -->
 ### Testing
 
-Replace this text with notes about what you did to test the UI flow and the outcome of the testing.
+Gave refined ui demo to end-user to test:
+- Should combine join household and create household into one page
+- Add ability change meals of current day on dashboard
+- Pointed out a few bugs with open login and signup dialogs
+- Colours and fonts are great
+- Pointed out glaring issue that user can't choose a meal for a day
+in the mea planner (Whoops)
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
+- Moved create and join household onto the same page 
+![Combined household](screenshots/householdjoin+create.png)
 
-*FIGMA IMPROVED REFINED PROTOTYPE - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT*
+
 
 
 ## Sprint Review
