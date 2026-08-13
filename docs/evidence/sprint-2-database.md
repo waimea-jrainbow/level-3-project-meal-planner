@@ -23,15 +23,11 @@ Implement the database, populated with test data. Create queries that retrieve t
 
 Ran docker compose up to test whether the DB initializes correctly with all tables and seed data
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
+Database schema
+![Database schema](screenshots/database_schema_logs.png)
 
-![Placeholder](screenshots/placeholder.png)
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+Database seeded data
+![Database schema](screenshots/database_contents_logs.png)
 
 
 ## Testing FEATURE NAME HERE
