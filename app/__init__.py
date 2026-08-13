@@ -24,23 +24,8 @@ app = Flask(__name__)
 # Home page - Show all notes
 #-----------------------------------------------------------
 @app.get("/")
-def show_notes():
-    with connect_db() as db:
-        sql = """
-            SELECT id, title, body, pinned, created
-            FROM note
-            ORDER BY pinned DESC, created DESC
-        """
-        params = ()
-        notes = db.execute(sql, params).fetchall()
-
-        flash("Test message")
-        flash("Test SUCCESS message", "success")
-        flash("Test INFO message", "info")
-        flash("Test WARNING message", "warning")
-        flash("Test ERROR message", "error")
-
-        return render_template("pages/note_list.jinja", notes=notes)
+def homepage():
+   return render_template("pages/.jinja")
 
 
 #===========================================================
