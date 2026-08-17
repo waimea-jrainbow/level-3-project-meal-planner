@@ -97,3 +97,8 @@ main > h2 {
     }
 }
 
+#add_recipe {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+}
