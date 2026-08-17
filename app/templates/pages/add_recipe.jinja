@@ -1,0 +1,74 @@
+{#=====================================================
+  Home page
+=====================================================#}
+
+{% extends 'pages/_base.jinja' %}
+
+
+{% block content %}
+
+
+    <article>
+
+        <h1>Add recipe with link</h1>
+
+        <form action="/add/recipe" method="POST" id="add_recipe">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Name of the recipe"
+                required
+            >
+
+            <input
+                type="text"
+                name="Link"
+                placeholder="Link to the recipe"
+                required
+            >
+            {# TODO add validation that links are real #}
+
+            <input
+            name="image"
+            type="file"
+            accept="image/png, image/jpeg, image/webp"
+            >
+
+            <div>
+                <label>
+                    <input type="radio" name="meal_type" value="any" checked>
+                    Any
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    <input type="radio" name="meal_type" value="breakfast">
+                    Breakfast
+                </label>
+            </div>
+            
+
+            <div>
+                <label>
+                    <input type="radio" name="meal_type" value="lunch">
+                    Lunch
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    <input type="radio" name="meal_type" value="dinner">
+                    Dinner
+                </label>    
+            </div>
+
+            <button>Add the recipe</button>
+
+        </form>
+
+    </article>
+
+{% endblock %}
+
