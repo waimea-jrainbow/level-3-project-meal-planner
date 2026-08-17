@@ -4,16 +4,18 @@
 #===========================================================
 
 from flask import Flask, request, session, render_template, flash, redirect, send_file, make_response
-from werkzeug.security import generate_password_hash, check_password_hash, secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
-from os import getenv
 from io import BytesIO
-import html
+import html, os, uuid
 from app.helpers import *
 
 
 # Create the app
 app = Flask(__name__)
+
+UPLOAD_FOLDER = os.path.join('app', 'static', 'uploads')
 
 
 #===========================================================
