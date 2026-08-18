@@ -102,3 +102,8 @@ main > h2 {
     flex-direction: column;
     flex-grow: 0;
 }
+
+.recipe_image{
+    max-width: 20vw;
+    max-height: 20vh;
+}

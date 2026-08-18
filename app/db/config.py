@@ -117,8 +117,8 @@ class RecipeTable:
                 1,
                 "Goober Food",
                 "https://goobermeals.com",
-                "images/goobermeal.png",
                 "any",
+                "/static/uploads/goobermeal.png",
                 "Notes for noting",
                 "Goober meat",
                 "Cook goober meat"
