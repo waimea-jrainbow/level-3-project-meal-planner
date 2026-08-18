@@ -84,11 +84,11 @@ class HouseholdMembersTable:
 class RecipeTable:
 
     NAME = "recipes"
-
+# TODO add household_id NOT NULL back after basic testing once households exist
     SCHEMA = """
         CREATE TABLE `recipes`(
         `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-        `household_id` INTEGER NOT NULL,
+        `household_id` INTEGER , 
         `title` TEXT NOT NULL,
         `url` TEXT,
         `meal_type` TEXT,
