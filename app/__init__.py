@@ -109,7 +109,7 @@ def add_a_recipe():
         sql = "INSERT INTO recipes (title, url, meal_type, image_path) VALUES (?, ?, ?, ?)"
         params = (title,url, meal_type, unique_filename)
         db.execute(sql, params)
-
+# TODO make household_id so recipe upload works
         flash(f"Club '{title}' added", "success")
         return redirect("/")
 
