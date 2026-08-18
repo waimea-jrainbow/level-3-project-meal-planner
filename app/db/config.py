@@ -91,6 +91,7 @@ class RecipeTable:
         `household_id` INTEGER NOT NULL,
         `title` TEXT NOT NULL,
         `url` TEXT,
+        `meal_type` TEXT,
         `image_path` TEXT,
         `notes` TEXT,
         `ingredients` TEXT,
@@ -105,6 +106,7 @@ class RecipeTable:
             "household_id",
             "title",
             "url",
+            "meal_type",
             "image_path",
             "notes",
             "ingredients",
@@ -116,6 +118,7 @@ class RecipeTable:
                 "Goober Food",
                 "https://goobermeals.com",
                 "images/goobermeal.png",
+                "any",
                 "Notes for noting",
                 "Goober meat",
                 "Cook goober meat"
