@@ -44,18 +44,18 @@ def add_a_recipe_form():
 def add_a_recipe():
     # Get the data from the form
     title  = request.form.get("title")
-    link = request.form.get("link")
-    image = request.form.get("image")
+    url = request.form.get("link")
+    meal_type = request.form.get("meal_type")
     
 
     # Get the file selected via the form
-    logo = request.files.get('logo', None)
-    if not logo or logo.filename == '':
+    image = request.files.get('image', None)
+    if not image or image.filename == '':
         flash("There was a problem uploading the image", "error")
-        return redirect("/")
+        return redirect("/form/add/recipe")
 
     # Sanitise filename and make it unique
-    filename = secure_filename(logo.filename)
+    filename = secure_filename(image.filename)
     random_prefix = uuid.uuid4().hex[:12]
     unique_filename = f"{random_prefix}_{filename}"
 
@@ -63,16 +63,16 @@ def add_a_recipe():
     filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
 
     # Save file to disk
-    logo.save(filepath)
+    image.save(filepath)
 
     # Add the form data and the upload filename to the DB
     with connect_db() as db:
-        sql = "INSERT INTO clubs (name, logo_filename) VALUES (?, ?)"
-        params = (name, unique_filename)
+        sql = "INSERT INTO recipes (title, url, meal_type, image_path) VALUES (?, ?, ?, ?)"
+        params = (title,url, meal_type, unique_filename)
         db.execute(sql, params)
 
-        flash(f"Club '{name}' added", "success")
-        return redirect("/things")
+        flash(f"Club '{title}' added", "success")
+        return redirect("/")
 
 
 
