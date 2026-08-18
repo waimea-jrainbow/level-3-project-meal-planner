@@ -1,0 +1,28 @@
+{#=====================================================
+  Home page
+=====================================================#}
+
+{% extends 'pages/_base.jinja' %}
+
+
+{% block content %}
+
+   
+    <h1>{{ recipe.title }}</h1>
+
+
+    <article>
+        <p>id: {{ recipe.id }}</p>
+        <p>title: {{ recipe.title }}</p>
+        <button>url: <a href="{{ recipe.url }}">url</a></button>
+        <p>meal type: {{ recipe.meal_type }}</p>
+        <p>notes: {{ recipe.notes }}</p>
+        <p>ingredients: {{ recipe.ingredients }}</p>
+        <p>method: {{ recipe.method }}</p>
+        <p>Image: </p><img src="{{ recipe.image_path }}" class="recipe_image">
+
+
+    </article>
+
+{% endblock %}
+

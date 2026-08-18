@@ -3,7 +3,7 @@
 # By YOUR NAME HERE
 #===========================================================
 
-from flask import Flask, request, session, render_template, flash, redirect, send_file, make_response
+from flask import Flask, request, session, render_template, flash, redirect, send_file, make_response, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
@@ -28,6 +28,45 @@ UPLOAD_FOLDER = os.path.join('app', 'static', 'uploads')
 @app.get("/")
 def homepage():
    return render_template("pages/home_page.jinja")
+
+#-----------------------------------------------------------
+# Meal plan page route - Show all the meal plan
+#-----------------------------------------------------------
+@app.get("/recipes")
+def show_recipes():
+    with connect_db() as client:
+        # Get all the things from the DB
+        sql = "SELECT * FROM recipes ORDER BY title ASC"
+        params = []
+        result = client.execute(sql, params)
+        recipes = result.fetchall()
+
+        # And show them on the page
+        return render_template("pages/recipes.jinja", recipes=recipes)
+
+
+#-----------------------------------------------------------
+# Recipe page route - Show details of a single recipe
+#-----------------------------------------------------------
+@app.get("/recipe/<int:id>")
+def show_one_recipe(id):
+    with connect_db() as client:
+        # Get the thing details from the DB
+        sql = "SELECT * FROM recipes WHERE id=?"
+        params = [id]
+        result = client.execute(sql, params)
+
+        recipe = result.fetchone()
+        
+        # Did we get a result?
+        if recipe:
+            # yes, so show it on the page
+            return render_template("pages/recipe.jinja", recipe=recipe)
+
+        else:
+            # No, so show error
+            abort(404)
+
 
 #-----------------------------------------------------------
 # Add new recipe page

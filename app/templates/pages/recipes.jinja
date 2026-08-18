@@ -8,17 +8,17 @@
 {% block content %}
 
    
-    <h1>Meal plan</h1>
+    <h1>Recipes</h1>
 
 
     <article>
 
         <ul>
-            {% for day in days %}
+            {% for recipe in recipes %}
 
                 <li>
-                    <a href="/day/{{ day.id }}">
-                        {{ day.name }}
+                    <a href="/recipe/{{ recipe.id }}">
+                        {{ recipe.title }}
                     </a>
                 </li>
 
