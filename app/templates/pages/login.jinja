@@ -10,9 +10,11 @@
 
     <article>
 
-        <h1>Add user</h1>
+        <h1>Login</h1>
+        {# TODO change user related to /user/X #}
+        {# TODO change id to _form#}
 
-        <form action="/user" method="POST" id="add_user">
+        <form action="/login" method="POST" id="login_form">
 
             <input
                 type="email"
@@ -28,14 +30,7 @@
                 required
             >
 
-            <input
-            name="display_name"
-            type="text"
-            placeholder="username"
-            required
-            >
-
-            <button>Add user</button>
+            <button>Login</button>
 
         </form>
 

@@ -30,9 +30,23 @@
         </a>
 
         <nav>
-            <a href="/recipes">Recipes list</a>
-            <a href="/add/user">New user</a>
-            <a href="/form/add/recipe">New recipe</a>
+            {% if session.logged_in %}
+                Welcome, {{ session.user.display_name }}!
+
+                {% if session.user.household_name %}
+                    Household: {{ session.user.household_name }}
+                {% else %}
+                    No household
+                {% endif %}
+                
+                <a href="/recipe/new">New recipe</a>
+                <a href="/household">households</a>
+                <a href="/recipes">Recipes list</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/user/new">Sign-Up</a>
+            {% endif %}  
         </nav>
     </header>
 

@@ -30,14 +30,14 @@ def homepage():
    return render_template("pages/home_page.jinja")
 
 #-----------------------------------------------------------
-# Meal plan page route - Show all the meal plan
+# recipes page route - show all household recipes
 #-----------------------------------------------------------
 @app.get("/recipes")
 def show_recipes():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT * FROM recipes ORDER BY title ASC"
-        params = []
+        sql = "SELECT * FROM recipes WHERE household_id=? ORDER BY title ASC "
+        params = [session["user"]["household_id"]]
         result = client.execute(sql, params)
         recipes = result.fetchall()
 
@@ -71,7 +71,7 @@ def show_one_recipe(id):
 #-----------------------------------------------------------
 # Add new recipe page
 #-----------------------------------------------------------
-@app.get("/form/add/recipe")
+@app.get("/recipe/new")
 def add_a_recipe_form():
    return render_template("pages/add_recipe.jinja")
 
@@ -79,44 +79,69 @@ def add_a_recipe_form():
 #-----------------------------------------------------------
 # Route for adding a recipe, using data posted from a form
 #-----------------------------------------------------------
-@app.post("/add/recipe")
+@app.post("/recipe")
 def add_a_recipe():
+
     # Get the data from the form
-    title  = request.form.get("title")
+    title = request.form.get("title")
     url = request.form.get("link")
     meal_type = request.form.get("meal_type")
-    
 
-    # Get the file selected via the form
-    image = request.files.get('image', None)
-    if not image or image.filename == '':
-        flash("There was a problem uploading the image", "error")
-        return redirect("/form/add/recipe")
+    # Get the currently logged-in user
+    user_id = session["user"]["id"]
 
-    # Sanitise filename and make it unique
-    filename = secure_filename(image.filename)
-    random_prefix = uuid.uuid4().hex[:12]
-    unique_filename = f"{random_prefix}_{filename}"
-
-    # Get the path of the upload folder
-    filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
-
-    # Save file to disk
-    image.save(filepath)
-
-    # Add the form data and the upload filename to the DB
     with connect_db() as db:
-        sql = "INSERT INTO recipes (title, url, meal_type, image_path) VALUES (?, ?, ?, ?)"
-        params = (title,url, meal_type, unique_filename)
+
+        # Find the household the user belongs to
+        sql = """
+            SELECT household_id
+            FROM household_members
+            WHERE user_id=?
+        """
+        params = (user_id,)
+        result = db.execute(sql, params)
+
+        household = result.fetchone()
+
+        if not household:
+            flash("You need to join or create a household first", "error")
+            return redirect("/household")
+
+        household_id = household["household_id"]
+
+        # Get the file selected via the form
+        image = request.files.get("image", None)
+
+        if not image or image.filename == "":
+            flash("There was a problem uploading the image", "error")
+            return redirect("/recipe/new")
+
+        # Sanitise filename and make it unique
+        filename = secure_filename(image.filename)
+        random_prefix = uuid.uuid4().hex[:12]
+        unique_filename = f"{random_prefix}_{filename}"
+
+        # Get the path of the upload folder
+        filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
+
+        # Save file to disk
+        image.save(filepath)
+
+        # Add recipe to the user's household
+        sql = """
+            INSERT INTO recipes (household_id, title, url, meal_type, image_path)
+            VALUES (?, ?, ?, ?, ?)
+        """
+        params = (household_id, title, url, meal_type, unique_filename)
         db.execute(sql, params)
-# TODO make household_id so recipe upload works
-        flash(f"Club '{title}' added", "success")
+
+        flash(f"Recipe '{title}' added", "success")
         return redirect("/")
 
 #-----------------------------------------------------------
 # Add new user page
 #-----------------------------------------------------------
-@app.get("/form/add/user")
+@app.get("/user/new")
 def add_a_user_form():
    return render_template("pages/add_user.jinja")
 
@@ -124,40 +149,157 @@ def add_a_user_form():
 #-----------------------------------------------------------
 # Route for adding a user, using data posted from a form
 #-----------------------------------------------------------
-@app.post("/add/user")
+@app.post("/user")
 def add_a_user():
     # Get the data from the form
     email  = request.form.get("email")
-    password = request.form.get("password")
-    display_name = request.form.get("meal_type")
-    
+    display_name = request.form.get("display_name")
+    password = request.form.get('password', '').strip()
 
-    # Get the file selected via the form
-    image = request.files.get('image', None)
-    if not image or image.filename == '':
-        flash("There was a problem uploading the image", "error")
-        return redirect("/form/add/recipe")
-
-    # Sanitise filename and make it unique
-    filename = secure_filename(image.filename)
-    random_prefix = uuid.uuid4().hex[:12]
-    unique_filename = f"{random_prefix}_{filename}"
-
-    # Get the path of the upload folder
-    filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
-
-    # Save file to disk
-    image.save(filepath)
-
-    # Add the form data and the upload filename to the DB
     with connect_db() as db:
-        sql = "INSERT INTO recipes (title, url, meal_type, image_path) VALUES (?, ?, ?, ?)"
-        params = (title,url, meal_type, unique_filename)
-        db.execute(sql, params)
-# TODO make household_id so recipe upload works
-        flash(f"Club '{title}' added", "success")
-        return redirect("/")
+        sql = "SELECT id FROM users WHERE email=?"
+        params = (email,)
+        user = db.execute(sql, params).fetchone()
 
+        if user:
+            flash(f"An account using the email address '{email}' already exists", "error")
+            return redirect("/form/add/user")
+
+        pass_hash = generate_password_hash(password)
+
+        sql = """
+            INSERT INTO users (email, display_name, password_hash)
+            VALUES (?, ?, ?)
+        """
+        params = (email, display_name, pass_hash)
+        db.execute(sql, params)
+
+        flash("Account created. Please login", "success")
+        return redirect("/login")
+    
+    
+#-----------------------------------------------------------
+# User login page
+#-----------------------------------------------------------
+@app.get("/login")
+def login_form():
+   return render_template("pages/login.jinja")
+
+#-----------------------------------------------------------
+# Route for logging in as a user, using data posted from a form
+#-----------------------------------------------------------
+@app.post("/login")
+def login_as_user():
+    email = request.form.get("email")
+    password = request.form.get("password", "").strip()
+
+    with connect_db() as db:
+        sql = """
+            SELECT users.id, users.email, users.display_name, users.password_hash,
+                households.id AS household_id,
+                households.name AS household_name
+            FROM users
+            LEFT JOIN household_members
+                ON users.id = household_members.user_id
+            LEFT JOIN households
+                ON household_members.household_id = households.id
+            WHERE users.email=?
+"""
+        params = (email,)
+        user = db.execute(sql, params).fetchone()
+
+        if not user:
+            flash("Email or password incorrect", "error")
+            return redirect("/login")
+
+        if not check_password_hash(user["password_hash"], password):
+            flash("Email or password incorrect", "error")
+            return redirect("/login")
+
+        else:
+            session["logged_in"] = True
+            session["user"] = {
+            "id": user["id"],
+            "display_name": user["display_name"],
+            "email": user["email"],
+            "household_id": user["household_id"],
+            "household_name": user["household_name"]
+            
+            }
+
+            flash("Successfully logged in", "success")
+            return redirect("/")    
+        
+
+
+
+#-----------------------------------------------------------
+# Route for logging out
+#-----------------------------------------------------------       
+@app.get("/logout")
+def logout_user():
+    session.clear()
+    flash(f"You have been logged out", "success")
+    return redirect("/") 
+
+
+#-----------------------------------------------------------
+# household creation and joining page
+#-----------------------------------------------------------
+@app.get("/household")
+def household_forms():
+   return render_template("pages/household_join&create.jinja")
+
+#-----------------------------------------------------------
+# Route for adding a household, using data posted from a form
+#-----------------------------------------------------------
+@app.post("/household")
+def add_a_household():
+    # Get the data from the form
+    name  = request.form.get("name")
+    
+    if not name:
+        flash("Please enter a household name", "error")
+        return redirect("/household")
+    
+    created_by = session["user"]["id"]
+    
+    with connect_db() as db:
+        while True:
+            join_code = str(uuid.uuid4().int)[:6]
+            
+            sql = """
+                SELECT id FROM households WHERE join_code=?
+            """
+            params = (join_code,)
+            existing = db.execute(sql, params).fetchone()
+
+            if not existing:
+                break
+
+    with connect_db() as db:
+        sql = """
+            INSERT INTO households (name, join_code, created_by)
+            VALUES (?, ?, ?)
+        """
+        params = (name, join_code, created_by)
+        household = db.execute(sql, params)
+
+        household_id = household.lastrowid
+
+        sql = """
+            INSERT INTO household_members (household_id, user_id, role)
+            VALUES (?, ?, ?)
+        """
+        params = (household_id, created_by, "owner")
+        db.execute(sql, params)
+
+        session["user"]["household_id"] = household_id
+        session["user"]["household_name"] = name
+
+        flash(f"Household '{name}' created", "success")
+        return redirect("/")
+        
 #===========================================================
 # Configure the app
 #===========================================================
