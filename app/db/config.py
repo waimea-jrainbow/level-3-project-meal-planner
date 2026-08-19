@@ -31,7 +31,7 @@ class UserTable:
     SEED_DATA = """
         INSERT INTO users ("email", "password_hash", "display_name")
         VALUES
-            ("goober@gmail.com", "1234", "goober");
+            ("goober@gmail.com", "scrypt:32768:8:1$n7eJTucLbaGmUpAM$c1776374a8d456a6eaf61bccc08db5e1fcc4ff3b3983d364c45ab13074255eeae0a393afb11f99a9fe63fb1d980992ace17a72ba70324523b11e92e36cbe4252", "goober");
     """
 
 
@@ -43,7 +43,7 @@ class HouseholdTable:
         CREATE TABLE `households`(
         `id` INTEGER PRIMARY KEY AUTOINCREMENT,
         `name` TEXT NOT NULL,
-        `join_code` INTEGER NOT NULL UNIQUE,
+        `join_code` TEXT NOT NULL UNIQUE,
         `created_by` INTEGER NOT NULL,
         
         FOREIGN KEY(created_by) REFERENCES users(id)

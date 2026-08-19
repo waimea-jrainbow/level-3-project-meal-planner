@@ -1,0 +1,31 @@
+{#=====================================================
+  Home page
+=====================================================#}
+
+{% extends 'pages/_base.jinja' %}
+
+
+{% block content %}
+
+
+    <article>
+
+        <h1>Add recipe with link</h1>
+
+        <form action="/household" method="POST"  id="add_household">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Household name"
+                required
+            >
+
+            <button>Create household</button>
+
+        </form>
+
+    </article>
+
+{% endblock %}
+

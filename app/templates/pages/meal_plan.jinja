@@ -1,0 +1,50 @@
+{#=====================================================
+  Home page
+=====================================================#}
+
+{% extends 'pages/_base.jinja' %}
+
+
+{% block content %}
+
+   
+    <h1>Meal plan</h1>
+
+
+    <article>
+
+        <ul>
+            {% for day in meal_plan %}
+            
+
+            <p>Breakfast</p>
+                <li>
+                    <a href="/recipe/{{ recipe.id }}">
+                        {{ recipe.title }}
+                    </a>
+                </li>
+
+            <p>Lunch</p>
+                <li>
+                    <a href="/recipe/{{ recipe.id }}">
+                        {{ recipe.title }}
+                    </a>
+                </li>
+
+            <p>Dinner</p>
+                <li>
+                    <a href="/recipe/{{ recipe.id }}">
+                        {{ recipe.title }}
+                    </a>
+                </li>
+            {% else %}
+
+                <p>None!</p>
+
+            {% endfor %}
+        </ul>
+
+    </article>
+
+{% endblock %}
+
