@@ -1,50 +1,51 @@
 {#=====================================================
-  Home page
+  Meal Plan
 =====================================================#}
 
 {% extends 'pages/_base.jinja' %}
 
-
 {% block content %}
 
-   
-    <h1>Meal plan</h1>
+    <h1>Meal Plan</h1>
 
+    {% if meal_plan %}
 
-    <article>
+        {% set current_date = namespace(value=None) %}
 
-        <ul>
-            {% for day in meal_plan %}
-            
+        {% for meal in meal_plan %}
 
-            <p>Breakfast</p>
+            {% if meal.date != current_date.value %}
+
+                {% if not loop.first %}
+                    </ul>
+                {% endif %}
+
+                <h2>{{ meal.date }}</h2>
+
+                <ul>
+
+                {% set current_date.value = meal.date %}
+
+            {% endif %}
+
                 <li>
-                    <a href="/recipe/{{ recipe.id }}">
-                        {{ recipe.title }}
+                    <strong>{{ meal.meal_type|title }}</strong>:
+
+                    <a href="/recipe/{{ meal.recipe_id }}">
+                        {{ meal.recipe_title }}
                     </a>
                 </li>
 
-            <p>Lunch</p>
-                <li>
-                    <a href="/recipe/{{ recipe.id }}">
-                        {{ recipe.title }}
-                    </a>
-                </li>
+            {% if loop.last %}
+                </ul>
+            {% endif %}
 
-            <p>Dinner</p>
-                <li>
-                    <a href="/recipe/{{ recipe.id }}">
-                        {{ recipe.title }}
-                    </a>
-                </li>
-            {% else %}
+        {% endfor %}
 
-                <p>None!</p>
+    {% else %}
 
-            {% endfor %}
-        </ul>
+        <p>No meals planned yet!</p>
 
-    </article>
+    {% endif %}
 
 {% endblock %}
-

@@ -35,6 +35,8 @@
 
                 {% if session.user.household_name %}
                     Household: {{ session.user.household_name }}
+                    <a href="/recipe/new">New recipe</a>
+                    
                 {% else %}
                     No household
                 {% endif %}
@@ -42,6 +44,7 @@
                 <a href="/recipe/new">New recipe</a>
                 <a href="/household">households</a>
                 <a href="/recipes">Recipes list</a>
+                <a href="/meal_plan" role="button">View meal plan</a>
                 <a href="/logout">Logout</a>
             {% else %}
                 <a href="/login">Login</a>
