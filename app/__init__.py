@@ -33,6 +33,7 @@ def homepage():
 # recipes page route - show all household recipes
 #-----------------------------------------------------------
 @app.get("/recipes")
+@login_required
 def show_recipes():
     with connect_db() as client:
         # Get all the things from the DB
@@ -72,6 +73,7 @@ def show_one_recipe(id):
 # Add new recipe page
 #-----------------------------------------------------------
 @app.get("/recipe/new")
+@login_required
 def add_a_recipe_form():
    return render_template("pages/add_recipe.jinja")
 
@@ -80,6 +82,7 @@ def add_a_recipe_form():
 # Route for adding a recipe, using data posted from a form
 #-----------------------------------------------------------
 @app.post("/recipe")
+@login_required
 def add_a_recipe():
 
     # Get the data from the form
@@ -237,6 +240,7 @@ def login_as_user():
 # Route for logging out
 #-----------------------------------------------------------       
 @app.get("/logout")
+@login_required
 def logout_user():
     session.clear()
     flash(f"You have been logged out", "success")
@@ -247,6 +251,7 @@ def logout_user():
 # household creation and joining page
 #-----------------------------------------------------------
 @app.get("/household")
+@login_required
 def household_forms():
    return render_template("pages/household_join&create.jinja")
 
@@ -254,6 +259,7 @@ def household_forms():
 # Route for adding a household, using data posted from a form
 #-----------------------------------------------------------
 @app.post("/household")
+@login_required
 def add_a_household():
     # Get the data from the form
     name  = request.form.get("name")
@@ -299,6 +305,46 @@ def add_a_household():
 
         flash(f"Household '{name}' created", "success")
         return redirect("/")
+    
+    
+#-----------------------------------------------------------
+# meal plan - view full meal plan 
+#-----------------------------------------------------------
+
+@app.get("/meal_plan")
+@login_required
+def show_meal_plan():
+    with connect_db() as db:
+
+        sql = """
+            SELECT
+                meal_plan.date,
+                meal_plan.meal_type,
+                recipes.id AS recipe_id,
+                recipes.title AS recipe_title
+            FROM meal_plan
+            JOIN recipes
+                ON meal_plan.recipe_id = recipes.id
+            WHERE meal_plan.household_id=?
+            ORDER BY
+                meal_plan.date ASC,
+                CASE meal_plan.meal_type
+                    WHEN 'breakfast' THEN 1
+                    WHEN 'lunch' THEN 2
+                    WHEN 'dinner' THEN 3
+                    ELSE 4
+                END
+        """
+
+        params = (session["user"]["household_id"],)
+
+        result = db.execute(sql, params)
+        meal_plan = result.fetchall()
+
+        return render_template(
+            "pages/meal_plan.jinja",
+            meal_plan=meal_plan
+        )
         
 #===========================================================
 # Configure the app

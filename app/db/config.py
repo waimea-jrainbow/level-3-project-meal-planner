@@ -84,11 +84,10 @@ class HouseholdMembersTable:
 class RecipeTable:
 
     NAME = "recipes"
-# TODO add household_id NOT NULL back after basic testing once households exist
     SCHEMA = """
         CREATE TABLE `recipes`(
         `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-        `household_id` INTEGER , 
+        `household_id` INTEGER NOT NULL, 
         `title` TEXT NOT NULL,
         `url` TEXT,
         `meal_type` TEXT,
@@ -132,20 +131,20 @@ class MealPlanTable:
 
     SCHEMA = """
         CREATE TABLE `meal_plan`(
-            `family_id` INTEGER,
+            `household_id` INTEGER,
             `date` DATETIME,
             `meal_type` TEXT,
             `recipe_id` INTEGER NOT NULL,
 
-            PRIMARY KEY(family_id, date, meal_type),
+            PRIMARY KEY(household_id, date, meal_type),
 
-            FOREIGN KEY(family_id) REFERENCES households(id),
+            FOREIGN KEY(household_id) REFERENCES households(id),
             FOREIGN KEY(recipe_id) REFERENCES recipes(id)
         )
     """
 
     SEED_DATA = """
-        INSERT INTO meal_plan ("family_id", "date", "meal_type", "recipe_id")
+        INSERT INTO meal_plan ("household_id", "date", "meal_type", "recipe_id")
         VALUES
             (1, "2026-08-13 08:00:00", "breakfast", 1);
     """
