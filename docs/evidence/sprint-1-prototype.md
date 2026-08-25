@@ -181,7 +181,7 @@ still being readable
 
 
 
-This Figma demo shows the UI with refinements applied:
+This penpot demo shows the UI with refinements applied:
 
 [Refined UI V1](https://design.penpot.app/#/view?file-id=3be9e5e1-190f-8090-8008-7551976816b3&page-id=5ab5eb30-5b3a-81d5-8008-296de403f503&section=interactions&frame-id=cfa2d32d-939c-80e5-8008-39090b61908f&index=0&share-id=3be9e5e1-190f-8090-8008-76e2e2a347ed)
 ![Refined UI V1](screenshots/refined_ui_v1.png)
@@ -194,8 +194,8 @@ Gave refined ui demo to end-user to test:
 - Pointed out a few bugs with open login and signup dialogs
 - Colours and fonts are great
 - Pointed out glaring issue that user can't choose a meal for a day
-in the mea planner (Whoops)
-- Add ability to select meal type (Another glaring issue)
+in the meal planner (Whoops)
+- Add ability to select meal type (Another glaring issue)(This is why we have stakeholders)
 
 ### Changes / Improvements
 
