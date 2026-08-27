@@ -1,0 +1,277 @@
+From what you pasted, I can already see these likely testing features:
+
+Database initialisation and seed data
+User registration
+User login/logout
+Recipe creation
+Recipe list and recipe details
+Meal plan display
+Navigation/session-dependent pages
+
+For each feature, your documentation should explain:
+
+What was tested
+How it was tested
+Expected result
+Actual result
+Any problems found
+Changes/improvements made
+Screenshot/GIF evidence
+What I need you to paste
+
+The most useful thing would be your Python/Flask route code, particularly the files containing routes for:
+
+/
+ /user
+ /user/new
+ /login
+ /logout
+ /recipes
+ /recipe/<id>
+ /recipe/new
+ /meal_plan
+ /household
+
+I especially need the code that contains the SQL queries. That will let me write things like:
+
+Tested the recipe list by navigating to /recipes. The application executed a query to retrieve recipes belonging to the logged-in user's household and displayed the returned recipes as links.
+
+rather than making assumptions about how your application works.
+
+Also send me, if you have them
+
+1. Your project file structure, something like:
+
+project/
+├── app.py
+├── database/
+│   ├── ...
+├── templates/
+│   ├── pages/
+│   └── ...
+├── static/
+└── ...
+
+2. The database/query code
+
+Anything containing things like:
+
+SELECT ...
+INSERT INTO ...
+UPDATE ...
+DELETE ...
+
+3. Your actual testing screenshots
+
+You don't necessarily need to upload all of them immediately. If you tell me what screenshots you have, e.g.:
+
+Screenshot 1 - database tables in terminal
+Screenshot 2 - seeded data in terminal
+Screenshot 3 - recipes page
+Screenshot 4 - recipe details
+Screenshot 5 - login
+Screenshot 6 - meal plan
+
+I can tell you where each one fits in the documentation.
+
+4. Any problems you encountered
+
+Even brief notes are useful, for example:
+
+- Recipe wasn't showing initially
+- Had an issue with the meal plan date
+- Login worked
+- Database seeded correctly
+- Added validation to recipe form
+
+Don't worry about making these notes sound professional—I can turn them into appropriate sprint documentation.
+
+One thing I can already spot
+
+Your current Sprint 2 template has two identical Testing FEATURE NAME HERE sections. Based on the code you've shown, I'd probably expand this into something closer to:
+
+Testing Database Initialisation and Seed Data
+Testing User Registration and Login
+Testing Recipe Creation and Retrieval
+Testing Meal Plan Retrieval and Display
+Testing Navigation and Session-Based Access
+
+Then finish with a Sprint Review explaining what Sprint 2 achieved and what remains for Sprint 3.
+
+Send me the route/query Python code next, and I can turn this into finished documentation that matches your actual implementation rather than generic testing text.
+
+
+
+1. Database initialisation and seed data
+
+You already have this section started. Your evidence shows that Docker successfully creates the tables and inserts the seed records.
+
+2. User registration and login
+
+This is worth testing separately because you have two different database operations:
+
+Checking whether an email already exists
+Hashing the password before storing it
+Retrieving the user during login
+Checking the password hash
+Creating the session
+Displaying the logged-in user's information
+
+Useful screenshots would be:
+
+Sign-up form
+Successful account creation message
+Login form
+Successful login/home page showing the user's name
+Optional: database showing the user record
+3. Household creation
+
+Your code has quite a bit of functionality here, so it's definitely worth documenting.
+
+You test that:
+
+A logged-in user can open the household page.
+A household name is required.
+A unique six-digit join code is generated.
+The household is inserted into the database.
+The creator is automatically added as an owner.
+The session is updated with the household information.
+
+Useful screenshots:
+
+Household creation form
+Successful creation message
+Header showing the household name after creation
+Database showing the household and household member
+4. Recipe creation and image upload
+
+This is probably one of your strongest Sprint 2 features.
+
+Your code tests:
+
+Recipe form
+Title/link/meal type being submitted
+Finding the user's household
+Rejecting the upload if no image is supplied
+Sanitising the filename
+Giving the image a unique filename
+Saving the image
+Inserting the recipe into the database
+Redirecting after successful creation
+
+Useful screenshots:
+
+Add recipe form
+Filled-in form
+Successful "Recipe added" message
+Recipe list
+Recipe details page showing the image
+5. Recipe retrieval and display
+
+This can be its own testing section because you have two separate queries:
+
+SELECT * FROM recipes
+WHERE household_id=?
+ORDER BY title ASC
+
+and:
+
+SELECT * FROM recipes
+WHERE id=?
+
+So you can explicitly demonstrate that the database isn't just being populated — your application is successfully retrieving the data and displaying it.
+
+Test:
+
+/recipes displays recipes.
+Recipes are sorted alphabetically.
+Selecting a recipe opens its details.
+The details page displays title, URL, meal type, notes, ingredients, method and image.
+An invalid recipe ID produces a 404.
+6. Meal plan retrieval and display
+
+Your meal-plan query is particularly useful for the documentation because it demonstrates a database JOIN:
+
+FROM meal_plan
+JOIN recipes
+    ON meal_plan.recipe_id = recipes.id
+
+The test can explain that the application retrieves the planned meal together with the recipe title, rather than requiring the template to perform another lookup.
+
+You can test:
+
+/meal_plan while logged in.
+Seeded meal appears.
+Date is displayed.
+Meal type is displayed.
+Recipe title is displayed as a link.
+Clicking the recipe takes you to its details.
+Meals are ordered by date and meal type.
+One thing I would change in your documentation
+
+I'd avoid saying simply "Testing FEATURE NAME HERE". Make each heading describe the actual functionality.
+
+For example:
+
+## Testing User Registration and Login
+
+## Testing Household Creation
+
+## Testing Recipe Creation and Image Upload
+
+## Testing Recipe Retrieval and Display
+
+## Testing Meal Plan Retrieval and Display
+
+Then each section can have a Changes / Improvements subsection.
+
+For example, the recipe section could follow this pattern:
+
+Test: Create a new recipe using the recipe form while logged in.
+
+Method: I entered a recipe title, URL and meal type, selected an image file, and submitted the form. I then checked the recipe list and recipe details page to confirm that the recipe had been stored and could be retrieved from the database.
+
+Expected result: The recipe should be added to the current user's household, the image should be uploaded, and a success message should be displayed.
+
+Result: The recipe was successfully added and appeared in the recipe list. Selecting the recipe displayed its stored details and uploaded image.
+
+Then:
+
+Changes / Improvements: During testing, I added unique filenames to uploaded images using a UUID. This prevents uploaded images with the same original filename from overwriting each other.
+
+That last part is particularly good for a sprint report because it shows testing → problem/risk → improvement rather than merely saying "it worked."
+
+What I need from you now
+
+The main thing I'm missing is your actual test results.
+
+Send me whatever you have, even if it's messy. For example:
+
+Registration:
+- worked
+- screenshot of form
+- screenshot of success
+
+Login:
+- worked
+- wrong password gave error
+- screenshot
+
+Household:
+- worked
+- screenshot of household in database
+
+Recipe:
+- worked
+- image uploaded
+- screenshot of recipe page
+- screenshot of database
+
+Meal plan:
+- worked
+- screenshot
+
+Problems:
+- ...
+
+Most importantly, send the screenshots/images you have (or tell me what each screenshot shows). Then I can write the actual finished Sprint 2 sections, including the Changes / Improvements and Sprint Review, so you can essentially paste them straight into your documentation.
