@@ -303,7 +303,7 @@ def add_a_household():
         session["user"]["household_id"] = household_id
         session["user"]["household_name"] = name
 
-        flash(f"Household '{name}' created", "success")
+        flash(f"Household {name} created", "success")
         return redirect("/")
     
     
