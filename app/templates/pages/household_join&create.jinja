@@ -10,18 +10,47 @@
 
     <article>
 
-        <h1>Add a household</h1>
+        <h2>Create a household</h2>
 
-        <form action="/household" method="POST"  id="add_household">
+        <form method="POST" action="/household">
+
+            <label for="name">
+                Household name
+            </label>
 
             <input
                 type="text"
+                id="name"
                 name="name"
-                placeholder="Household name"
                 required
             >
 
-            <button>Create household</button>
+            <button type="submit">
+                Create household
+            </button>
+
+        </form>
+
+
+        <h2>Join a household</h2>
+
+        <form method="POST" action="/household/join">
+
+            <label for="join_code">
+                Join code
+            </label>
+
+            <input
+                type="text"
+                id="join_code"
+                name="join_code"
+                maxlength="6"
+                required
+            >   
+
+            <button type="submit">
+                Join household
+            </button>
 
         </form>
 

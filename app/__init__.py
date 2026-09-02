@@ -305,7 +305,171 @@ def add_a_household():
 
         flash(f"Household {name} created", "success")
         return redirect("/")
+
+
+#-----------------------------------------------------------
+# Route for joining a household
+#-----------------------------------------------------------
+
+@app.post("/household/join")
+@login_required
+def join_a_household():
+
+    join_code = request.form.get("join_code", "").strip()
+
+    user_id = session["user"]["id"]
+
+    if not join_code:
+        flash("Please enter a join code", "error")
+        return redirect("/household")
+
+    with connect_db() as db:
+
+        sql = """
+            SELECT
+                id,
+                name,
+                join_code,
+                created_by
+            FROM households
+            WHERE join_code=?
+        """
+
+        params = (join_code,)
+
+        result = db.execute(sql, params)
+        household = result.fetchone()
+
+        # Check if the household exists
+        if not household:
+            flash("Invalid join code", "error")
+            return redirect("/household")
+
+
+        sql = """
+            INSERT INTO household_members
+                (household_id, user_id, role)
+            VALUES
+                (?, ?, ?)
+        """
+
+        params = (household["id"], user_id, "member")
+
+        db.execute(sql, params)
+
+
+        session["user"]["household_id"] = household["id"]
+        session["user"]["household_name"] = household["name"]
+
+        flash(f"You joined {household['name']}", "success")
+
+        return redirect("/household/manage")
+
+
+#-----------------------------------------------------------
+# Manage household - open household dashboard
+#-----------------------------------------------------------
+
+@app.get("/household/manage")
+@login_required
+def household_dashboard():
     
+    household_id = session["user"]["household_id"]
+
+    # User isn't currently in a household
+    if not household_id:
+        flash("You are not currently in a household", "error")
+        return redirect("/household")
+    
+    
+    with connect_db() as db:
+
+        sql = """
+            SELECT
+                id,
+                name,
+                join_code,
+                created_by
+            FROM households
+            WHERE id=?
+        """
+
+        params = (session["user"]["household_id"],)
+
+        result = db.execute(sql, params)
+        household = result.fetchone()
+        
+        
+        # Get household members
+        sql = """
+            SELECT
+                users.id,
+                users.display_name,
+                users.email,
+                household_members.role
+            FROM household_members
+            JOIN users
+                ON household_members.user_id = users.id
+            WHERE household_members.household_id=?
+        """
+
+        params = (session["user"]["household_id"],)
+
+        result = db.execute(sql, params)
+        members = result.fetchall()
+
+        is_owner = household["created_by"] == session["user"]["id"]
+
+        return render_template(
+            "pages/manage_household.jinja",
+            household=household,
+            members=members,
+            is_owner=is_owner
+        ) 
+ 
+
+#-----------------------------------------------------------
+# Route to remove a user from a household as owner
+#-----------------------------------------------------------      
+@app.post("/household/remove_member/<int:user_id>")
+@login_required
+def remove_household_member(user_id):
+
+    with connect_db() as db:
+
+        sql = """
+            SELECT created_by
+            FROM households
+            WHERE id=?
+        """
+
+        params = (session["user"]["household_id"],)
+
+        result = db.execute(sql, params)
+        household = result.fetchone()
+
+        if household["created_by"] != session["user"]["id"]:
+            flash("Only the household owner can remove members", "error")
+            return redirect("/household/manage")
+
+        # Don't allow owner to remove themselves
+        if user_id == session["user"]["id"]:
+            flash("You cannot remove yourself", "error")
+            return redirect("/household/manage")
+
+        # Remove the user from the household
+        sql = """
+            DELETE FROM household_members
+            WHERE household_id=? AND user_id=?
+        """
+
+        params = (session["user"]["household_id"], user_id)
+
+        db.execute(sql, params)
+
+        flash("Member removed", "success")
+        return redirect("/household/manage")
+
     
 #-----------------------------------------------------------
 # meal plan - view full meal plan 
@@ -345,6 +509,132 @@ def show_meal_plan():
             "pages/meal_plan.jinja",
             meal_plan=meal_plan
         )
+
+#-----------------------------------------------------------
+# Route for transferring ownership of a household
+#-----------------------------------------------------------
+@app.post("/household/transfer_owner/<int:user_id>")
+@login_required
+def transfer_owner_household(user_id):
+
+    current_user_id = session["user"]["id"]
+    household_id = session["user"]["household_id"]
+
+    if not household_id:
+        flash("You are not currently in a household", "error")
+        return redirect("/household")
+
+    with connect_db() as db:
+
+        # Check whether the user is the household owner
+        sql = """
+            SELECT created_by
+            FROM households
+            WHERE id=?
+        """
+
+        params = (household_id,)
+
+        result = db.execute(sql, params)
+        household = result.fetchone()
+
+        if not household:
+            flash("Household not found", "error")
+            return redirect("/household")
+
+        if household["created_by"] != current_user_id:
+            flash("You must be the owner to transfer ownership", "error")
+            return redirect("/household/manage")
+
+        # Make new user the owner of the household
+        sql = """
+            UPDATE households
+            SET created_by=?
+            WHERE id=?
+        """
+
+        params = (user_id, household_id)
+
+        db.execute(sql, params)
+
+        # Make old owner a member
+        sql = """
+            UPDATE household_members
+            SET role=?
+            WHERE household_id=? AND user_id=?
+        """
+
+        params = ("member", household_id, current_user_id)
+
+        db.execute(sql, params)
+
+        # Make new user an owner
+        sql = """
+            UPDATE household_members
+            SET role=?
+            WHERE household_id=? AND user_id=?
+        """
+
+        params = ("owner", household_id, user_id)
+
+        db.execute(sql, params)
+
+        flash("Ownership transferred successfully", "success")
+
+        return redirect("/household/manage")
+     
+        
+#-----------------------------------------------------------
+# Route for leaving a household
+#-----------------------------------------------------------
+@app.post("/household/leave")
+@login_required
+def leave_household():
+
+    user_id = session["user"]["id"]
+    household_id = session["user"]["household_id"]
+
+    if not household_id:
+        flash("You are not currently in a household", "error")
+        return redirect("/household")
+
+    with connect_db() as db:
+
+        # Check whether the user is the household owner
+        sql = """
+            SELECT created_by
+            FROM households
+            WHERE id=?
+        """
+
+        result = db.execute(sql, (household_id,))
+        household = result.fetchone()
+
+        if not household:
+            flash("Household not found", "error")
+            return redirect("/household")
+
+        # Owner cannot leave
+        if household["created_by"] == user_id:
+            flash("The household owner cannot leave the household", "error")
+            return redirect("/household/manage")
+
+        # Remove the current user from the household
+        sql = """
+            DELETE FROM household_members
+            WHERE household_id=? AND user_id=?
+        """
+
+        db.execute(sql, (household_id, user_id))
+
+        # Clear household information from the session
+        session["user"]["household_id"] = None
+        session["user"]["household_name"] = None
+
+        flash("You have left the household", "success")
+
+        return redirect("/household")
+
         
 #===========================================================
 # Configure the app
