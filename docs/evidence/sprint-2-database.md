@@ -20,14 +20,52 @@ Implement the database, populated with test data. Create queries that retrieve t
 
 
 ## Testing Database initialization
+I tested whether the SQLite database initializes correctly when the application is started using 
+docker compose. I checked that all required tables were created and that the database was populated
+with the expected seed data.
 
-Ran docker compose up to test whether the DB initializes correctly with all tables and seed data
+### Test 1 – Database starts correctly
 
+### What I am testing:
+Whether the database starts correctly when the application is launched.
+
+###How I tested it:
+I ran:
+docker compose up
+THen I checked the terminal output to make sure there were no database 
+initialization errors.
+
+Expected outcome:
+The database should initialize successfully without errors.
+
+Actual outcome:
 Database schema
 ![Database schema](screenshots/database_schema_logs.png)
 
 Database seeded data
 ![Database schema](screenshots/database_contents_logs.png)
+
+
+### Test 2 – Database tables are created
+
+### What I am testing:
+Whether all required database tables are created.
+
+### How I tested it:
+I inspected the database after starting the application and checked for the following tables:
+
+- users
+- households
+- household_members
+- recipes
+- meal_plan
+
+### Expected outcome:
+All five tables should exist.
+
+### Actual outcome:
+[Add your result here.]
+
 
 
 ## Testing User Registration and login 
