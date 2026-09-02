@@ -58,15 +58,13 @@ Test data:
 
 ## Testing Household Creation
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
-
 I am testing household creation, more specifically:
-- logged-in user can open the household page.
-- household name is required.
-- unique six-digit join code is generated.
-- household is inserted into the database.
-- creator is automatically added as an owner.
-- session is updated with the household information.
+- logged-in user can open the join/create household page
+- household name is required
+- unique six-digit join code is generated
+- household is inserted into the database
+- creator is automatically added as an owner
+- session is updated with the household information
 
 to do this I logged in as a test user then clicked the house holds button in the navbar from 
 here I entered testhouse as the household name and clicked submit from there I checked the 
@@ -83,13 +81,9 @@ here I entered testhouse as the household name and clicked submit from there I c
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
-
 #### Removed quotation marks around household name in confirmation flash
-![Fixed household confirmation without quotation marks](/screenshots/household_confirmation_fix.png)
+![Fixed household confirmation without quotation marks](screenshots/household_confirmation_fix.png)
 
-
-## ETC...
 
 
 ## Sprint Review
