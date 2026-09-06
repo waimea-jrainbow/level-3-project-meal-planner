@@ -24,62 +24,42 @@ I tested whether the SQLite database initializes correctly when the application 
 docker compose. I checked that all required tables were created and that the database was populated
 with the expected seed data.
 
-### Test 1 – Database starts correctly
-
-### What I am testing:
-Whether the database starts correctly when the application is launched.
-
-###How I tested it:
+### How I tested it:
 I ran:
 docker compose up
 THen I checked the terminal output to make sure there were no database 
-initialization errors.
+initialization errors and that seed data was present.
 
 Expected outcome:
-The database should initialize successfully without errors.
+The database should initialize successfully without errors and be populated with seed data.
 
 Actual outcome:
+
 Database schema
+
 ![Database schema](screenshots/database_schema_logs.png)
 
 Database seeded data
+
 ![Database schema](screenshots/database_contents_logs.png)
 
 
-### Test 2 – Database tables are created
-
-### What I am testing:
-Whether all required database tables are created.
+## Testing User Registration and login 
+Testing the ability for a user to make an account and log in. 
 
 ### How I tested it:
-I inspected the database after starting the application and checked for the following tables:
+I opened the sign-up page and entered:
 
-- users
-- households
-- household_members
-- recipes
-- meal_plan
+    Email: user@test.com
+    Username: user
+    Password: 1234
 
-### Expected outcome:
-All five tables should exist.
+I then clicked Add user.
 
-### Actual outcome:
-[Add your result here.]
+### Expected result:
+The account should be created and the user should be redirected to the login page with a confirmation message.
 
-
-
-## Testing User Registration and login 
-
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
-Testing the ability for a user to make an account and log in. I opened the user sign up form and then entered 
-an email, username and password and then clicked the add user button. 
-After this I logged in and then checked whether the nav bar shows that I am logged in
-
-Test data: 
-- Email - user@test.com
-- Password - 1234
-- username - user
-
+Actual outcome:
 #### Entering test data
 ![Signing up](screenshots/sign_up_test.png)
 
@@ -91,6 +71,23 @@ Test data:
 
 #### Confirmation of login with flash message and nav showing username
 ![Login confirmation](screenshots/login_confirmation.png)
+
+
+## Testing duplicate email registration
+Testing whether the application prevents a second account from being 
+created using an email address that already exists.
+
+How I tested it:
+I attempted to create another account using:
+
+    Email: user@test.com
+    Username: anotheruser
+    Password: 1234
+
+Expected result:
+The account should not be created. The application should display an error message stating that an account using the email address already exists.
+
+Actual outcome:
 
 
 
