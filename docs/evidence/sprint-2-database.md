@@ -120,6 +120,34 @@ here I entered testhouse as the household name and clicked submit from there I c
 ![Fixed household confirmation without quotation marks](screenshots/household_confirmation_fix.png)
 
 
+## Testing recipe creation and image upload
+
+I am testing the creation of a recipe:
+- The page opens
+- data can be entered
+- recipe is saved to database
+- image can be uploaded
+- 
+
+to do this I logged in as a test user then clicked the house holds button in the navbar from 
+here I entered testhouse as the household name and clicked submit from there I checked the 
+
+
+#### Entering test data
+![Testing household creation](screenshots/household_creation_test.png)
+
+#### Confirmation of household creation
+![Flash message confirming household creation](screenshots/household_creation_confirmation.png)
+![Navbar changes confirming household creation](screenshots/household_creation_confirmation_2.png)
+
+
+
+### Changes / Improvements
+
+#### Removed quotation marks around household name in confirmation flash
+![Fixed household confirmation without quotation marks](screenshots/household_confirmation_fix.png)
+
+
 
 ## Sprint Review
 
