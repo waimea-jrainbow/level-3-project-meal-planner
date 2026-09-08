@@ -207,6 +207,13 @@ Testing what happens when test data is not expected data
 - Changed form so it will not submit when there is no image 
 ![Error message when no image is provided](screenshots/add_recipe_fix_2.png)
 
+
+
+## Recipe retrieval and display
+
+Testing whether list of recipes is displasyed correctly and if individual recipe's
+details are displayed correctly  
+
 ## Sprint Review
 
 Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
