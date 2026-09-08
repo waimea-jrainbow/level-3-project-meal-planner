@@ -155,6 +155,57 @@ to do this I logged in as a test user went to the add recipe page then entered t
 #### Changed name of link input in html form from Link to link
 
 
+## Testing recipe creation and image upload
+
+I am testing the creation of a recipe:
+- The page opens
+- data can be entered
+- recipe is saved to database
+- image can be uploaded
+
+
+to do this I logged in as a test user went to the add recipe page then entered the test data
+
+- name: test recipe
+- link:testrecipe.com
+- image: hamburger.png 
+![Hamburger icon](screenshots/hamburger.png)
+- meal type: dinner
+
+
+#### Entering test data
+![Entering test data for recipe](screenshots/add_recipe.png)
+
+#### Confirmation of recipe creation
+![Flash message confirming recipe creation](screenshots/add_recipe_confirmation.png)
+![Recipe shows in recipe list confirming recipe creation](screenshots/add_recipe_confirmation_2.png)
+
+
+### Changes / Improvements
+
+#### Removed quotation marks around household name in flash and reworded confirmation flash message
+![Fixed household confirmation without quotation marks](screenshots/add_recipe_fix.png)
+
+#### Changed name of link input in html form from Link to link
+
+
+## Testing image creation with non ideal test data
+
+Testing what happens when test data is not expected data
+- No title
+- No url
+- No image
+
+#### Form is not submitted if title or url are missing
+![No title and no url tests for recipe](screenshots/unexpected_data_recipe.png)
+
+#### Form is submitted but error is shown
+![No image test for recipe](screenshots/no_image_recipe.png)
+
+### Changes / Improvements
+
+- Changed form so it will not submit when there is no image 
+![Error message when no image is provided](screenshots/add_recipe_fix_2.png)
 
 ## Sprint Review
 
