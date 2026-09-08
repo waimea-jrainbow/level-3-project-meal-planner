@@ -173,8 +173,11 @@ to do this I logged in as a test user went to the add recipe page then entered t
 - meal type: dinner
 
 
-#### Entering test data
-![Entering test data for recipe](screenshots/add_recipe.png)
+#### Entering test data for link recipe
+![Entering test data for link recipe](screenshots/add_recipe.png)
+
+#### Entering test data for manual recipe
+![Entering test data for manual recipe](screenshots/add_recipe_manual_test.png)
 
 #### Confirmation of recipe creation
 ![Flash message confirming recipe creation](screenshots/add_recipe_confirmation.png)
@@ -188,6 +191,8 @@ to do this I logged in as a test user went to the add recipe page then entered t
 
 #### Changed name of link input in html form from Link to link
 
+#### Added text area closing tags on manual recipe so method code isn't inside ingredients
+![Fixed manual recipe add form](screenshots/add_recipe_manual_fix.png)
 
 ## Testing image creation with non ideal test data
 
@@ -211,8 +216,29 @@ Testing what happens when test data is not expected data
 
 ## Recipe retrieval and display
 
-Testing whether list of recipes is displasyed correctly and if individual recipe's
+Testing whether list of recipes is displayed correctly and if individual recipe's
 details are displayed correctly  
+
+I viewed the recipe list and an individual recipe after adding multiple test recipes
+
+#### List of recipes: images do not show
+![List of recipes](screenshots/recipes_display_test.png)
+
+#### Individual link recipe: images do not show, links try to go to route not external page
+![Individual link recipe](screenshots/recipe_display_test.png)
+
+#### Individual manual recipe
+![Individual manual recipe](screenshots/recipe_display_manual_test.png)
+
+
+### Changes / Improvements
+
+#### removed app from the front of image_path so recipe images show
+![Recipe list fixed](screenshots/recipes_display_fix.png)
+
+#### Added code in recipe route to add https:// to the start of links without it and added target="_blank" so link opens in new tab
+
+#### Added code to individual recipe to not display links if not existent and vice versa
 
 ## Sprint Review
 
