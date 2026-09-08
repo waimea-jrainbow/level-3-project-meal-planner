@@ -10,7 +10,31 @@
 
     <article>
 
-        <h1>Add recipe with link</h1>
+        <h1>Add recipe</h1>
+
+        <div>
+
+            <button
+                type="button"
+                hx-get="/recipe/fields/link"
+                hx-target="#recipe-fields"
+                hx-swap="innerHTML"
+            >
+                Add with a link
+            </button>
+
+            <button
+                type="button"
+                hx-get="/recipe/fields/manual"
+                hx-target="#recipe-fields"
+                hx-swap="innerHTML"
+            >
+                Add manually
+            </button>
+
+        </div>
+
+
 
         <form action="/recipe" method="POST" enctype="multipart/form-data" id="add_recipe">
 
@@ -21,12 +45,22 @@
                 required
             >
 
-            <input
-                type="text"
-                name="link"
-                placeholder="Link to the recipe"
-                required
-            >
+            <div id="recipe-fields">
+
+                <label for="link">
+                    Link to the recipe
+                </label>
+
+                <input
+                    type="url"
+                    name="link"
+                    id="link"
+                    placeholder="Link to the recipe"
+                    required
+                >
+
+            </div>
+            
             {# TODO add validation that links are real #}
 
             <input

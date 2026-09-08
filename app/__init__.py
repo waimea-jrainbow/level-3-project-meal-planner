@@ -15,7 +15,7 @@ from app.helpers import *
 # Create the app
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join('app', 'static', 'uploads')
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
 
 
 #===========================================================
@@ -79,6 +79,22 @@ def add_a_recipe_form():
 
 
 #-----------------------------------------------------------
+# Routes for partials for link and manual recipes
+#-----------------------------------------------------------
+@app.get("/recipe/fields/link")
+@login_required
+def recipe_link_fields():
+    return render_template("partials/recipe_link_fields.jinja")
+
+
+@app.get("/recipe/fields/manual")
+@login_required
+def recipe_manual_fields():
+    return render_template("partials/recipe_manual_fields.jinja")
+
+
+
+#-----------------------------------------------------------
 # Route for adding a recipe, using data posted from a form
 #-----------------------------------------------------------
 @app.post("/recipe")
@@ -88,10 +104,17 @@ def add_a_recipe():
     # Get the data from the form
     title = request.form.get("title")
     url = request.form.get("link")
+    ingredients = request.form.get("ingredients")
+    method = request.form.get("method")
     meal_type = request.form.get("meal_type")
 
+    # Make sure links valid by adding https:// if missing
+    if url and not url.startswith(("http://", "https://")):
+        url = "https://" + url
+    
     # Get the currently logged-in user
     user_id = session["user"]["id"]
+
 
     with connect_db() as db:
 
@@ -101,45 +124,89 @@ def add_a_recipe():
             FROM household_members
             WHERE user_id=?
         """
+
         params = (user_id,)
         result = db.execute(sql, params)
 
         household = result.fetchone()
 
+
         if not household:
-            flash("You need to join or create a household first", "error")
+            flash(
+                "You need to join or create a household first",
+                "error"
+            )
             return redirect("/household")
+
 
         household_id = household["household_id"]
 
+
         # Get the file selected via the form
-        image = request.files.get("image", None)
+        image = request.files.get("image")
+
 
         if not image or image.filename == "":
-            flash("There was a problem uploading the image", "error")
+            flash(
+                "There was a problem uploading the image",
+                "error"
+            )
             return redirect("/recipe/new")
+
 
         # Sanitise filename and make it unique
         filename = secure_filename(image.filename)
         random_prefix = uuid.uuid4().hex[:12]
         unique_filename = f"{random_prefix}_{filename}"
 
-        # Get the path of the upload folder
-        filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
 
-        # Save file to disk
+        # Save image to uploads folder
+        filepath = os.path.join(
+            UPLOAD_FOLDER,
+            unique_filename
+        )
+
         image.save(filepath)
 
-        # Add recipe to the user's household
+
+        # Path that can be used by the browser
+        image_path = f"/static/uploads/{unique_filename}"
+
+
+        # Add recipe to the household
         sql = """
-            INSERT INTO recipes (household_id, title, url, meal_type, image_path)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO recipes (
+                household_id,
+                title,
+                url,
+                meal_type,
+                image_path,
+                ingredients,
+                method
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         """
-        params = (household_id, title, url, meal_type, filepath)
+
+        params = (
+            household_id,
+            title,
+            url,
+            meal_type,
+            image_path,
+            ingredients,
+            method
+        )
+
         db.execute(sql, params)
 
-        flash(f"{title} added to recipes", "success")
+
+        flash(
+            f"{title} added to recipes",
+            "success"
+        )
+
         return redirect("/")
+
 
 #-----------------------------------------------------------
 # Add new user page
