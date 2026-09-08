@@ -135,10 +135,10 @@ def add_a_recipe():
             INSERT INTO recipes (household_id, title, url, meal_type, image_path)
             VALUES (?, ?, ?, ?, ?)
         """
-        params = (household_id, title, url, meal_type, unique_filename)
+        params = (household_id, title, url, meal_type, filepath)
         db.execute(sql, params)
 
-        flash(f"Recipe '{title}' added", "success")
+        flash(f"{title} added to recipes", "success")
         return redirect("/")
 
 #-----------------------------------------------------------

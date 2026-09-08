@@ -103,6 +103,7 @@ I am testing household creation, more specifically:
 
 to do this I logged in as a test user then clicked the house holds button in the navbar from 
 here I entered testhouse as the household name and clicked submit from there I checked the 
+navbar as well and the confirmation flash message to confirm test user is in a household 
 
 
 #### Entering test data
@@ -129,23 +130,29 @@ I am testing the creation of a recipe:
 - image can be uploaded
 - 
 
-to do this I logged in as a test user then clicked the house holds button in the navbar from 
-here I entered testhouse as the household name and clicked submit from there I checked the 
+to do this I logged in as a test user went to the add recipe page then entered the test data
+
+- name: test recipe
+- link:testrecipe.com
+- image: hamburger.png 
+![Hamburger icon](screenshots/hamburger.png)
+- meal type: dinner
 
 
 #### Entering test data
-![Testing household creation](screenshots/household_creation_test.png)
+![Entering test data for recipe](screenshots/add_recipe.png)
 
-#### Confirmation of household creation
-![Flash message confirming household creation](screenshots/household_creation_confirmation.png)
-![Navbar changes confirming household creation](screenshots/household_creation_confirmation_2.png)
-
+#### Confirmation of recipe creation
+![Flash message confirming recipe creation](screenshots/add_recipe_confirmation.png)
+![Recipe shows in recipe list confirming recipe creation](screenshots/add_recipe_confirmation_2.png)
 
 
 ### Changes / Improvements
 
-#### Removed quotation marks around household name in confirmation flash
-![Fixed household confirmation without quotation marks](screenshots/household_confirmation_fix.png)
+#### Removed quotation marks around household name in flash and reworded confirmation flash message
+![Fixed household confirmation without quotation marks](screenshots/add_recipe_fix.png)
+
+#### Changed name of link input in html form from Link to link
 
 
 
