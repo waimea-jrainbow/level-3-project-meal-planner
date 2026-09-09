@@ -132,7 +132,7 @@ class MealPlanTable:
     SCHEMA = """
         CREATE TABLE `meal_plan`(
             `household_id` INTEGER,
-            `date` DATETIME,
+            `date` TEXT,
             `meal_type` TEXT,
             `recipe_id` INTEGER NOT NULL,
 
