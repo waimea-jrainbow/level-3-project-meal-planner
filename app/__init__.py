@@ -232,8 +232,8 @@ def add_a_user():
         user = db.execute(sql, params).fetchone()
 
         if user:
-            flash(f"An account using the email address '{email}' already exists", "error")
-            return redirect("/form/add/user")
+            flash(f"An account using the email address {email} already exists", "error")
+            return redirect("/user/new")
 
         pass_hash = generate_password_hash(password)
 
@@ -576,6 +576,163 @@ def show_meal_plan():
             "pages/meal_plan.jinja",
             meal_plan=meal_plan
         )
+        
+        
+#-----------------------------------------------------------
+# Route for page to add meal plan
+#-----------------------------------------------------------       
+@app.get("/meal_plan/new")
+@login_required
+def add_meal_plan_form():
+
+    household_id = session["user"]["household_id"]
+
+    if not household_id:
+        flash("You are not currently in a household", "error")
+        return redirect("/household")
+
+    with connect_db() as db:
+
+        sql = """
+            SELECT
+                id,
+                title
+            FROM recipes
+            WHERE household_id=?
+            ORDER BY title ASC
+        """
+
+        params = (household_id,)
+
+        result = db.execute(sql, params)
+        recipes = result.fetchall()
+
+        return render_template(
+            "pages/add_meal_plan.jinja",
+            recipes=recipes
+        )
+
+
+#-----------------------------------------------------------
+# Add meal to meal plan
+#-----------------------------------------------------------
+@app.post("/meal_plan")
+@login_required
+def add_meal_plan():
+
+    date = request.form.get("date")
+    meal_type = request.form.get("meal_type")
+    recipe_id = request.form.get("recipe_id")
+
+    household_id = session["user"]["household_id"]
+
+    if not household_id:
+        flash("You are not currently in a household", "error")
+        return redirect("/household")
+
+    with connect_db() as db:
+
+        # Check that the recipe belongs to this household
+        sql = """
+            SELECT id
+            FROM recipes
+            WHERE id=? AND household_id=?
+        """
+
+        params = (recipe_id, household_id)
+
+        result = db.execute(sql, params)
+        recipe = result.fetchone()
+
+        if not recipe:
+            flash("Recipe not found", "error")
+            return redirect("/meal_plan/new")
+
+
+        # Check whether this meal already exists
+        sql = """
+            SELECT recipe_id
+            FROM meal_plan
+            WHERE household_id=?
+            AND date=?
+            AND meal_type=?
+        """
+
+        params = (
+            household_id,
+            date,
+            meal_type
+        )
+
+        result = db.execute(sql, params)
+        existing_meal = result.fetchone()
+
+        if existing_meal:
+            flash(
+                "There is already a meal planned for this time",
+                "error"
+            )
+            return redirect("/meal_plan/new")
+
+
+        # Add the meal to the meal plan
+        sql = """
+            INSERT INTO meal_plan (
+                household_id,
+                date,
+                meal_type,
+                recipe_id
+            )
+            VALUES (?, ?, ?, ?)
+        """
+
+        params = (
+            household_id,
+            date,
+            meal_type,
+            recipe_id
+        )
+
+        db.execute(sql, params)
+
+        flash("Meal added to meal plan", "success")
+
+        return redirect("/meal_plan")
+
+
+#-----------------------------------------------------------
+# Route for deleting a meal from a date in the meal plan
+#-----------------------------------------------------------
+@app.post("/meal_plan/delete")
+@login_required
+def delete_meal_plan():
+
+    household_id = session["user"]["household_id"]
+
+    date = request.form.get("date")
+    meal_type = request.form.get("meal_type")
+
+    with connect_db() as db:
+
+        sql = """
+            DELETE FROM meal_plan
+            WHERE household_id=?
+            AND date=?
+            AND meal_type=?
+        """
+
+        params = (
+            household_id,
+            date,
+            meal_type
+        )
+
+        db.execute(sql, params)
+
+        flash("Meal removed from meal plan", "success")
+
+        return redirect("/meal_plan")
+
 
 #-----------------------------------------------------------
 # Route for transferring ownership of a household

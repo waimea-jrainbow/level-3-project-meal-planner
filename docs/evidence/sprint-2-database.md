@@ -27,7 +27,7 @@ with the expected seed data.
 ### How I tested it:
 I ran:
 docker compose up
-THen I checked the terminal output to make sure there were no database 
+Then I checked the terminal output to make sure there were no database 
 initialization errors and that seed data was present.
 
 Expected outcome:
@@ -84,10 +84,21 @@ I attempted to create another account using:
     Username: anotheruser
     Password: 1234
 
+![Entering duplicate email user](screenshots/duplicate_email_data.png)
+
 Expected result:
-The account should not be created. The application should display an error message stating that an account using the email address already exists.
+The account should not be created. The application should display an error 
+message stating that an account using the email address already exists.
 
 Actual outcome:
+
+#### Duplicate is refused but user is not routed back to form and flash message has quotation marks around email
+![Duplicate email outcome](screenshots/duplicate_email_outcome.png)
+
+### Changes / Improvements
+
+#### Correct routing from submitting bad data and removed quotation marks
+![Corrected routing and removed quotation marks](screenshots/dupliacte_email_fix.png)
 
 
 
@@ -239,6 +250,22 @@ I viewed the recipe list and an individual recipe after adding multiple test rec
 #### Added code in recipe route to add https:// to the start of links without it and added target="_blank" so link opens in new tab
 
 #### Added code to individual recipe to not display links if not existent and vice versa
+
+#### Added code in individual recipe to list ingredients and method of manual recipe in an actual list
+![Method and ingredients listed in actual lists](screenshots/recipe_display_manual_fix.png)
+
+
+## Adding meals to meal plan
+
+Testing whether I can add a meal to a date and that the multiple meals can be set for the same date and time
+
+
+
+## Meal plan retrieval and display
+
+Testing whether meal plan pulls meals on dates correctly and displays them
+
+I viewed the meal plan 
 
 ## Sprint Review
 
