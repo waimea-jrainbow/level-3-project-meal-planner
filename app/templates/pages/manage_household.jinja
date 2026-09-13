@@ -113,6 +113,27 @@
             </button>
         </form>
 
+        <h2>Delete household</h2>
+
+        {% if is_owner %}
+
+            <p>
+                Delete household
+            </p>
+
+            <form
+                method="POST"
+                action="/household/delete"
+                onsubmit="return confirm('Are you sure you want to permanently delete this household? This cannot be undone.');"
+            >
+                <button type="submit">
+                    Delete household
+                </button>
+            </form>
+
+        {% endif %}
+
+
 {% endif %}
 
 

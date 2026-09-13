@@ -3,7 +3,9 @@
 
 ## Sprint Goals
 
-Implement the database, populated with test data. Create queries that retrieve test data, and display this on web pages as needed. Test and refine the queries and data display, so that it stands as the basis of the next sprint.
+Implement the database, populated with test data. Create queries that retrieve 
+test data, and display this on web pages as needed. Test and refine the queries 
+and data display, so that it stands as the basis of the next sprint.
 
 ### Specific Goals
 
@@ -265,7 +267,12 @@ Testing whether I can add a meal to a date and that the multiple meals can be se
 
 Testing whether meal plan pulls meals on dates correctly and displays them
 
-I viewed the meal plan 
+I viewed the meal plan and made sure that all information is shown correctly 
+
+#### Meal plan showing correct meals 
+![Meal plan showing correct meals](screenshots/meal_plan_test.png)
+
+
 
 ## Sprint Review
 

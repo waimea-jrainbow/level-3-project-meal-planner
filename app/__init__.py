@@ -536,6 +536,101 @@ def remove_household_member(user_id):
 
         flash("Member removed", "success")
         return redirect("/household/manage")
+    
+    
+#-----------------------------------------------------------
+# Route for deleting a household
+#-----------------------------------------------------------
+@app.post("/household/delete")
+@login_required
+def delete_household():
+
+    user_id = session["user"]["id"]
+    household_id = session["user"]["household_id"]
+
+    if not household_id:
+        flash("You are not currently in a household", "error")
+        return redirect("/household")
+
+    with connect_db() as db:
+
+        # Check whether the household exists
+        sql = """
+            SELECT created_by
+            FROM households
+            WHERE id=?
+        """
+
+        params = (household_id,)
+
+        result = db.execute(sql, params)
+        household = result.fetchone()
+
+        if not household:
+            flash("Household not found", "error")
+            return redirect("/household")
+
+        # Only the household owner can delete it
+        if household["created_by"] != user_id:
+            flash(
+                "Only the household owner can delete the household",
+                "error"
+            )
+            return redirect("/household/manage")
+
+
+        # Delete meal plans belonging to the household
+        sql = """
+            DELETE FROM meal_plan
+            WHERE household_id=?
+        """
+
+        params = (household_id,)
+
+        db.execute(sql, params)
+
+
+        # Delete recipes belonging to the household
+        sql = """
+            DELETE FROM recipes
+            WHERE household_id=?
+        """
+
+        params = (household_id,)
+
+        db.execute(sql, params)
+
+
+        # Remove all users from the household
+        sql = """
+            DELETE FROM household_members
+            WHERE household_id=?
+        """
+
+        params = (household_id,)
+
+        db.execute(sql, params)
+
+
+        # Delete the household
+        sql = """
+            DELETE FROM households
+            WHERE id=?
+        """
+
+        params = (household_id,)
+
+        db.execute(sql, params)
+
+
+        # Clear household information from the session
+        session["user"]["household_id"] = None
+        session["user"]["household_name"] = None
+
+        flash("Household deleted successfully", "success")
+
+        return redirect("/household")
+
 
     
 #-----------------------------------------------------------

@@ -7,8 +7,6 @@ Continue to develop the web application to the point that it provides all key fu
 
 ### Specific Goals
 
-**Edit these goals as needed**
-
 - Create the following web pages:
     - Form for ...
     - Etc.
