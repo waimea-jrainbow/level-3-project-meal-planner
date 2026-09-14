@@ -3,7 +3,9 @@
 
 ## Sprint Goals
 
-Continue to develop the web application to the point that it provides all key functionality of the system. Test and refine it so that it can serve as the basis for the final phase of development.
+Continue to develop the web application to the point that it provides all key 
+functionality of the system. Test and refine it so that it can serve as the basis 
+for the final phase of development.
 
 ### Specific Goals
 
@@ -15,19 +17,33 @@ Continue to develop the web application to the point that it provides all key fu
     - Etc.
 
 
-## Testing FEATURE NAME HERE
+## Testing Household management    
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
+I will test the household management functionality to ensure that users can 
+interact with households after the basic household creation functionality 
+implemented in Sprint 2
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
+Testing will include:
 
-![Placeholder](screenshots/placeholder.png)
+- Joining an existing household using a join code.
+- Entering an invalid join code.
+- Displaying household members.
+- Removing household members where permitted.
+- Transferring household ownership where permitted.
+- Leaving a household.
+
+Expected outcome:
+
+Users should be able to join and manage their household 
+according to their permissions. Invalid actions should be prevented and the application should provide clear feedback when an action cannot be completed.
+
+
 
 ### Changes / Improvements
 
 Replace this text with notes any improvements you made as a result of the testing.
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+
 
 
 ## Testing FEATURE NAME HERE

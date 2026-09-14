@@ -180,7 +180,7 @@ I am testing the creation of a recipe:
 to do this I logged in as a test user went to the add recipe page then entered the test data
 
 - name: test recipe
-- link:testrecipe.com
+- link: testrecipe.com
 - image: hamburger.png 
 ![Hamburger icon](screenshots/hamburger.png)
 - meal type: dinner
@@ -259,7 +259,7 @@ I viewed the recipe list and an individual recipe after adding multiple test rec
 
 ## Adding meals to meal plan
 
-Testing whether I can add a meal to a date and that the multiple meals can be set for the same date and time
+Testing whether I can add a meal to a date and that the multiple meals can't be set for the same date and time
 
 
 
