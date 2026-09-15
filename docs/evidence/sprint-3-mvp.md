@@ -34,8 +34,11 @@ Testing will include:
 
 Expected outcome:
 
-Users should be able to join and manage their household 
-according to their permissions. Invalid actions should be prevented and the application should provide clear feedback when an action cannot be completed.
+Users should be able to join and manage their household according to their permissions. 
+Invalid actions should be prevented and the application should provide clear feedback 
+when an action cannot be completed.
+
+Actual outcome
 
 
 
