@@ -9,49 +9,42 @@
     <h1>Meal Plan</h1>
 
     {% if meal_plan %}
-
-        {% set current_date = namespace(value=None) %}
-
-        {% for meal in meal_plan %}
-
-            {% if meal.date != current_date.value %}
-
-                {% if not loop.first %}
-                    </ul>
-                {% endif %}
-
-                <h2>{{ meal.date }}</h2>
-
-                <ul>
-
-                {% set current_date.value = meal.date %}
-
-            {% endif %}
-
+        <ul>
+            {% for meal in meal_plan %}
+                
+                {{ meal.date|weekday }}
+                {{ meal.date|weeknum }}
+                {{ meal.date }}
+            
                 <li>
                     <strong>{{ meal.meal_type|title }}</strong>:
 
                     <a href="/recipe/{{ meal.recipe_id }}">
                         {{ meal.recipe_title }}
                     </a>
+
+                    <form action="/meal_plan/delete/" method="post">
+                        <input type="hidden" name="date" value="{{ meal.date }}">
+                        <input type="hidden" name="meal_type" value="{{ meal.meal_type }}">
+                        <button type="submit">Delete</button>
+                    </form>
                 </li>
+            {% endfor %}
 
-            {% if loop.last %}
-                </ul>
-            {% endif %}
-
-        {% endfor %}
+        </ul>
+            
+      
 
     {% else %}
 
         <p>No meals planned yet!</p>
-
-        
 
     {% endif %}
 
     <a href="/meal_plan/new">
         <button type="button">Add Meal</button>
     </a>
+
+    
 
 {% endblock %}
