@@ -95,27 +95,28 @@
 
         {% if is_owner %}
 
-        <p>
-            The household owner cannot leave the household.
-            Remove the household or transfer ownership first.
-        </p>
+            <p>
+                The household owner cannot leave the household.
+                Remove the household or transfer ownership first.
+            </p>
 
-        {% else %}
+            {% else %}
 
-        <form
-            method="POST"
-            action="/household/leave"
-            onsubmit="return confirm('Are you sure you want to leave this household?');"
-        >
+            <form
+                method="POST"
+                action="/household/leave"
+                onsubmit="return confirm('Are you sure you want to leave this household?');"
+            >
         
-            <button type="submit">
-                Leave household
-            </button>
-        </form>
-
-        <h2>Delete household</h2>
+                <button type="submit">
+                    Leave household
+                </button>
+            </form>
+        {% endif %}
 
         {% if is_owner %}
+
+        <h2>Delete household</h2>
 
             <p>
                 Delete household
@@ -134,7 +135,7 @@
         {% endif %}
 
 
-{% endif %}
+
 
 
     </section>

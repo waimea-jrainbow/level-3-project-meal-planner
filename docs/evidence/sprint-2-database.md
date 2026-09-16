@@ -133,41 +133,6 @@ navbar as well and the confirmation flash message to confirm test user is in a h
 #### Removed quotation marks around household name in confirmation flash
 ![Fixed household confirmation without quotation marks](screenshots/household_confirmation_fix.png)
 
-
-## Testing recipe creation and image upload
-
-I am testing the creation of a recipe:
-- The page opens
-- data can be entered
-- recipe is saved to database
-- image can be uploaded
-- 
-
-to do this I logged in as a test user went to the add recipe page then entered the test data
-
-- name: test recipe
-- link:testrecipe.com
-- image: hamburger.png 
-![Hamburger icon](screenshots/hamburger.png)
-- meal type: dinner
-
-
-#### Entering test data
-![Entering test data for recipe](screenshots/add_recipe.png)
-
-#### Confirmation of recipe creation
-![Flash message confirming recipe creation](screenshots/add_recipe_confirmation.png)
-![Recipe shows in recipe list confirming recipe creation](screenshots/add_recipe_confirmation_2.png)
-
-
-### Changes / Improvements
-
-#### Removed quotation marks around household name in flash and reworded confirmation flash message
-![Fixed household confirmation without quotation marks](screenshots/add_recipe_fix.png)
-
-#### Changed name of link input in html form from Link to link
-
-
 ## Testing recipe creation and image upload
 
 I am testing the creation of a recipe:
@@ -226,7 +191,6 @@ Testing what happens when test data is not expected data
 ![Error message when no image is provided](screenshots/add_recipe_fix_2.png)
 
 
-
 ## Recipe retrieval and display
 
 Testing whether list of recipes is displayed correctly and if individual recipe's
@@ -262,14 +226,13 @@ I viewed the recipe list and an individual recipe after adding multiple test rec
 Testing whether I can add a meal to a date and that the multiple meals can't be set for the same date and time
 
 
-
 ## Meal plan retrieval and display
 
 Testing whether meal plan pulls meals on dates correctly and displays them
 
 I viewed the meal plan and made sure that all information is shown correctly 
 
-#### Meal plan showing correct meals 
+#### Meal plan showing correct meals on correct dates
 ![Meal plan showing correct meals](screenshots/meal_plan_test.png)
 
 

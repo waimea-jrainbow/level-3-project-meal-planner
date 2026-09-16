@@ -7,6 +7,7 @@ from flask import Flask, request, session, render_template, flash, redirect, sen
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
+from datetime import datetime
 from io import BytesIO
 import html, os, uuid
 from app.helpers import *
@@ -15,7 +16,7 @@ from app.helpers import *
 # Create the app
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join('static', 'uploads')
+UPLOAD_FOLDER = os.path.join('app', 'static', 'uploads')
 
 
 #===========================================================
@@ -541,12 +542,11 @@ def remove_household_member(user_id):
 #-----------------------------------------------------------
 # Route for deleting a household
 #-----------------------------------------------------------
-@app.post("/household/delete")
+@app.post("/household/delete/<int:household_id>")
 @login_required
-def delete_household():
+def delete_household(household_id):
 
     user_id = session["user"]["id"]
-    household_id = session["user"]["household_id"]
 
     if not household_id:
         flash("You are not currently in a household", "error")
@@ -793,12 +793,40 @@ def add_meal_plan():
         flash("Meal added to meal plan", "success")
 
         return redirect("/meal_plan")
+    
+#-----------------------------------------------------------
+# Find weekday from date
+# https://www.w3schools.com/python/python_datetime.asp
+#-----------------------------------------------------------  
+@app.template_filter("weekday")
+@login_required
+def find_weekday(date):
+
+    date = datetime.strptime(date, "%Y-%m-%d").date()
+    week_day = date.strftime("%A")
+
+    return(week_day)
+
+#-----------------------------------------------------------
+# Find week number from date
+#-----------------------------------------------------------  
+@app.template_filter("weeknum")
+@login_required
+def find_weeknumber(date):
+
+    #turn string into datetime
+    date = datetime.strptime(date, "%Y-%m-%d").date()
+    
+    #find week number using date
+    week_number = date.strftime("%V")
+
+    return(week_number)
 
 
 #-----------------------------------------------------------
 # Route for deleting a meal from a date in the meal plan
 #-----------------------------------------------------------
-@app.post("/meal_plan/delete")
+@app.post("/meal_plan/delete/")
 @login_required
 def delete_meal_plan():
 
@@ -826,7 +854,7 @@ def delete_meal_plan():
 
         flash("Meal removed from meal plan", "success")
 
-        return redirect("/meal_plan")
+    return redirect("/meal_plan")
 
 
 #-----------------------------------------------------------
