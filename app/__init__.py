@@ -15,7 +15,7 @@ from app.helpers import *
 # Create the app
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join('static', 'uploads')
+UPLOAD_FOLDER = os.path.join('app','static', 'uploads')
 
 
 #===========================================================

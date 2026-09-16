@@ -28,8 +28,8 @@ Testing will include:
 - Joining an existing household using a join code.
 - Entering an invalid join code.
 - Displaying household members.
-- Removing household members where permitted.
-- Transferring household ownership where permitted.
+- Removing household members where as owner.
+- Transferring household ownership as owner.
 - Leaving a household.
 
 Expected outcome:
@@ -39,6 +39,31 @@ Invalid actions should be prevented and the application should provide clear fee
 when an action cannot be completed.
 
 Actual outcome
+
+#### Joining household with join code
+![Join code for house entered into join household form](screenshots/household_join_test.png)
+![User has been added to household](screenshots/household_join_result.png)
+
+#### Entering invalid join code 
+![Invalid join code](screenshots/invailid_join_code.png)
+
+#### Displaying household members
+
+##### As member
+![List of members of household](screenshots/household_members.png)
+
+##### As owner
+![List of members of household with remove and transfer ownerships buttons](screenshots/member_list_owner.png)
+
+
+#### Removing household members
+
+##### As member
+
+#### Transferring household ownership as owner not as member
+
+#### Leaving a household
+
 
 
 
