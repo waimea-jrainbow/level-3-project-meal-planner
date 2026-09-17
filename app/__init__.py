@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 from datetime import datetime
+import pendulum
 from io import BytesIO
 import html, os, uuid
 from app.helpers import *
@@ -640,36 +641,53 @@ def delete_household(household_id):
 @app.get("/meal_plan")
 @login_required
 def show_meal_plan():
+    
+    current_date = pendulum.now()
+    start_date = current_date.start_of('week')
+    
+    week_dates = []
+    
+    for i in range(0, 6):
+        date = start_date.add(days=i)
+        week_dates.append(date)   
+    
+    plans = []
+    
     with connect_db() as db:
 
-        sql = """
-            SELECT
-                meal_plan.date,
-                meal_plan.meal_type,
-                recipes.id AS recipe_id,
-                recipes.title AS recipe_title
-            FROM meal_plan
-            JOIN recipes
-                ON meal_plan.recipe_id = recipes.id
-            WHERE meal_plan.household_id=?
-            ORDER BY
-                meal_plan.date ASC,
-                CASE meal_plan.meal_type
-                    WHEN 'breakfast' THEN 1
-                    WHEN 'lunch' THEN 2
-                    WHEN 'dinner' THEN 3
-                    ELSE 4
-                END
-        """
+        for day in week_dates: 
+        
+            sql = """
+                SELECT
+                    meal_plan.date,
+                    meal_plan.meal_type,
+                    recipes.id AS recipe_id,
+                    recipes.title AS recipe_title
+                FROM meal_plan
+                JOIN recipes
+                    ON meal_plan.recipe_id = recipes.id
+                WHERE meal_plan.household_id=? AND meal_plan.date =?
+                ORDER BY
+                    meal_plan.date ASC,
+                    CASE meal_plan.meal_type
+                        WHEN 'breakfast' THEN 1
+                        WHEN 'lunch' THEN 2
+                        WHEN 'dinner' THEN 3
+                        ELSE 4
+                    END
+            """
 
-        params = (session["user"]["household_id"],)
+            iso_date = day.to_iso8601_string()
+            params = (session["user"]["household_id"], iso_date)
 
-        result = db.execute(sql, params)
-        meal_plan = result.fetchall()
+            day_plans = db.execute(sql, params).fetchall()
+
+            plans.append(day_plans)
+            print(plans)
 
         return render_template(
             "pages/meal_plan.jinja",
-            meal_plan=meal_plan
+            plans=plans
         )
         
         
@@ -802,25 +820,48 @@ def add_meal_plan():
 @login_required
 def find_weekday(date):
 
-    date = datetime.strptime(date, "%Y-%m-%d").date()
-    week_day = date.strftime("%A")
+    week_day = date.day_of('week')
+    
 
     return(week_day)
 
+
 #-----------------------------------------------------------
-# Find week number from date
+# Find start of week from date
+#https://pendulum.eustace.io/docs/#introduction
 #-----------------------------------------------------------  
-@app.template_filter("weeknum")
+@app.template_filter("week_start")
 @login_required
-def find_weeknumber(date):
+def find_week_start(date):
 
-    #turn string into datetime
-    date = datetime.strptime(date, "%Y-%m-%d").date()
+    current_date = pendulum.now()
     
-    #find week number using date
-    week_number = date.strftime("%V")
+    start_date = current_date.start_of('week')
+    
+    start_date_unformatted = current_date.start_of('week')
+    
+    start_date = start_date_unformatted.format('DD-MM-YY')
+    
+    return(start_date)
 
-    return(week_number)
+
+#-----------------------------------------------------------
+# Find end of week from date
+#https://pendulum.eustace.io/docs/#introduction
+#-----------------------------------------------------------  
+@app.template_filter("week_end")
+@login_required
+def find_week_end(date):
+
+    current_date = pendulum.now()
+    
+    end_date_unformatted = current_date.end_of('week')
+    
+    end_date = end_date_unformatted.format('DD-MM-YY')
+    
+    return(end_date)
+
+
 
 
 #-----------------------------------------------------------

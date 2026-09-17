@@ -19,7 +19,6 @@ for the final phase of development.
     - Delete a household
     - Transfer household ownership
 
-
 ## Testing Household management    
 
 I will test the household management functionality to ensure that users can 
@@ -61,8 +60,8 @@ Actual outcome
 
 
 #### Removing household members
+![Removing household members](screenshots/removing_household_members.png)
 
-##### As member
 
 #### Transferring household ownership as owner not as member
 
@@ -173,15 +172,11 @@ Actual outcome:
 
 Changes / Improvements
 
-    Added a permission check so only the household owner can delete the household.
-
-    Added deletion of household recipes and meal plans.
-
-    Removed household memberships when the household is deleted.
-
-    Updated the user's session after deletion.
-
-    Added a confirmation flash message.
+- Added a permission check so only the household owner can delete the household.
+- Added deletion of household recipes and meal plans.
+- Removed household memberships when the household is deleted.
+- Updated the user's session after deletion.
+- Added a confirmation flash message.
 
 
 ## Testing FEATURE NAME HERE
