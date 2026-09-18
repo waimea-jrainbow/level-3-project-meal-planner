@@ -20,21 +20,15 @@ for the final phase of development.
     - Transfer household ownership
 
 
+## Testing splitting meals by week and further meal plan layout
+
+
 ## Testing Household management    
 
 I will test the household management functionality to ensure that users can 
 interact with households after the basic household creation functionality 
 implemented in Sprint 2
 
-Testing will include:
-
-- Joining an existing household using a join code
-- Entering an invalid join code
-- Displaying household members
-- Removing household members where permitted
-- Transferring household ownership where permitted
-- Leaving a household
-- Deleting a household
 
 Expected outcome:
 
@@ -42,7 +36,7 @@ Users should be able to join and manage their household according to their permi
 Invalid actions should be prevented and the application should provide clear feedback 
 when an action cannot be completed
 
-Actual outcome
+Actual outcome:
 
 #### Joining household with join code
 ![Join code for house entered into join household form](screenshots/household_join_test.png)
@@ -52,6 +46,7 @@ Actual outcome
 ![Invalid join code](screenshots/invailid_join_code.png)
 
 #### Displaying household members
+![Listing household members with their role](screenshots/household_members.png)
 
 ##### As member
 ![List of members of household](screenshots/household_members.png)
@@ -147,11 +142,10 @@ Owner managing household
 ## Testing Household Deletion
 
 I am testing whether the household owner can delete a household and whether the related household data is removed correctly.
+
 How I tested it:
-
-I logged in as the household owner and opened the household management page
-
-I clicked the delete household option
+Created a 2 users named user1 and user2 user1 is owner of the testhousehold and user2 is a member of the testhousehold I then
+added a few meals and then added them to the meal plan. Then I deleted the household via household management and checked that everything was gone
 
 I then checked that:
 
@@ -163,25 +157,26 @@ I then checked that:
 
 Expected result:
 
-The household should be deleted only when the owner requests the deletion
-
+Only owner can delete household
 The user should no longer belong to the deleted household
-
 The household's recipes and meal plan entries should also be removed
 
-Actual outcome:
+### Actual outcome:
 
-Changes / Improvements
+#### Household deletion confirmation
 
-    Added a permission check so only the household owner can delete the household.
+#### Recipes removed
 
-    Added deletion of household recipes and meal plans.
+#### meal plan entries removed
 
-    Removed household memberships when the household is deleted.
+#### session data removed
 
-    Updated the user's session after deletion.
+changes/improvements
 
-    Added a confirmation flash message.
+- Added a permission check so only the household owner can delete the household.
+- Added deletion of household recipes and meal plans.
+- Removed household memberships when the household is deleted.
+- Updated the user's session after deletion.
 
 
 ## Testing FEATURE NAME HERE
