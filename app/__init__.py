@@ -644,10 +644,11 @@ def show_meal_plan():
     
     current_date = pendulum.now()
     start_date = current_date.start_of('week')
+    end_date = current_date.end_of("week")
     
     week_dates = []
     
-    for i in range(0, 6):
+    for i in range(7):
         date = start_date.add(days=i)
         week_dates.append(date)   
     
@@ -656,6 +657,8 @@ def show_meal_plan():
     with connect_db() as db:
 
         for day in week_dates: 
+            
+            iso_date = day.to_date_string()
         
             sql = """
                 SELECT
@@ -666,7 +669,7 @@ def show_meal_plan():
                 FROM meal_plan
                 JOIN recipes
                     ON meal_plan.recipe_id = recipes.id
-                WHERE meal_plan.household_id=? AND meal_plan.date =?
+                WHERE meal_plan.household_id=? AND meal_plan.date=?
                 ORDER BY
                     meal_plan.date ASC,
                     CASE meal_plan.meal_type
@@ -676,8 +679,8 @@ def show_meal_plan():
                         ELSE 4
                     END
             """
-
-            iso_date = day.to_iso8601_string()
+        
+            
             params = (session["user"]["household_id"], iso_date)
 
             day_plans = db.execute(sql, params).fetchall()
@@ -687,8 +690,11 @@ def show_meal_plan():
 
         return render_template(
             "pages/meal_plan.jinja",
-            plans=plans
-        )
+            plans=plans,
+            week_dates=week_dates,
+            start_date=start_date,
+            end_date=end_date
+    )
         
         
 #-----------------------------------------------------------
@@ -812,6 +818,7 @@ def add_meal_plan():
 
         return redirect("/meal_plan")
     
+
 #-----------------------------------------------------------
 # Find weekday from date
 # https://www.w3schools.com/python/python_datetime.asp
@@ -824,42 +831,6 @@ def find_weekday(date):
     
 
     return(week_day)
-
-
-#-----------------------------------------------------------
-# Find start of week from date
-#https://pendulum.eustace.io/docs/#introduction
-#-----------------------------------------------------------  
-@app.template_filter("week_start")
-@login_required
-def find_week_start(date):
-
-    current_date = pendulum.now()
-    
-    start_date = current_date.start_of('week')
-    
-    start_date_unformatted = current_date.start_of('week')
-    
-    start_date = start_date_unformatted.format('DD-MM-YY')
-    
-    return(start_date)
-
-
-#-----------------------------------------------------------
-# Find end of week from date
-#https://pendulum.eustace.io/docs/#introduction
-#-----------------------------------------------------------  
-@app.template_filter("week_end")
-@login_required
-def find_week_end(date):
-
-    current_date = pendulum.now()
-    
-    end_date_unformatted = current_date.end_of('week')
-    
-    end_date = end_date_unformatted.format('DD-MM-YY')
-    
-    return(end_date)
 
 
 

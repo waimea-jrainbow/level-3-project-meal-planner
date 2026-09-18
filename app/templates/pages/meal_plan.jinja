@@ -7,18 +7,22 @@
 {% block content %}
 
     <h1>Meal Plan</h1>
+    <p>{{ start_date.format("DD/MM/YYYY") }}  {{ end_date.format("DD/MM/YYYY") }}</p>
 
-    {% if plans %}
+    <p>------------------</p>
+
+    {% for i in range(7) %}
+
+        <p>{{ week_dates[i].format("DD/MM/YYYY") }} {{ week_dates[i].format('dddd') }}</p>
+        
+        {# plans[i] is plans in a day at i week date#}
+        {% if plans[i] %} 
+
         <ul>
-            {% for meal in plans %}
-                
-                {{ meal.date|week_start }} - {{ meal.date|week_end }}
+            {% for meal in plans[i] %}
 
-                Meal date:
-                {{ meal.date }}
-            
                 <li>
-                    <strong>{{ meal.title }}</strong>:
+                    <strong>{{ meal.meal_type }}</strong>:
 
                     <a href="/recipe/{{ meal.recipe_id }}">
                         {{ meal.recipe_title }}
@@ -30,22 +34,21 @@
                         <button type="submit">Delete</button>
                     </form>
                 </li>
-            {% endfor %}
 
+            {% endfor %}
         </ul>
-            
-      
 
     {% else %}
 
-        <p>No meals planned yet!</p>
+        <p>No meal planned</p>
 
     {% endif %}
 
-    <a href="/meal_plan/new">
-        <button type="button">Add Meal</button>
-    </a>
+{% endfor %}
 
-    
+
+            <a href="/meal_plan/new">
+                <button type="button">Add Meal</button>
+            </a>
 
 {% endblock %}
