@@ -56,8 +56,8 @@ Actual outcome:
 
 
 #### Removing household members
+![Removing household members](screenshots/removing_household_members.png)
 
-##### As member
 
 #### Transferring household ownership as owner not as member
 

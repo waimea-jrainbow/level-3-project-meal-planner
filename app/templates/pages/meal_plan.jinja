@@ -8,16 +8,17 @@
 
     <h1>Meal Plan</h1>
 
-    {% if meal_plan %}
+    {% if plans %}
         <ul>
-            {% for meal in meal_plan %}
+            {% for meal in plans %}
                 
-                {{ meal.date|weekday }}
-                {{ meal.date|weeknum }}
+                {{ meal.date|week_start }} - {{ meal.date|week_end }}
+
+                Meal date:
                 {{ meal.date }}
             
                 <li>
-                    <strong>{{ meal.meal_type|title }}</strong>:
+                    <strong>{{ meal.title }}</strong>:
 
                     <a href="/recipe/{{ meal.recipe_id }}">
                         {{ meal.recipe_title }}
