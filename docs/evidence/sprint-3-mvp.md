@@ -11,12 +11,14 @@ for the final phase of development.
 
 - Create the following web pages:
     - Household management
-    - Full meal plan
+    - Meal plan
 
 - Develop SQL database queries to:
     - Add a new meal to a day in meal plan
+    - Delete a recipe
+    - Delete a meal from the meal plan
     - Delete a user from a household
-    - Delete a household
+    - Delete a household and delete all recipes etc associated with it
     - Transfer household ownership
 
 
@@ -31,10 +33,13 @@ implemented in Sprint 2
 
 
 Expected outcome:
+The app should:
+- Allow users to join a household with a code and reject invalid codes
+- Show a list of members and give only owners the option to remove and promote users in their household
+- Allow owners to remove users from their household
+- Allow owners to transfer ownership of the household to another user
+- Allows users to leave a household but stop owners from leaving their own household
 
-Users should be able to join and manage their household according to their permissions. 
-Invalid actions should be prevented and the application should provide clear feedback 
-when an action cannot be completed
 
 Actual outcome:
 
@@ -56,20 +61,19 @@ Actual outcome:
 
 
 #### Removing household members
-![Removing household members](screenshots/removing_household_members.png)
+![Removing household members](screenshots/removing_household_members.gif)
 
 
 #### Transferring household ownership as owner not as member
+![Transferring household ownership to user2 and then logging in as user 2 to check permissions changed](screenshots/transfer_ownership_test.gif)
 
 #### Leaving a household
-
-
-
+![Leaving a household](screenshots/leaving_household.gif)
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing
-
+#### Added placeholder to join code box
+![123456 as the placeholder in the join code box](screenshots/placeholder_join_household.png)
 
 
 ## Testing Meal Plan Management
@@ -79,36 +83,37 @@ correctly and that two meals cannot be added to the same meal type on the same d
 
 How I tested it:
 
-I logged in as a test user and opened the meal plan page
-
-I then:
+I logged in as a test user and opened the meal plan page I then:
 
 - Added a recipe to the meal plan
 - Checked that the meal appeared on the correct date
 - Tried to add another meal to the same date and meal type
-- Added a meal to a different meal type
+- Added a meal to a different meal type on the same date
 - Removed a meal from the meal plan
 
 Expected result:
+The app should: 
+- Allow adding of a meal with correct data and refuse any invalid data
+- Show a meal on the date and meal type that was selected when the meal was added
+- Prevent two meals from being added to the same date and meal type
+- Allow meals with different meal types to be added to the same date
+- Remove the correct meal when the delete option is used and remove the image associated with that meal
 
-meal should appear on the selected date and meal type
-
-The application should prevent two meals from being added to the same date and meal type
-
-Meals with different meal types should be allowed on the same date
-
-A meal should be removed when the delete option is used
 Actual outcome:
-Adding a meal
 
-Duplicate meal prevented
+Adding a meal
 
 Meal plan displaying meals
 
+Duplicate meal prevented
+
+2 meals on same date at different times
+
 Removing a meal
 
+Removing image associated with the deleted meal
+
 Changes/Improvements
-- Added a delete option for meals.
 
 
 ## Testing Household Permissions
