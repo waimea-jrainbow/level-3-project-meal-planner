@@ -22,8 +22,6 @@ for the final phase of development.
     - Transfer household ownership
 
 
-## Testing splitting meals by week and further meal plan layout
-
 
 ## Testing Household management    
 
@@ -75,7 +73,8 @@ implemented in Sprint 2
 
 ### Changes / Improvements
 
-
+#### Fixed deleting household by changing the font
+![Household is deleted and then confirmation is shown](screenshots/delete_household_result.gif)
 
 
 #### Added placeholder to join code box
@@ -105,17 +104,20 @@ I logged in as a test user and opened the meal plan page I then:
 ### Actual outcome:
 
 #### Adding a meal:
+![Adding a meal to a date](screenshots/add_meal_mealplan.gif)
 
+#### Meal plan displaying meals on correct dates and meal types:
+![Meal shown on correct dates as correct meal types](screenshots/displaying_mealplan.gif)
 
-#### Meal plan displaying meals:
-
-#### Duplicate meal prevented:
+#### Duplicate meal on the same date and meal type prevented:
+![Testrecipe is added to the same date as a breakfast and is refused](screenshots/refuse_duplicate_meal.gif)
 
 #### 2 meals on same date at different times:
+![testrecipe and testrecipe2 on the same day at breakfast and dinner](screenshots/2_meals_same_day.png)
 
 #### Removing a meal:
+![Meal is removed from meal plan](screenshots/removing_meal.gif)
 
-#### Removing image associated with the deleted meal:
 
 ### Changes/Improvements
 

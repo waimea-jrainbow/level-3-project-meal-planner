@@ -172,6 +172,12 @@ to do this I logged in as a test user went to the add recipe page then entered t
 #### Added text area closing tags on manual recipe so method code isn't inside ingredients
 ![Fixed manual recipe add form](screenshots/add_recipe_manual_fix.png)
 
+
+## Testing deleting a recipe and its associated image
+
+Testing deleting of a recipe and whether the image gets removed as well
+
+
 ## Testing image creation with non ideal test data
 
 Testing what happens when test data is not expected data
