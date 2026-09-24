@@ -124,7 +124,7 @@
 
             <form
                 method="POST"
-                action="/household/delete"
+                action="/household/delete/{{ household.id }}"
                 onsubmit="return confirm('Are you sure you want to permanently delete this household? This cannot be undone.');"
             >
                 <button type="submit">

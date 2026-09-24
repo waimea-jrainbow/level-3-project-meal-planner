@@ -32,8 +32,7 @@ interact with households after the basic household creation functionality
 implemented in Sprint 2
 
 
-Expected outcome:
-The app should:
+### Expected outcome:
 - Allow users to join a household with a code and reject invalid codes
 - Show a list of members and give only owners the option to remove and promote users in their household
 - Allow owners to remove users from their household
@@ -41,7 +40,7 @@ The app should:
 - Allows users to leave a household but stop owners from leaving their own household
 
 
-Actual outcome:
+### Actual outcome:
 
 #### Joining household with join code
 ![Join code for house entered into join household form](screenshots/household_join_test.png)
@@ -70,18 +69,23 @@ Actual outcome:
 #### Leaving a household
 ![Leaving a household](screenshots/leaving_household.gif)
 
+#### Deleting household 
+![Deleting a household then trying to join it from the join code](screenshots/delete_household_test.gif)
+![Logs showing an unknown route when trying to delete a household](screenshots/delete_household_logs.png)
+
 ### Changes / Improvements
+
+
+
 
 #### Added placeholder to join code box
 ![123456 as the placeholder in the join code box](screenshots/placeholder_join_household.png)
 
 
-## Testing Meal Plan Management
+## Testing Meal Plan and meal plan management
 
-I am testing the meal plan functionality to make sure meals can be added and removed 
+Testing of the meal plan functionality to make sure meals can be added and removed 
 correctly and that two meals cannot be added to the same meal type on the same date
-
-How I tested it:
 
 I logged in as a test user and opened the meal plan page I then:
 
@@ -91,29 +95,29 @@ I logged in as a test user and opened the meal plan page I then:
 - Added a meal to a different meal type on the same date
 - Removed a meal from the meal plan
 
-Expected result:
-The app should: 
-- Allow adding of a meal with correct data and refuse any invalid data
-- Show a meal on the date and meal type that was selected when the meal was added
-- Prevent two meals from being added to the same date and meal type
-- Allow meals with different meal types to be added to the same date
-- Remove the correct meal when the delete option is used and remove the image associated with that meal
+### Expected result:
+- Adding of a meal with correct data and refuse any invalid data
+- Showing a meal on the date and meal type that was selected when the meal was added
+- Preventing two meals from being added to the same date and meal type
+- Allowing meals with different meal types to be added to the same date
+- Removing the correct meal when the delete option is used and remove the image associated with that meal
 
-Actual outcome:
+### Actual outcome:
 
-Adding a meal
+#### Adding a meal:
 
-Meal plan displaying meals
 
-Duplicate meal prevented
+#### Meal plan displaying meals:
 
-2 meals on same date at different times
+#### Duplicate meal prevented:
 
-Removing a meal
+#### 2 meals on same date at different times:
 
-Removing image associated with the deleted meal
+#### Removing a meal:
 
-Changes/Improvements
+#### Removing image associated with the deleted meal:
+
+### Changes/Improvements
 
 
 ## Testing Household Permissions
