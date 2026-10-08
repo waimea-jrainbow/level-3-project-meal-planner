@@ -172,10 +172,15 @@ to do this I logged in as a test user went to the add recipe page then entered t
 #### Added text area closing tags on manual recipe so method code isn't inside ingredients
 ![Fixed manual recipe add form](screenshots/add_recipe_manual_fix.png)
 
+#### Added area for notes in both manual and link recipes
 
-## Testing deleting a recipe and its associated image
 
-Testing deleting of a recipe and whether the image gets removed as well
+## Testing deleting a recipe and its associated image and recipes without image
+
+Deleted recipe with image and one without image 
+![deleting test recipe and test recipe 2](screenshots/deleting_recipe_test.gif)
+![logs showing successful image deletion](screenshots/image_deletion.png)
+![uploads folder containing only seed image after deletion above](screenshots/empty_folder_deletion_proof.png)
 
 
 ## Testing image creation with non ideal test data
@@ -227,11 +232,6 @@ I viewed the recipe list and an individual recipe after adding multiple test rec
 ![Method and ingredients listed in actual lists](screenshots/recipe_display_manual_fix.png)
 
 
-## Adding meals to meal plan
-
-Testing whether I can add a meal to a date and that the multiple meals can't be set for the same date and time
-
-
 ## Meal plan retrieval and display
 
 Testing whether meal plan pulls meals on dates correctly and displays them
@@ -246,4 +246,7 @@ I viewed the meal plan and made sure that all information is shown correctly
 ## Sprint Review
 
 Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
+
+The sprint went very well and allowed me to implement basic systems and test them thoroughly however I began to step beyond sprint 2 accidentally and 
+started testing and implementing MVP features once I reigned myself in I was able to easily figure out what I needed and move on to further sprints
 

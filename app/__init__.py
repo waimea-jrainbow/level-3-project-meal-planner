@@ -80,6 +80,61 @@ def add_a_recipe_form():
    return render_template("pages/add_recipe.jinja")
 
 
+
+#-----------------------------------------------------------
+# Route to delete a recipe
+#-----------------------------------------------------------
+@app.get("/recipe/delete/<int:recipe_id>")
+@login_required
+def delete_recipe(recipe_id):
+
+    household_id = session["user"]["household_id"]
+    
+    with connect_db() as db:
+
+        sql = """
+            SELECT image_path
+            FROM recipes 
+            WHERE household_id=?
+            AND id=?
+        """
+
+        params = (
+            household_id,
+            recipe_id
+        )
+
+        result = db.execute(sql, params)
+        
+        
+        filepath = result.fetchone()
+        
+        full_filepath = os.path.join("app",filepath["image_path"].lstrip("/"))
+            
+        if full_filepath:
+            os.remove(full_filepath)
+    
+
+    with connect_db() as db:
+
+        sql = """
+            DELETE FROM recipes
+            WHERE household_id=?
+            AND id=?
+        """
+
+        params = (
+            household_id,
+            recipe_id
+        )
+
+        db.execute(sql, params)
+
+        flash("Recipe delete", "success")
+
+    return redirect("/meal_plan")
+
+
 #-----------------------------------------------------------
 # Routes for partials for link and manual recipes
 #-----------------------------------------------------------

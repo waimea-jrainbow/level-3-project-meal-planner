@@ -71,6 +71,7 @@ implemented in Sprint 2
 ![Deleting a household then trying to join it from the join code](screenshots/delete_household_test.gif)
 ![Logs showing an unknown route when trying to delete a household](screenshots/delete_household_logs.png)
 
+
 ### Changes / Improvements
 
 #### Fixed deleting household by changing the font
@@ -136,6 +137,7 @@ I tested the following actions as the normal member via the UI and entering the 
 - Deleting the household
 
 I then tested the same actions while logged in as the owner.
+
 Expected result:
 
 The owner should be able to manage the household
@@ -156,13 +158,14 @@ I am testing whether the household owner can delete a household and whether the 
 
 How I tested it:
 Created a 2 users named user1 and user2 user1 is owner of the testhousehold and user2 is a member of the testhousehold I then
-added a few meals and then added them to the meal plan. Then I deleted the household via household management and checked that everything was gone
+added a 2 meals named testrecipe1 and testrecipe2 and then added them to the meal plan both have images so I can test that they are deleted too.Then I deleted the household via household management.
 
 I then checked that:
 
 - The household was deleted
 - Household members were removed
 - The household recipes were removed
+- Recipe images were deleted
 - The household meal plan was removed
 - The user was no longer shown as being in a household
 
@@ -177,6 +180,8 @@ The household's recipes and meal plan entries should also be removed
 #### Household deletion confirmation
 
 #### Recipes removed
+
+#### Images removed
 
 #### meal plan entries removed
 
