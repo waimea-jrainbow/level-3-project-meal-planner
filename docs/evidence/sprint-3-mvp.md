@@ -120,7 +120,7 @@ I logged in as a test user and opened the meal plan page I then:
 ![Meal is removed from meal plan](screenshots/removing_meal.gif)
 
 
-### Changes/Improvements
+
 
 
 ## Testing Household Permissions
@@ -130,7 +130,7 @@ I am testing whether household permissions work correctly for owners and normal 
 How I tested it:
 I created a household with one user as the owner and joined the household using a second test account
 
-I tested the following actions as the normal member via the UI and entering the route manually:
+I tested the following actions as the normal member via the UI and entering the route manually into the address bar:
 
 - Removing another member
 - Transferring ownership
@@ -138,7 +138,7 @@ I tested the following actions as the normal member via the UI and entering the 
 
 I then tested the same actions while logged in as the owner.
 
-Expected result:
+### Expected result:
 
 The owner should be able to manage the household
 
@@ -146,10 +146,34 @@ A normal member should not be able to perform owner only actions
 
 The application should display an error message when a user attempts an action they do not have permission to perform
 
-Actual outcome:
-Normal member attempting owner action
+### Actual outcome:
 
-Owner managing household
+#### Normal member:
+
+##### Buttons
+Normal member doesn't have option to remove user, transfer ownership or delete household
+![Screenshot of household dashboard for normal user](screenshots/normal_user_no_remove.png)
+
+##### Manual route entry
+When route is used error shows as route POST not GET
+![Recording of route for deleting user at id 2 being entered and server error being returned](screenshots/remove_member_as_normal_url_bar.webp)
+![Recording of route for transferring ownership to use at id 3 being entered and server error being returned](screenshots/transfer_ownership_not_owner_url.webp)
+![Recording of route for deleting household at id 2 being entered and server error being returned](screenshots/delete_household_not_owner_url.webp)
+
+##### Console post requests - performing post requests via the browser console
+When console is used request is refused and user is redirected
+![Screenshot of browser console showing the post request and the web app console showing that the request was received and refused](screenshots/malicious_post_request_remove_member_not_owner.png)
+![Screenshot of browser console showing the post request and the web app console showing that the request was received and refused](screenshots/malicious_post_request_transfer_owner_not_owner.png)
+![Screenshot of browser console showing the post request and the web app console showing that the request was received and refused](screenshots/malicious_post_request_delete_household_not_owner.png)
+
+
+##### Owner managing:
+Removing members
+![owner removing a user from a their household](screenshots/removing_household_members.gif)
+Transferring ownership
+![Owner transferring ownership of a household](screenshots/transfer_ownership_test.gif)
+Deleting household
+![Owner deleting a household](screenshots/delete_household_result.gif)
 
 
 ## Testing Household Deletion
@@ -169,7 +193,7 @@ I then checked that:
 - The household meal plan was removed
 - The user was no longer shown as being in a household
 
-Expected result:
+### Expected result:
 
 Only owner can delete household
 The user should no longer belong to the deleted household
@@ -178,21 +202,24 @@ The household's recipes and meal plan entries should also be removed
 ### Actual outcome:
 
 #### Household deletion confirmation
+![recording of owner deleting a household and a 404 error showing after](screenshots/delete_household_test.gif)
 
 #### Recipes removed
 
+
 #### Images removed
+Uploads folder doesn't have the 2 recipe images for the 2 recipes that were in testhousehold
+![Uploads folder with only seed recipe image](screenshots/empty_folder_deletion_proof.png)
 
-#### meal plan entries removed
+#### Meal plan entries removed
+Household recipes before deletion
+![Recipes db before deletion of household](screenshots/recipes_db_household_delete.png)
+![Recipe after deletion of household](screenshots/recipes_db_after_deletion.png)
 
-#### session data removed
+### changes/improvements
 
-changes/improvements
-
-- Added a permission check so only the household owner can delete the household.
-- Added deletion of household recipes and meal plans.
-- Removed household memberships when the household is deleted.
-- Updated the user's session after deletion.
+- Made sure that user is redirected correctly after deletion
+![recording showing owner deleting household and being redirected correctly](screenshots/delete_household_result.gif)
 
 
 ## Testing FEATURE NAME HERE
