@@ -225,33 +225,36 @@ Meal plan with no recipes for testhousehold (id 4) after deletion
 ![recording showing owner deleting household and being redirected correctly](screenshots/delete_household_result.gif)
 
 
-## Testing FEATURE NAME HERE
+## Specific user feedback
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
+"Are the meal types on the new recipe page actually used?"
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
-
-
-## Testing FEATURE NAME HERE
-
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
+![Screenshot of the add recipe page](screenshots/add_recipe_page.png)
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
+Removed meal types when adding a recipe and from the database as when adding a 
+meal to a meal plan you should be able to add any recipe to any time of day.
+![config.py with no meal_type in recipe schema](screenshots/meal_type_recipe_gone.png)
+![add recipe page without meal type radio buttons](screenshots/add_recipe_meal_type_gone.png)
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+# Edge cases and security
 
+## Testing missing data when adding a recipe
 
-## ETC...
+I tested each required piece of data being missing from the recipe form 
+
+Form doesn't submit when missing required data
+![Please fill out this field message under the empty title field](screenshots/missing_title.png)
+![Please fill out this field message under the empty ingredients field](screenshots/ingredients_missing.png.png)
+![Please fill out this field message under the empty method field](screenshots/missing_method.png)
+![Please fill out this field message under the empty field](screenshots/missing_file.png)
+![Please fill out this field message under the empty field](screenshots/missing_link.png)
+
+## Testing missing data when adding a meal to meal plan
+
+I tested each required piece of data from the meal plan form
+
 
 
 ## Sprint Review

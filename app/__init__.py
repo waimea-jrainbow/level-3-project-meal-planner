@@ -149,7 +149,13 @@ def recipe_link_fields():
 def recipe_manual_fields():
     return render_template("partials/recipe_manual_fields.jinja")
 
-
+#-----------------------------------------------------------
+# Routes for partial to reset image selection 
+#-----------------------------------------------------------
+@app.get("/recipe/image_reset")
+@login_required
+def recipe_image_reset():
+    return render_template("partials/recipe_image_reset.jinja")
 
 #-----------------------------------------------------------
 # Route for adding a recipe, using data posted from a form
@@ -163,7 +169,6 @@ def add_a_recipe():
     url = request.form.get("link")
     ingredients = request.form.get("ingredients")
     method = request.form.get("method")
-    meal_type = request.form.get("meal_type")
 
     # Make sure links valid by adding https:// if missing
     if url and not url.startswith(("http://", "https://")):
@@ -236,7 +241,6 @@ def add_a_recipe():
                 household_id,
                 title,
                 url,
-                meal_type,
                 image_path,
                 ingredients,
                 method
@@ -248,7 +252,6 @@ def add_a_recipe():
             household_id,
             title,
             url,
-            meal_type,
             image_path,
             ingredients,
             method
@@ -439,7 +442,7 @@ def add_a_household():
 @login_required
 def join_a_household():
 
-    join_code = request.form.get("join_code", "").strip()
+    join_code = request.form.get("join_code").strip()
 
     user_id = session["user"]["id"]
 
@@ -792,7 +795,7 @@ def add_meal_plan_form():
 #-----------------------------------------------------------
 @app.post("/meal_plan")
 @login_required
-def add_meal_plan():
+def add_to_meal_plan():
 
     date = request.form.get("date")
     meal_type = request.form.get("meal_type")
