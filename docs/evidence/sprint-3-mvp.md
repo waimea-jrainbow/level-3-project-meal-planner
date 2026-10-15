@@ -205,16 +205,19 @@ The household's recipes and meal plan entries should also be removed
 ![recording of owner deleting a household and a 404 error showing after](screenshots/delete_household_test.gif)
 
 #### Recipes removed
-
+DB with only seeded recipe after deletion
+![](screenshots/recipes_db_after_deletion.png)
 
 #### Images removed
 Uploads folder doesn't have the 2 recipe images for the 2 recipes that were in testhousehold
 ![Uploads folder with only seed recipe image](screenshots/empty_folder_deletion_proof.png)
 
 #### Meal plan entries removed
-Household recipes before deletion
-![Recipes db before deletion of household](screenshots/recipes_db_household_delete.png)
-![Recipe after deletion of household](screenshots/recipes_db_after_deletion.png)
+
+Meal plan with recipes for testhousehold (id 4) before deletion
+![Meal plan db before deletion of household](screenshots/meal_plan_db_before_deletion.png)
+Meal plan with no recipes for testhousehold (id 4) after deletion
+![Recipe after deletion of household](screenshots/meal_plan_db_after_deletion.png)
 
 ### changes/improvements
 
