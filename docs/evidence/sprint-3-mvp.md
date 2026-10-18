@@ -259,7 +259,8 @@ I tested each required piece of data from the meal plan form
 ![Please fill out this field message under the empty meal type field](screenshots/missing_meal_type.png)
 ![Please fill out this field message under the empty recipe field](screenshots/missing_recipe.png)
 
-
+<!-- TODO delete used weeks -->
+<!-- TODO add viewing future weeks -->
 
 ## Sprint Review
 

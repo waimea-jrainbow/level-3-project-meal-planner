@@ -1,25 +1,51 @@
 /*===========================================================
-  PROJECT NAME HERE
-  By YOUR NAME HERE
+  Abode and appetite - Meal planner
+  By Jaxon Rainbow
 ===========================================================*/
 
 :root {
-    --text-col:         #111;
 
-    --back-col:         #eee;
-    --back-col-panel:   #fff;
+    /* Main colours */
+    --color-primary:    #c1d750;
+    --color-secondary:  #bedd9d;
+    --color-accent:     #4b6440;
+    --color-background: #dcdcad;
+    --color-text:       #25250c;
 
-    --border-col:       #355;
+  /* ===============================================
+    Shades (For hovers, active states, and borders)
+    ================================================*/
 
-    --accent-col:       #e43;
+  /* Primary Shades */
+  --color-primary-light: color-mix(in srgb, var(--color-primary), white 20%);
+  --color-primary-dark:  color-mix(in srgb, var(--color-primary), black 20%);
+
+  /* Secondary Shades */
+  --color-secondary-light: color-mix(in srgb, var(--color-secondary), white 20%);
+  --color-secondary-dark:  color-mix(in srgb, var(--color-secondary), black 20%);
+
+  /* Accent Shades */
+  --color-accent-light: color-mix(in srgb, var(--color-accent), white 20%);
+  --color-accent-dark:  color-mix(in srgb, var(--color-accent), black 20%);
+
+  /* =============
+     Muted shades
+     ============= */
+
+  /* Subdued background variants (e.g. for card components, inputs, or headers) */
+  --color-bg-light: color-mix(in srgb, var(--color-background), white 30%);
+  --color-bg-dark:  color-mix(in srgb, var(--color-background), black 10%);
+
+  /* Muted text (e.g. for subtitles or timestamps) */
+  --color-text-muted: color-mix(in srgb, var(--color-text), var(--color-background), 70%);
 }
 
 
 /* Overall Layout -----------------------------------------------*/
 
 html {
-    background-color: var(--back-col);
-    color: var(--text-col);
+    background-color: var(--color-background);
+    color: var(--color-text);
 
     font-family: system-ui, sans-serif;
 }
@@ -51,7 +77,7 @@ body > header {
         gap: 1rem;
 
         a {
-            color: var(--accent-col);
+            color: var(--color-accent);
         }
     }
 }
@@ -68,34 +94,6 @@ main > h2 {
 
 /* Notes --------------------------------------------------*/
 
-#notes {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
-    align-items: start;
-
-    .note {
-        padding: 1rem;
-        box-shadow: 0 0.5rem 1rem #0004;
-        border: 1px solid var(--border-col);
-        background-color: var(--back-col-panel);
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        footer {
-            font-size: 0.8rem;
-            font-style: italic;
-        }
-
-        &.pinned {
-            border-color: var(--accent-col);
-        }
-    }
-}
 
 #add_recipe {
     display: flex;

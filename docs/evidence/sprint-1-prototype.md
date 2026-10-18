@@ -114,7 +114,7 @@ Full design
 
 
 
-## Refined UI Prototype <!--TODO refined ui-->
+## Refined UI Prototype
 
 Having established the layout of the UI screens, the prototype was refined visually, in terms of colour, fonts, etc.
 

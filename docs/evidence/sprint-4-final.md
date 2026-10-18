@@ -14,6 +14,13 @@ The system will be fully tested at this point.
 - Get user feedback throughout on all of the above
 
 
+## User feedback
+
+#### floating forms vs separate page forms
+
+"Floating is better"
+
+
 ## Testing FEATURE NAME HERE
 
 Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
