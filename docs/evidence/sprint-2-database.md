@@ -245,8 +245,6 @@ I viewed the meal plan and made sure that all information is shown correctly
 
 ## Sprint Review
 
-Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
-
 The sprint went very well and allowed me to implement basic systems and test them thoroughly however I began to step beyond sprint 2 accidentally and 
 started testing and implementing MVP features once I reigned myself in I was able to easily figure out what I needed and move on to further sprints
 

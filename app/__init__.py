@@ -245,7 +245,7 @@ def add_a_recipe():
                 ingredients,
                 method
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
         """
 
         params = (

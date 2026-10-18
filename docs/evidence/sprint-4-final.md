@@ -3,15 +3,15 @@
 
 ## Sprint Goals
 
-Develop the system until it is fully featured, with a refined UI and it satisfies the requirements. The system will be fully tested at this point.
+Develop the system until it is fully featured, with a refined UI and it satisfies the requirements. 
+The system will be fully tested at this point.
 
 ### Specific Goals
-
-**Edit these goals as needed**
 
 - Refine the design and UI of the website
 - Refine the user experience (UX) of the system
 - Perform final, full-system testing
+- Get user feedback throughout on all of the above
 
 
 ## Testing FEATURE NAME HERE

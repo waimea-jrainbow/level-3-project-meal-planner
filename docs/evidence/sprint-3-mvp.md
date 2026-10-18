@@ -255,9 +255,15 @@ Form doesn't submit when missing required data
 
 I tested each required piece of data from the meal plan form
 
+![Please fill out this field message under the empty date field](screenshots/missing_date.png)
+![Please fill out this field message under the empty meal type field](screenshots/missing_meal_type.png)
+![Please fill out this field message under the empty recipe field](screenshots/missing_recipe.png)
+
 
 
 ## Sprint Review
 
-Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
+
+The sprint went well and allowed me to implement all of the required backend systems and test them thoroughly. 
+By testing each feature and getting user feedback I was able to greatly refine the product.
 
