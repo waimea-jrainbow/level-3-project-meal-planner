@@ -43,44 +43,98 @@
 
 /* Overall Layout -----------------------------------------------*/
 
+
 html {
     background-color: var(--color-background);
     color: var(--color-text);
-
     font-family: system-ui, sans-serif;
+    min-height: 100%;
 }
-
 
 body {
-    min-height: 100dvh;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
+
+
 
 
 main {
+    flex: 1;
+    width: 100%;
     max-width: 60rem;
+    box-sizing: border-box;
     margin-inline: auto;
     padding: 1rem;
 }
 
 
+
 /* Header & Nav -----------------------------------------------*/
+
 
 body > header {
     display: flex;
-    gap: 1rem;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-
-    nav {
-        display: flex;
-        gap: 1rem;
-
-        a {
-            color: var(--color-accent);
-        }
-    }
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-background);
+    border-bottom: 2px solid var(--color-accent);
+    
 }
+
+#nav_title {
+    color: var(--color-text);
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Ultra';
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 0.9;
+}
+
+body > header nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+body > header nav a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+body > header nav a[href="/meal_plan"],
+body > header nav a[href="/recipe/new"] {
+    background-color: var(--color-primary);
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.5rem;
+}
+
+/* Sign-up button in the navigation */
+body > header nav a[href="/user/new"] {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-primary-dark);
+    font-size: 0.8rem;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect */
+body > header nav a[href="/user/new"]:hover {
+    background-color: var(--color-primary-dark);
+}
+
+
 
 
 /* Page Headings -----------------------------------------------*/
@@ -91,8 +145,6 @@ main > h2 {
     margin-block: 2rem;
 }
 
-
-/* Notes --------------------------------------------------*/
 
 
 #add_recipe {
@@ -116,4 +168,168 @@ main > h2 {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+
+/* Home page ------------------------------- */
+
+
+/* Homepage hero */
+
+.hero {
+    background-color: #595959;
+    color: var(--color-text);
+    margin-inline: -1rem;
+}
+
+.hero-image {
+    height: 5rem;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.hero-content {
+    text-align: center;
+    padding: 1rem;
+    color: white;
+}
+
+.hero-content p {
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+
+/* Shared buttons */
+
+.button {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.button:hover {
+    background-color: var(--color-primary-dark);
+}
+
+
+/* Three steps */
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 0 -1rem;
+    padding: 0.5rem;
+    background-color: var(--color-background);
+}
+
+.step-card {
+    background-color: var(--color-secondary);
+    padding: 0.5rem;
+    min-height: 7rem;
+    font-size: 0.8rem;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.step-card p {
+    line-height: 1.3;
+}
+
+
+/* Call to action */
+
+.home-cta {
+    text-align: center;
+    padding: 1.5rem 1rem 2rem;
+    background-color: var(--color-background);
+}
+
+.home-cta h2 {
+    font-family: 'Delius Swash Caps', cursive;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+
+/* Meal examples */
+
+.meal-examples {
+    min-height: 18rem;
+    margin-inline: -1rem;
+    padding: 1rem;
+    border: 1px solid var(--color-text);
+    background-color: var(--color-background);
+}
+
+.meal-examples h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+
+
+/* Footer */
+
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border-top: 1px solid var(--color-text);
+}
+
+#footer-title {
+    color: var(--color-text);
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Delius Swash Caps', cursive;
+    font-size: 0.85rem;
+    font-weight: bold;
+    line-height: 0.9;
+}
+
+.site-footer nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.site-footer nav a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.site-footer nav .button {
+    background-color: var(--color-primary);
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.5rem;
+}
+
+.site-footer nav .button:hover {
+    background-color: var(--color-primary-dark);
 }

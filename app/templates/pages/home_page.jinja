@@ -1,18 +1,61 @@
+
 {#=====================================================
   Home page
 =====================================================#}
 
 {% extends 'pages/_base.jinja' %}
 
-
 {% block content %}
 
+<!-- Hero section -->
+<section class="hero">
+    <div class="hero-image">
+        <p>Hero image of family eating</p>
+    </div>
 
+    <div class="hero-content">
+        <p>Simple and easy meal
+        planning for your
+        household</p>
 
+        <a href="/user/new" class="button">
+            Start your meal plan
+        </a>
+    </div>
+</section>
 
-    <a href="/recipes" role="button">Recipes list</a>
-    <a href="/user/new" role="button">Add a user</a>
-    <a href="/recipe/new" role="button">Add a recipe</a>
-    <a href="/meal_plan" role="button">View meal plan</a>
+<!-- How it works -->
+<section class="steps">
+
+    <article class="step-card">
+        <span class="step-number">1</span>
+        <p>Find a recipe and add it to your recipe book</p>
+    </article>
+
+    <article class="step-card">
+        <span class="step-number">2</span>
+        <p>Add your new recipe to your meal plan</p>
+    </article>
+
+    <article class="step-card">
+        <span class="step-number">3</span>
+        <p>Cook up a storm and enjoy your meal</p>
+    </article>
+
+</section>
+
+<!-- Call to action -->
+<section class="home-cta">
+    <h2>Never wonder what's for dinner again</h2>
+
+    <a href="/user/new" class="button">
+        Start your meal plan
+    </a>
+</section>
+
+<!-- Meal examples -->
+<section class="meal-examples">
+    <h2>Meal examples</h2>
+</section>
+
 {% endblock %}
-
