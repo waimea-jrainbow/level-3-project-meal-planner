@@ -269,7 +269,7 @@ def add_a_recipe():
 
 
 #-----------------------------------------------------------
-# Add new user page
+# Add new user page - HTMX overlay
 #-----------------------------------------------------------
 @app.get("/user/new")
 def add_a_user_form():
