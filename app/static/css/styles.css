@@ -71,6 +71,11 @@ main {
 }
 
 
+/* Make cursor pointer hand on hover */
+.clickable {
+    cursor: pointer;
+}
+
 
 /* Header & Nav -----------------------------------------------*/
 
@@ -361,7 +366,56 @@ main > h2 {
 
 
 
+/* Signup form -------------------------------------*/
 
+/* Dark overlay covering the entire page */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+    padding: 20px;
+    
+}
+
+/* Show the overlay when HTMX inserts the form */
+.modal-overlay:not(:empty) {
+    display: flex;
+}
+
+/* Style the form card */
+.modal-overlay article {
+    background: var(--color-background);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+}
+
+.modal-overlay h1 {
+    font-size: 1rem;
+    margin-bottom: 5vh;
+}
+
+/* Stack the form fields */
+.modal-overlay form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-overlay input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font: inherit;
+}
 
 /* Footer */
 

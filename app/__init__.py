@@ -24,6 +24,11 @@ UPLOAD_FOLDER = os.path.join('app','static', 'uploads')
 # App Routes Handlers
 #===========================================================
 
+# Close floating form
+@app.route("/close")
+def close_form():
+    return ""
+
 #-----------------------------------------------------------
 # Home page 
 #-----------------------------------------------------------
@@ -273,7 +278,10 @@ def add_a_recipe():
 #-----------------------------------------------------------
 @app.get("/user/new")
 def add_a_user_form():
-   return render_template("pages/add_user.jinja")
+   return render_template("partials/signup_form.jinja")
+
+
+
 
 
 #-----------------------------------------------------------
@@ -309,11 +317,11 @@ def add_a_user():
     
     
 #-----------------------------------------------------------
-# User login page
+# User login form - HTMX
 #-----------------------------------------------------------
 @app.get("/login")
 def login_form():
-   return render_template("pages/login.jinja")
+   return render_template("partials/login_form.jinja")
 
 #-----------------------------------------------------------
 # Route for logging in as a user, using data posted from a form
@@ -358,7 +366,7 @@ def login_as_user():
             }
 
             flash("Successfully logged in", "success")
-            return redirect("/")    
+            return redirect("/dashboard")    
         
 
 

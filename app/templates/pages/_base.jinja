@@ -59,8 +59,16 @@
                 
                 <a href="/logout">Logout</a>
             {% else %}
-                <a href="/login">Login</a>
-                <a id="sign_up_button" href="/user/new">Start your meal plan</a>
+                <a class="clickable"
+                    hx-get="/login"
+                    hx-target="#floating_form"
+                    hx-swap="innerHTML">Login</a>
+                <a id="sign_up_button" class="button clickable" 
+                    type="button"
+                    hx-get="/user/new"
+                    hx-target="#floating_form"
+                    hx-swap="innerHTML">
+                    Start your meal plan</a>
             {% endif %}  
         </nav>
     </header>
@@ -86,8 +94,18 @@
             {% if session.logged_in %}
                 <a href="/logout">Logout</a>
             {% else %}
-                <a href="/login">Login</a>
-                <a href="/user/new" class="button">Start your meal plan</a>
+                <a class="clickable"
+                    hx-get="/login"
+                    hx-target="#floating_form"
+                    hx-swap="innerHTML">Login</a>
+                <a 
+                    class="button clickable" 
+                    type="button"
+                    hx-get="/user/new"
+                    hx-target="#floating_form"
+                    hx-swap="innerHTML">
+                    Start your meal plan
+                </a>
             {% endif %}
         </nav>
 

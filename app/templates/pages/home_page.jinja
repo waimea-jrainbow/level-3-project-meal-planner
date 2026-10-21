@@ -7,6 +7,14 @@
 
 {% block content %}
 
+<div
+    id="floating_form"
+    class="modal-overlay"
+    hx-get="/close"
+    hx-trigger="click[target === this]"
+    hx-target="#floating_form"
+    hx-swap="innerHTML"></div>
+
 <!-- Hero section -->
 <section class="hero">
         
@@ -15,7 +23,11 @@
         planning for your
         household</p>
 
-        <a href="/user/new" class="button">
+        <a  class="button" 
+            type="button"
+            hx-get="/user/new"
+            hx-target="#floating_form"
+            hx-swap="innerHTML">
             Start your meal plan
         </a>
     </div>
@@ -57,8 +69,12 @@
 <section class="home-cta">
     <h2>Never wonder what's for dinner again</h2>
 
-    <a href="/user/new" class="button">
-        Start your meal plan
+    <a class="button" 
+        type="button"
+        hx-get="/user/new"
+        hx-target="#floating_form"
+        hx-swap="innerHTML">
+            Start your meal plan
     </a>
 </section>
 

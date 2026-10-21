@@ -1,0 +1,44 @@
+<article>
+
+        <h1>Sign up for an Abode and Appetite account</h1>
+
+        
+
+        <form action="/user" method="POST" id="add_user">
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+            >
+
+            <input
+            name="display_name"
+            type="text"
+            placeholder="username"
+            required
+            >
+
+            <div>
+                <button class="button cancel"
+                    type="button"
+                    hx-get="/close"
+                    hx-target="#floating_form"
+                    hx-swap="innerHTML">
+                    Cancel
+                </button>
+                <button class="button confirm">Add user</button>
+            </div>
+
+        </form>
+
+</article>
+

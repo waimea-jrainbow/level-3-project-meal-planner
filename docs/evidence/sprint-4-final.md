@@ -21,19 +21,21 @@ The system will be fully tested at this point.
 "Floating is better"
 
 
-## Testing FEATURE NAME HERE
+## Testing Floating HTMX sign up and login forms
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
+Testing the sign up and login forms appearing overlaid over the rest of the page and closing when clicked outside of
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
+![Clicking Login button and then clicking outside of it then repeating for sign up](screenshots/floating_forms_outside_click_test.webp)
 
-![Placeholder](screenshots/placeholder.png)
+Testing the sign up and login forms closing after clicking the cancel button
+
+![Clicking Login button and then clicking cancel button then attempting to repeat for sign up](screenshots/floating_forms_cancel_test.webp)
+Can't open another form after cancelling one
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+Changed the HTMX to innerHTML so it only replaces the contents of the div instead of the div itself
+![Clicking Login button and then clicking cancel button then repeating for sign up](screenshots/floating)
 
 
 ## Testing FEATURE NAME HERE
