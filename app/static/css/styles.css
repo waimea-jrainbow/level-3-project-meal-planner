@@ -38,7 +38,19 @@
 
   /* Muted text (e.g. for subtitles or timestamps) */
   --color-text-muted: color-mix(in srgb, var(--color-text), var(--color-background), 70%);
+
+
+  /* =============
+     Cancel
+     ============= */
+  --cancel: #e8c9b8;
+  --cancel-light: #f5e8e0;
+  --cancel-lighter: #fbf5f1;
+  --cancel-dark: #d4a68d;
+  --cancel-darker: #b98263;
 }
+
+
 
 
 /* Overall Layout -----------------------------------------------*/
@@ -155,6 +167,7 @@ main > h2 {
     text-align: center;
     margin-block: 2rem;
 }
+
 
 
 
@@ -417,7 +430,95 @@ main > h2 {
     font: inherit;
 }
 
-/* Footer */
+/* Dashboard */
+
+.todays_meals {
+    background-color: var(--color-secondary);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.todays_meals ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todays_meals li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: var(--color-bg-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Meal type */
+.todays_meals li strong {
+    color: var(--color-accent);
+    text-transform: capitalize;
+    margin-right: 0.2rem;
+    background-color: var(--color-accent);
+    border-radius: 0.2rem;
+    color: white;
+    padding: 0.2rem 0.5rem;
+}
+
+/* Recipe link */
+.todays_meals li a {
+    color: var(--color-text);
+    text-decoration: none;
+    text-transform: capitalize;
+    display: inline-block
+}
+
+.todays_meals li a:hover {
+    text-decoration: underline;
+}
+
+/* Delete form */
+.todays_meals li form {
+    margin-left: auto;
+}
+
+.todays_meals li button {
+    font: inherit;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: 1px solid var(--color-primary-dark);
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+}
+
+.todays_meals li button:hover {
+    background-color: var(--color-primary-dark);
+}
+
+
+    
+
+.delete_button {
+    background-color: var(--cancel) !important;
+    border: 1px solid var(--cancel-dark) !important;
+}
+
+.delete_button:hover {
+    border: 1px solid var(--cancel-darker) !important;
+}
+
+.delete_button img{
+    width: 100%;
+    height: auto;
+}
+
+
+
+/* Footer -------------------------- */
 
 .site-footer {
     display: flex;

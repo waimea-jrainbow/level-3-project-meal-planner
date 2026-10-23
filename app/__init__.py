@@ -1,6 +1,6 @@
 #===========================================================
-# PROJECT NAME HERE
-# By YOUR NAME HERE
+# Abode & Appetite - Meal planner
+# By Jaxon Rainbow
 #===========================================================
 
 from flask import Flask, request, session, render_template, flash, redirect, send_file, make_response, abort
@@ -35,6 +35,111 @@ def close_form():
 @app.get("/")
 def homepage():
    return render_template("pages/home_page.jinja")
+
+
+
+#-----------------------------------------------------------
+# Dashboard - show household setup or meal planner
+#-----------------------------------------------------------
+@app.get("/dashboard")
+@login_required
+def dashboard():
+
+    household_id = session["user"].get("household_id")
+
+    # If the user has not joined or created a household,
+    # show the existing create/join household page.
+    if not household_id:
+        return render_template("pages/household_join&create.jinja")
+
+        
+        
+    current_date = pendulum.now("Pacific/Auckland")
+    start_date = current_date.start_of('week')
+    end_date = current_date.end_of("week")
+    
+    week_dates = []
+    
+    for i in range(7):
+        date = start_date.add(days=i)
+        week_dates.append(date)   
+    
+    plans = []
+    
+    with connect_db() as db:
+
+        for day in week_dates: 
+            
+            iso_date = day.to_date_string()
+        
+            sql = """
+                SELECT
+                    meal_plan.date,
+                    meal_plan.meal_type,
+                    recipes.id AS recipe_id,
+                    recipes.title AS recipe_title
+                FROM meal_plan
+                JOIN recipes
+                    ON meal_plan.recipe_id = recipes.id
+                WHERE meal_plan.household_id=? AND meal_plan.date=?
+                ORDER BY
+                    meal_plan.date ASC,
+                    CASE meal_plan.meal_type
+                        WHEN 'breakfast' THEN 1
+                        WHEN 'lunch' THEN 2
+                        WHEN 'dinner' THEN 3
+                        ELSE 4
+                    END
+            """
+        
+            
+            params = (session["user"]["household_id"], iso_date)
+
+            day_plans = db.execute(sql, params).fetchall()
+
+            plans.append(day_plans)
+            print(plans)
+            
+            # Get todays meals
+            
+            current_iso_date = current_date.to_date_string()
+                
+            sql = """
+                SELECT
+                    meal_plan.date,
+                    meal_plan.meal_type,
+                    recipes.id AS recipe_id,
+                    recipes.title AS recipe_title
+                FROM meal_plan
+                JOIN recipes
+                    ON meal_plan.recipe_id = recipes.id
+                WHERE meal_plan.household_id=? AND meal_plan.date=?
+                ORDER BY
+                    meal_plan.date ASC,
+                    CASE meal_plan.meal_type
+                        WHEN 'breakfast' THEN 1
+                        WHEN 'lunch' THEN 2
+                        WHEN 'dinner' THEN 3
+                        ELSE 4
+                    END
+            """
+        
+            
+            params = (session["user"]["household_id"], current_iso_date)
+
+            today_plans = db.execute(sql, params).fetchall()
+            
+                   
+
+        return render_template(
+            "pages/dashboard.jinja",
+            plans=plans,
+            week_dates=week_dates,
+            start_date=start_date,
+            end_date=end_date,
+            today_plans=today_plans
+    )
+
 
 #-----------------------------------------------------------
 # recipes page route - show all household recipes
@@ -439,7 +544,7 @@ def add_a_household():
         session["user"]["household_name"] = name
 
         flash(f"Household {name} created", "success")
-        return redirect("/")
+        return redirect("/dashboard")
 
 
 #-----------------------------------------------------------
@@ -498,7 +603,7 @@ def join_a_household():
 
         flash(f"You joined {household['name']}", "success")
 
-        return redirect("/household/manage")
+        return redirect("/dashboard")
 
 
 #-----------------------------------------------------------
@@ -699,10 +804,9 @@ def delete_household(household_id):
         return redirect("/household")
 
 
-    
 #-----------------------------------------------------------
 # meal plan - view full meal plan 
-#-----------------------------------------------------------
+#-----------------------------------------------------------   
 
 @app.get("/meal_plan")
 @login_required

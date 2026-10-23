@@ -38,9 +38,10 @@ Changed the HTMX to innerHTML so it only replaces the contents of the div instea
 ![Clicking Login button and then clicking cancel button then repeating for sign up](screenshots/floating)
 
 
-## Testing FEATURE NAME HERE
+## Testing Dashboard
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
+Added a dashboard for when the user is logged in. Needs to show fields for joining and creating a household
+when user isn't in a household and show household details when they are in a household
 
 **PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
 

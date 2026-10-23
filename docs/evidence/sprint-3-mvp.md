@@ -224,6 +224,11 @@ Meal plan with no recipes for testhousehold (id 4) after deletion
 - Made sure that user is redirected correctly after deletion
 ![recording showing owner deleting household and being redirected correctly](screenshots/delete_household_result.gif)
 
+## Testing dashboard 
+
+Open dashboard with some recipes in the household and meals planned
+
+[Dashboard showing todays means and weeks meals](screenshots/dashboard_test.png)
 
 ## Specific user feedback
 
@@ -261,6 +266,10 @@ I tested each required piece of data from the meal plan form
 
 <!-- TODO delete used weeks -->
 <!-- TODO add viewing future weeks -->
+
+
+
+
 
 ## Sprint Review
 
