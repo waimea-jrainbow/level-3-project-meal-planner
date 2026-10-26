@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <section class="todays_meals">
     <h2>Today's meals</h2>
     <ul>
@@ -10,12 +11,13 @@
         <li>
             <strong>{{ meal_type }}</strong>
 
-            {% for meal in today_plans %}
+            {% set meal_found = false %}
 
-            {% if meal %}
+            {% for meal in today_plans %}
 
             {% if meal.meal_type == meal_type %}
 
+            {% set meal_found = true %}
 
             <a class="meal_link" href="/recipe/{{ meal.recipe_id }}">
                 {{ meal.recipe_title }}
@@ -24,79 +26,92 @@
             <form action="/meal_plan/delete/" method="post">
                 <input type="hidden" name="date" value="{{ meal.date }}">
                 <input type="hidden" name="meal_type" value="{{ meal.meal_type }}">
-                <button class="delete_button" type="submit"><img
-                        src="{{ url_for('static', filename='images/icons/trash_red.svg') }}"></button>
+                <button class="delete_button" type="submit">
+                    <img src="{{ url_for('static', filename='images/icons/trash_red.svg') }}" alt="Delete meal">
+                </button>
             </form>
-            {% else %}
-            <p>No meal planned</p>
-            {% endif %}
 
             {% endif %}
 
             {% endfor %}
+
+            {% if not meal_found %}
+            <p>No meal planned</p>
+            {% endif %}
 
         </li>
         {% endfor %}
     </ul>
 </section>
 
-<nav class="dashboard-actions">
-    <a class="dashboard-button" href="/meal_plan/new">
+<nav class="dashboard_actions">
+    <a class="dashboard_button" href="/meal_plan/new">
         Meal plan
     </a>
-    <a class="dashboard-button" href="/recipes">
+    <a class="dashboard_button" href="/recipes">
         Manage recipes
     </a>
-    <a class="dashboard-button" href="/recipe/new">
+    <a class="dashboard_button" href="/recipe/new">
         Add new recipe
     </a>
 </nav>
 
-<section class="weekly-meals">
-    <h2>Current week's meals</h2>
 
-    <p>{{ start_date.format("DD/MM/YYYY") }} {{ end_date.format("DD/MM/YYYY") }}</p>
+<section class="weekly_meals">
+    <h2>Current weeks meals</h2>
 
-    <p>------------------</p>
+    <div class="meal_legend">
+        <span><span class="dot no_meal"></span> No meal</span>
+        <span><span class="dot meal_planned"></span> Meal planned</span>
+    </div>
 
-    {% for i in range(7) %}
+    <div class="week_grid">
 
-    <p>{{ week_dates[i].format("DD/MM/YYYY") }} {{ week_dates[i].format('dddd') }}</p>
+        {% for i in range(7) %}
 
-    {# plans[i] is plans in a day at i week date#}
-    {% if plans[i] %}
+        <div class="day_card">
 
-    <ul>
-        {% for meal in plans[i] %}
+            <p>{{ week_dates[i].format('dddd') }}</p>
 
-        <li>
-            <strong>{{ meal.meal_type }}</strong>:
+            <div class="day_meals">
 
-            <a href="/recipe/{{ meal.recipe_id }}">
-                {{ meal.recipe_title }}
-            </a>
+                {% for meal_type in ["breakfast", "lunch", "dinner"] %}
 
-            <form action="/meal_plan/delete/" method="post">
-                <input type="hidden" name="date" value="{{ meal.date }}">
-                <input type="hidden" name="meal_type" value="{{ meal.meal_type }}">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
+                    {% if plans[i] %}
+                    {# Initialize namespace to use as persistent variable#}
+                        {% set ns = namespace(meal_exists=false) %}
+
+                        {% for meal in plans[i] %}
+                            {% if meal.meal_type == meal_type %}
+                                {% set ns.meal_exists = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if ns.meal_exists %}
+                            <span class="meal_indicator planned">
+                            {{ meal_type }}
+                            </span>
+                        {% else %}
+                            <span class="meal_indicator no_meal">
+                                {{ meal_type }}
+                            </span>
+                        {% endif %}
+
+                    {% else %}
+                        <span class="meal_indicator no_meal">
+                            {{ meal_type }}
+                        </span>
+                    {% endif %}
 
         {% endfor %}
-    </ul>
 
-    {% else %}
+            </div>
 
-    <p>No meal planned</p>
+        </div>
 
-    {% endif %}
+        {% endfor %}
 
-    {% endfor %}
-
-    <a class="view-full-plan" href="/meal_plan">
-        View full meal plan
-    </a>
+    </div>
 </section>
 
 {% endblock %}

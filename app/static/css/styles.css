@@ -188,7 +188,7 @@ main > h2 {
     gap: 20px;
 }
 
-.member-info {
+.member_info {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -222,7 +222,7 @@ main > h2 {
     background-repeat: no-repeat;
 }
 
-.hero-content {
+.hero_content {
     position: relative;
     z-index: 1;
     max-width: 600px;
@@ -232,7 +232,7 @@ main > h2 {
     font-family: 'Delius Swash Caps', cursive;
 }
 
-.hero-content p {
+.hero_content p {
     margin-bottom: 1.5rem;
     font-size: clamp(1.8rem, 4vw, 3rem);
     line-height: 1.3;
@@ -240,19 +240,19 @@ main > h2 {
 
 
 
-.image-credit {
+.image_credit {
     text-align: center;
     font-size: 0.75rem;
     color: #666;
     margin: 0.5rem 0 1rem;
 }
 
-.image-credit a {
+.image_credit a {
     color: inherit;
     text-decoration: underline;
 }
 
-.image-credit a:hover {
+.image_credit a:hover {
     color: #333;
 }
 
@@ -288,7 +288,7 @@ main > h2 {
     border-radius: 1.5rem;
 }
 
-.step-card {
+.step_card {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -301,7 +301,7 @@ main > h2 {
     border: 1px solid var(--color-secondary-dark);
 }
 
-.step-number {
+.step_number {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -319,7 +319,7 @@ main > h2 {
     margin-bottom: 1rem;
 }
 
-.step-card p {
+.step_card p {
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.5;
@@ -330,13 +330,13 @@ main > h2 {
 
 /* Call to action */
 
-.home-cta {
+.home_cta {
     text-align: center;
     padding: 1.5rem 1rem 2rem;
     background-color: var(--color-background);
 }
 
-.home-cta h2 {
+.home_cta h2 {
     font-family: 'Delius Swash Caps', cursive;
     font-size: 1.6rem;
     font-weight: 400;
@@ -382,7 +382,7 @@ main > h2 {
 /* Signup form -------------------------------------*/
 
 /* Dark overlay covering the entire page */
-.modal-overlay {
+.modal_overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
@@ -397,12 +397,12 @@ main > h2 {
 }
 
 /* Show the overlay when HTMX inserts the form */
-.modal-overlay:not(:empty) {
+.modal_overlay:not(:empty) {
     display: flex;
 }
 
 /* Style the form card */
-.modal-overlay article {
+.modal_overlay article {
     background: var(--color-background);
     padding: 2rem;
     border-radius: 16px;
@@ -411,19 +411,19 @@ main > h2 {
     max-height: 90vh;
 }
 
-.modal-overlay h1 {
+.modal_overlay h1 {
     font-size: 1rem;
     margin-bottom: 5vh;
 }
 
 /* Stack the form fields */
-.modal-overlay form {
+.modal_overlay form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.modal-overlay input {
+.modal_overlay input {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 1rem;
@@ -499,8 +499,7 @@ main > h2 {
     background-color: var(--color-primary-dark);
 }
 
-
-    
+   
 
 .delete_button {
     background-color: var(--cancel) !important;
@@ -517,10 +516,133 @@ main > h2 {
 }
 
 
+/* Dashboard buttons */
+
+.dashboard_actions {
+    /* Add properties if needed */
+}
+
+.dashboard_button {
+    /* Add properties if needed */
+}
+
+
+/* Weekly meals dashboard */
+
+
+.weekly_meals {
+    background: #bfdfa0;
+    border-radius: 24px;
+    padding: 12px 14px;
+    text-align: center;
+}
+
+.weekly_meals h2 {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 0 6px;
+}
+
+.meal_legend {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    background: #506d42;
+    color: white;
+    width: fit-content;
+    margin: 0 auto 14px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 9px;
+}
+
+.meal_legend span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.meal_legend .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.meal_legend .no_meal {
+    background: #ff333d;
+}
+
+.meal_legend .meal_planned {
+    background: #b8df42;
+}
+
+.week_grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    
+}
+
+.day_card {
+    background-color: #fffef8;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    min-width: 5rem;
+    padding: 1rem 1rem;
+    flex: 1;
+    min-width: 0;
+    
+}
+
+.day_card:last-child {
+    grid-column: 2;
+}
+
+.day_card p {
+    font-size: 12px;
+    margin: 0 0 12px;
+}
+
+.day_meals {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.meal_indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0.6rem 60%;
+    width: 100%; 
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+
+.meal_indicator.no_meal {
+    background-color: #ff4b4b;
+}
+
+.meal_indicator.planned {
+    background-color: #b8df42;
+}
+
+.view_full_plan {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #30352b;
+}
+
+
 
 /* Footer -------------------------- */
 
-.site-footer {
+.site_footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -531,7 +653,7 @@ main > h2 {
     border-top: 1px solid var(--color-text);
 }
 
-#footer-title {
+#footer_title {
     color: var(--color-text);
     text-align: center;
     text-decoration: none;
@@ -541,7 +663,7 @@ main > h2 {
     line-height: 0.9;
 }
 
-.site-footer nav {
+.site_footer nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -550,17 +672,17 @@ main > h2 {
     font-size: 0.8rem;
 }
 
-.site-footer nav a {
+.site_footer nav a {
     color: var(--color-text);
     text-decoration: none;
 }
 
-.site-footer nav .button {
+.site_footer nav .button {
     background-color: var(--color-primary);
     padding: 0.4rem 0.65rem;
     border-radius: 0.5rem;
 }
 
-.site-footer nav .button:hover {
+.site_footer nav .button:hover {
     background-color: var(--color-primary-dark);
 }
