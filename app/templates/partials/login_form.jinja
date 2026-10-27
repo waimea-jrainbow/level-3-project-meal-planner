@@ -6,7 +6,11 @@
 
     <h1>Login to Abode and Appetite</h1>
 
-    <form action="/login" method="POST" id="login_form">
+    <form 
+        hx-post="/login"
+        hx-target="#floating_form"
+        hx-swap="innerHTML"
+        id="login_form">
 
         <input
             type="email"

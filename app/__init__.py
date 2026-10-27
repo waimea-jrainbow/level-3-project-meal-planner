@@ -1,9 +1,19 @@
-#===========================================================
+# ===========================================================
 # Abode & Appetite - Meal planner
 # By Jaxon Rainbow
-#===========================================================
+# ===========================================================
 
-from flask import Flask, request, session, render_template, flash, redirect, send_file, make_response, abort
+from flask import (
+    Flask,
+    request,
+    session,
+    render_template,
+    flash,
+    redirect,
+    send_file,
+    make_response,
+    abort,
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
@@ -17,32 +27,34 @@ from app.helpers import *
 # Create the app
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join('app','static', 'uploads')
+UPLOAD_FOLDER = os.path.join("app", "static", "uploads")
 
 
-#===========================================================
+# ===========================================================
 # App Routes Handlers
-#===========================================================
+# ===========================================================
+
 
 # Close floating form
 @app.route("/close")
 def close_form():
     return ""
 
-#-----------------------------------------------------------
-# Home page 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
+# Home page
+# -----------------------------------------------------------
 @app.get("/")
 def homepage():
-   return render_template("pages/home_page.jinja")
+    return render_template("pages/home_page.jinja")
 
 
-
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Dashboard - show household setup or meal planner
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/dashboard")
 @login_required
+@household_required
 def dashboard():
 
     household_id = session["user"].get("household_id")
@@ -52,26 +64,24 @@ def dashboard():
     if not household_id:
         return render_template("pages/household_join&create.jinja")
 
-        
-        
     current_date = pendulum.now("Pacific/Auckland")
-    start_date = current_date.start_of('week')
+    start_date = current_date.start_of("week")
     end_date = current_date.end_of("week")
-    
+
     week_dates = []
-    
+
     for i in range(7):
         date = start_date.add(days=i)
-        week_dates.append(date)   
-    
+        week_dates.append(date)
+
     plans = []
-    
+
     with connect_db() as db:
 
-        for day in week_dates: 
-            
+        for day in week_dates:
+
             iso_date = day.to_date_string()
-        
+
             sql = """
                 SELECT
                     meal_plan.date,
@@ -91,19 +101,18 @@ def dashboard():
                         ELSE 4
                     END
             """
-        
-            
+
             params = (session["user"]["household_id"], iso_date)
 
             day_plans = db.execute(sql, params).fetchall()
 
             plans.append(day_plans)
             print(plans)
-            
+
             # Get todays meals
-            
+
             current_iso_date = current_date.to_date_string()
-                
+
             sql = """
                 SELECT
                     meal_plan.date,
@@ -123,13 +132,10 @@ def dashboard():
                         ELSE 4
                     END
             """
-        
-            
+
             params = (session["user"]["household_id"], current_iso_date)
 
             today_plans = db.execute(sql, params).fetchall()
-            
-                   
 
         return render_template(
             "pages/dashboard.jinja",
@@ -137,15 +143,16 @@ def dashboard():
             week_dates=week_dates,
             start_date=start_date,
             end_date=end_date,
-            today_plans=today_plans
-    )
+            today_plans=today_plans,
+        )
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # recipes page route - show all household recipes
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/recipes")
 @login_required
+@household_required
 def show_recipes():
     with connect_db() as client:
         # Get all the things from the DB
@@ -158,10 +165,12 @@ def show_recipes():
         return render_template("pages/recipes.jinja", recipes=recipes)
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Recipe page route - Show details of a single recipe
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/recipe/<int:id>")
+@login_required
+@household_required
 def show_one_recipe(id):
     with connect_db() as client:
         # Get the thing details from the DB
@@ -170,7 +179,7 @@ def show_one_recipe(id):
         result = client.execute(sql, params)
 
         recipe = result.fetchone()
-        
+
         # Did we get a result?
         if recipe:
             # yes, so show it on the page
@@ -181,25 +190,26 @@ def show_one_recipe(id):
             abort(404)
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Add new recipe page
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/recipe/new")
 @login_required
+@household_required
 def add_a_recipe_form():
-   return render_template("pages/add_recipe.jinja")
+    return render_template("pages/add_recipe.jinja")
 
 
-
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Route to delete a recipe
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/recipe/delete/<int:recipe_id>")
 @login_required
+@household_required
 def delete_recipe(recipe_id):
 
     household_id = session["user"]["household_id"]
-    
+
     with connect_db() as db:
 
         sql = """
@@ -209,21 +219,16 @@ def delete_recipe(recipe_id):
             AND id=?
         """
 
-        params = (
-            household_id,
-            recipe_id
-        )
+        params = (household_id, recipe_id)
 
         result = db.execute(sql, params)
-        
-        
+
         filepath = result.fetchone()
-        
-        full_filepath = os.path.join("app",filepath["image_path"].lstrip("/"))
-            
+
+        full_filepath = os.path.join("app", filepath["image_path"].lstrip("/"))
+
         if full_filepath:
             os.remove(full_filepath)
-    
 
     with connect_db() as db:
 
@@ -233,10 +238,7 @@ def delete_recipe(recipe_id):
             AND id=?
         """
 
-        params = (
-            household_id,
-            recipe_id
-        )
+        params = (household_id, recipe_id)
 
         db.execute(sql, params)
 
@@ -245,33 +247,39 @@ def delete_recipe(recipe_id):
     return redirect("/meal_plan")
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Routes for partials for link and manual recipes
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/recipe/fields/link")
 @login_required
+@household_required
 def recipe_link_fields():
     return render_template("partials/recipe_link_fields.jinja")
 
 
 @app.get("/recipe/fields/manual")
 @login_required
+@household_required
 def recipe_manual_fields():
     return render_template("partials/recipe_manual_fields.jinja")
 
-#-----------------------------------------------------------
-# Routes for partial to reset image selection 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
+# Routes for partial to reset image selection
+# -----------------------------------------------------------
 @app.get("/recipe/image_reset")
 @login_required
+@household_required
 def recipe_image_reset():
     return render_template("partials/recipe_image_reset.jinja")
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
 # Route for adding a recipe, using data posted from a form
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/recipe")
 @login_required
+@household_required
 def add_a_recipe():
 
     # Get the data from the form
@@ -283,10 +291,9 @@ def add_a_recipe():
     # Make sure links valid by adding https:// if missing
     if url and not url.startswith(("http://", "https://")):
         url = "https://" + url
-    
+
     # Get the currently logged-in user
     user_id = session["user"]["id"]
-
 
     with connect_db() as db:
 
@@ -302,48 +309,31 @@ def add_a_recipe():
 
         household = result.fetchone()
 
-
         if not household:
-            flash(
-                "You need to join or create a household first",
-                "error"
-            )
+            flash("You need to join or create a household first", "error")
             return redirect("/household")
 
-
         household_id = household["household_id"]
-
 
         # Get the file selected via the form
         image = request.files.get("image")
 
-
         if not image or image.filename == "":
-            flash(
-                "There was a problem uploading the image",
-                "error"
-            )
+            flash("There was a problem uploading the image", "error")
             return redirect("/recipe/new")
-
 
         # Sanitise filename and make it unique
         filename = secure_filename(image.filename)
         random_prefix = uuid.uuid4().hex[:12]
         unique_filename = f"{random_prefix}_{filename}"
 
-
         # Save image to uploads folder
-        filepath = os.path.join(
-            UPLOAD_FOLDER,
-            unique_filename
-        )
+        filepath = os.path.join(UPLOAD_FOLDER, unique_filename)
 
         image.save(filepath)
 
-
         # Path that can be used by the browser
         image_path = f"/static/uploads/{unique_filename}"
-
 
         # Add recipe to the household
         sql = """
@@ -358,46 +348,32 @@ def add_a_recipe():
             VALUES (?, ?, ?, ?, ?, ?)
         """
 
-        params = (
-            household_id,
-            title,
-            url,
-            image_path,
-            ingredients,
-            method
-        )
+        params = (household_id, title, url, image_path, ingredients, method)
 
         db.execute(sql, params)
 
-
-        flash(
-            f"{title} added to recipes",
-            "success"
-        )
+        flash(f"{title} added to recipes", "success")
 
         return redirect("/")
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Add new user page - HTMX overlay
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/user/new")
 def add_a_user_form():
-   return render_template("partials/signup_form.jinja")
+    return render_template("partials/signup_form.jinja")
 
 
-
-
-
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Route for adding a user, using data posted from a form
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/user")
 def add_a_user():
     # Get the data from the form
-    email  = request.form.get("email")
+    email = request.form.get("email")
     display_name = request.form.get("display_name")
-    password = request.form.get('password', '').strip()
+    password = request.form.get("password", "").strip()
 
     with connect_db() as db:
         sql = "SELECT id FROM users WHERE email=?"
@@ -418,19 +394,20 @@ def add_a_user():
         db.execute(sql, params)
 
         flash("Account created. Please login", "success")
-        return redirect("/login")
-    
-    
-#-----------------------------------------------------------
+        return redirect("/")
+
+
+# -----------------------------------------------------------
 # User login form - HTMX
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/login")
 def login_form():
-   return render_template("partials/login_form.jinja")
+    return render_template("partials/login_form.jinja")
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
 # Route for logging in as a user, using data posted from a form
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/login")
 def login_as_user():
     email = request.form.get("email")
@@ -451,53 +428,50 @@ def login_as_user():
         params = (email,)
         user = db.execute(sql, params).fetchone()
 
-        if not user:
+        if not user or not check_password_hash(user["password_hash"], password):
             flash("Email or password incorrect", "error")
-            return redirect("/login")
-
-        if not check_password_hash(user["password_hash"], password):
-            flash("Email or password incorrect", "error")
-            return redirect("/login")
+            return render_template("partials/login_form.jinja")
 
         else:
             session["logged_in"] = True
             session["user"] = {
-            "id": user["id"],
-            "display_name": user["display_name"],
-            "email": user["email"],
-            "household_id": user["household_id"],
-            "household_name": user["household_name"]
-            
+                "id": user["id"],
+                "display_name": user["display_name"],
+                "email": user["email"],
+                "household_id": user["household_id"],
+                "household_name": user["household_name"],
             }
 
             flash("Successfully logged in", "success")
-            return redirect("/dashboard")    
-        
+
+            response = make_response("", 200)
+            response.headers["HX-Redirect"] = "/dashboard"
+            return response
 
 
-
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Route for logging out
-#-----------------------------------------------------------       
+# -----------------------------------------------------------
 @app.get("/logout")
 @login_required
 def logout_user():
     session.clear()
     flash(f"You have been logged out", "success")
-    return redirect("/") 
+    return redirect("/")
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # household creation and joining page
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.get("/household")
 @login_required
 def household_forms():
-   return render_template("pages/household_join&create.jinja")
+    return render_template("pages/household_join&create.jinja")
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
 # Route for adding a household, using data posted from a form
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/household")
 @login_required
 def add_a_household():
@@ -547,9 +521,10 @@ def add_a_household():
         return redirect("/dashboard")
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Route for joining a household
-#-----------------------------------------------------------
+# -----------------------------------------------------------
+
 
 @app.post("/household/join")
 @login_required
@@ -585,7 +560,6 @@ def join_a_household():
             flash("Invalid join code", "error")
             return redirect("/household")
 
-
         sql = """
             INSERT INTO household_members
                 (household_id, user_id, role)
@@ -597,7 +571,6 @@ def join_a_household():
 
         db.execute(sql, params)
 
-
         session["user"]["household_id"] = household["id"]
         session["user"]["household_name"] = household["name"]
 
@@ -606,22 +579,23 @@ def join_a_household():
         return redirect("/dashboard")
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Manage household - open household dashboard
-#-----------------------------------------------------------
+# -----------------------------------------------------------
+
 
 @app.get("/household/manage")
 @login_required
+@household_required
 def household_dashboard():
-    
+
     household_id = session["user"]["household_id"]
 
     # User isn't currently in a household
     if not household_id:
         flash("You are not currently in a household", "error")
         return redirect("/household")
-    
-    
+
     with connect_db() as db:
 
         sql = """
@@ -638,8 +612,7 @@ def household_dashboard():
 
         result = db.execute(sql, params)
         household = result.fetchone()
-        
-        
+
         # Get household members
         sql = """
             SELECT
@@ -664,15 +637,16 @@ def household_dashboard():
             "pages/manage_household.jinja",
             household=household,
             members=members,
-            is_owner=is_owner
-        ) 
- 
+            is_owner=is_owner,
+        )
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
 # Route to remove a user from a household as owner
-#-----------------------------------------------------------      
+# -----------------------------------------------------------
 @app.post("/household/remove_member/<int:user_id>")
 @login_required
+@household_required
 def remove_household_member(user_id):
 
     with connect_db() as db:
@@ -709,13 +683,14 @@ def remove_household_member(user_id):
 
         flash("Member removed", "success")
         return redirect("/household/manage")
-    
-    
-#-----------------------------------------------------------
+
+
+# -----------------------------------------------------------
 # Route for deleting a household
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/household/delete/<int:household_id>")
 @login_required
+@household_required
 def delete_household(household_id):
 
     user_id = session["user"]["id"]
@@ -744,12 +719,8 @@ def delete_household(household_id):
 
         # Only the household owner can delete it
         if household["created_by"] != user_id:
-            flash(
-                "Only the household owner can delete the household",
-                "error"
-            )
+            flash("Only the household owner can delete the household", "error")
             return redirect("/household/manage")
-
 
         # Delete meal plans belonging to the household
         sql = """
@@ -761,7 +732,6 @@ def delete_household(household_id):
 
         db.execute(sql, params)
 
-
         # Delete recipes belonging to the household
         sql = """
             DELETE FROM recipes
@@ -771,7 +741,6 @@ def delete_household(household_id):
         params = (household_id,)
 
         db.execute(sql, params)
-
 
         # Remove all users from the household
         sql = """
@@ -783,7 +752,6 @@ def delete_household(household_id):
 
         db.execute(sql, params)
 
-
         # Delete the household
         sql = """
             DELETE FROM households
@@ -794,7 +762,6 @@ def delete_household(household_id):
 
         db.execute(sql, params)
 
-
         # Clear household information from the session
         session["user"]["household_id"] = None
         session["user"]["household_name"] = None
@@ -804,32 +771,34 @@ def delete_household(household_id):
         return redirect("/household")
 
 
-#-----------------------------------------------------------
-# meal plan - view full meal plan 
-#-----------------------------------------------------------   
+# -----------------------------------------------------------
+# meal plan - view full meal plan
+# -----------------------------------------------------------
+
 
 @app.get("/meal_plan")
 @login_required
+@household_required
 def show_meal_plan():
-    
+
     current_date = pendulum.now()
-    start_date = current_date.start_of('week')
+    start_date = current_date.start_of("week")
     end_date = current_date.end_of("week")
-    
+
     week_dates = []
-    
+
     for i in range(7):
         date = start_date.add(days=i)
-        week_dates.append(date)   
-    
+        week_dates.append(date)
+
     plans = []
-    
+
     with connect_db() as db:
 
-        for day in week_dates: 
-            
+        for day in week_dates:
+
             iso_date = day.to_date_string()
-        
+
             sql = """
                 SELECT
                     meal_plan.date,
@@ -849,8 +818,7 @@ def show_meal_plan():
                         ELSE 4
                     END
             """
-        
-            
+
             params = (session["user"]["household_id"], iso_date)
 
             day_plans = db.execute(sql, params).fetchall()
@@ -863,15 +831,16 @@ def show_meal_plan():
             plans=plans,
             week_dates=week_dates,
             start_date=start_date,
-            end_date=end_date
-    )
-        
-        
-#-----------------------------------------------------------
+            end_date=end_date,
+        )
+
+
+# -----------------------------------------------------------
 # Route for page to add meal plan
-#-----------------------------------------------------------       
+# -----------------------------------------------------------
 @app.get("/meal_plan/new")
 @login_required
+@household_required
 def add_meal_plan_form():
 
     household_id = session["user"]["household_id"]
@@ -896,17 +865,15 @@ def add_meal_plan_form():
         result = db.execute(sql, params)
         recipes = result.fetchall()
 
-        return render_template(
-            "pages/add_meal_plan.jinja",
-            recipes=recipes
-        )
+        return render_template("pages/add_meal_plan.jinja", recipes=recipes)
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Add meal to meal plan
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/meal_plan")
 @login_required
+@household_required
 def add_to_meal_plan():
 
     date = request.form.get("date")
@@ -937,7 +904,6 @@ def add_to_meal_plan():
             flash("Recipe not found", "error")
             return redirect("/meal_plan/new")
 
-
         # Check whether this meal already exists
         sql = """
             SELECT recipe_id
@@ -947,22 +913,14 @@ def add_to_meal_plan():
             AND meal_type=?
         """
 
-        params = (
-            household_id,
-            date,
-            meal_type
-        )
+        params = (household_id, date, meal_type)
 
         result = db.execute(sql, params)
         existing_meal = result.fetchone()
 
         if existing_meal:
-            flash(
-                "There is already a meal planned for this time",
-                "error"
-            )
+            flash("There is already a meal planned for this time", "error")
             return redirect("/meal_plan/new")
-
 
         # Add the meal to the meal plan
         sql = """
@@ -975,41 +933,34 @@ def add_to_meal_plan():
             VALUES (?, ?, ?, ?)
         """
 
-        params = (
-            household_id,
-            date,
-            meal_type,
-            recipe_id
-        )
+        params = (household_id, date, meal_type, recipe_id)
 
         db.execute(sql, params)
 
         flash("Meal added to meal plan", "success")
 
         return redirect("/meal_plan")
-    
 
-#-----------------------------------------------------------
+
+# -----------------------------------------------------------
 # Find weekday from date
 # https://www.w3schools.com/python/python_datetime.asp
-#-----------------------------------------------------------  
+# -----------------------------------------------------------
 @app.template_filter("weekday")
 @login_required
 def find_weekday(date):
 
-    week_day = date.day_of('week')
-    
+    week_day = date.day_of("week")
 
-    return(week_day)
-
+    return week_day
 
 
-
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Route for deleting a meal from a date in the meal plan
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/meal_plan/delete/")
 @login_required
+@household_required
 def delete_meal_plan():
 
     household_id = session["user"]["household_id"]
@@ -1026,11 +977,7 @@ def delete_meal_plan():
             AND meal_type=?
         """
 
-        params = (
-            household_id,
-            date,
-            meal_type
-        )
+        params = (household_id, date, meal_type)
 
         db.execute(sql, params)
 
@@ -1039,11 +986,12 @@ def delete_meal_plan():
     return redirect("/meal_plan")
 
 
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 # Route for transferring ownership of a household
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/household/transfer_owner/<int:user_id>")
 @login_required
+@household_required
 def transfer_owner_household(user_id):
 
     current_user_id = session["user"]["id"]
@@ -1111,13 +1059,14 @@ def transfer_owner_household(user_id):
         flash("Ownership transferred successfully", "success")
 
         return redirect("/household/manage")
-     
-        
-#-----------------------------------------------------------
+
+
+# -----------------------------------------------------------
 # Route for leaving a household
-#-----------------------------------------------------------
+# -----------------------------------------------------------
 @app.post("/household/leave")
 @login_required
+@household_required
 def leave_household():
 
     user_id = session["user"]["id"]
@@ -1164,10 +1113,10 @@ def leave_household():
 
         return redirect("/household")
 
-        
-#===========================================================
+
+# ===========================================================
 # Configure the app
-#===========================================================
+# ===========================================================
 load_dotenv()
 app.config.from_prefixed_env()
 init_logging(app)
@@ -1176,4 +1125,3 @@ init_date_filters(app)
 init_error_handlers(app)
 init_database()
 register_commands(app)
-

@@ -53,15 +53,8 @@
                 Welcome, {{ session.user.display_name }}!
 
                 {% if session.user.household_name %}
-                    Household: {{ session.user.household_name }}
-                    <a href="/recipe/new">New recipe</a>
-                    <a href="/recipes">Recipes list</a>
                     <a href="/meal_plan">View meal plan</a>
                     <a href="/household/manage">Manage household</a> 
-                    
-                {% else %}
-                    No household
-                    <a href="/household">Household</a>
                 {% endif %}
                 
                 

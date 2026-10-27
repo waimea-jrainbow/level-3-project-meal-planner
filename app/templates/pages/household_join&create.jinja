@@ -1,5 +1,5 @@
 {#=====================================================
- Create/join household page
+Create/join household page
 =====================================================#}
 
 {% extends 'pages/_base.jinja' %}
@@ -8,48 +8,48 @@
 {% block content %}
 
 
-    <article>
+<main class="first_sign_up">
 
-        <h2>Create a household</h2>
+    <section class="first_sign_up_info">
+        <h1>Welcome to Abode & Appetite</h1>
 
-        <form method="POST" action="/household">
+        <p>To start planning meals please create a new
+            household or join an existing household</p>
+    </section>
+
+    <article class="first_sign_up_form_box">
+
+        <h2 class="first_sign_up_title">Create a household</h2>
+
+        <form class="first_sign_up_form" method="POST" action="/household">
 
             <label for="name">
                 Household name
             </label>
 
-            <input
-                type="text"
-                id="name"
-                name="name"
-                required
-            >
+            <input type="text" id="name" name="name" required>
 
-            <button type="submit">
+            <button type="submit" class="clickable">
                 Create household
             </button>
 
         </form>
 
+    </article>
+
+    <article class="first_sign_up_form_box">
 
         <h2>Join a household</h2>
 
-        <form method="POST" action="/household/join">
+        <form class="first_sign_up_form" method="POST" action="/household/join">
 
             <label for="join_code">
                 Join code
             </label>
 
-            <input
-                type="text"
-                id="join_code"
-                name="join_code"
-                maxlength="6"
-                required
-                placeholder="123456"
-            >   
+            <input type="text" id="join_code" name="join_code" maxlength="6" required placeholder="123456">
 
-            <button type="submit">
+            <button type="submit" class="clickable">
                 Join household
             </button>
 
@@ -57,5 +57,6 @@
 
     </article>
 
-{% endblock %}
+</main>
 
+{% endblock %}

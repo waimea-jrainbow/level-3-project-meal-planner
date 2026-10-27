@@ -88,6 +88,22 @@ main {
     cursor: pointer;
 }
 
+/* Buttons */
+
+.button {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.button:hover {
+    background-color: var(--color-primary-dark);
+}
+
 
 /* Header & Nav -----------------------------------------------*/
 
@@ -132,15 +148,9 @@ body > header nav a {
     text-decoration: none;
 }
 
-body > header nav a[href="/meal_plan"],
-body > header nav a[href="/recipe/new"] {
-    background-color: var(--color-primary);
-    padding: 0.4rem 0.65rem;
-    border-radius: 0.5rem;
-}
 
 /* Sign-up button in the navigation */
-body > header nav a[href="/user/new"] {
+body  header nav a[href="/user/new"] {
     background-color: var(--color-primary);
     color: var(--color-text);
     text-decoration: none;
@@ -257,23 +267,6 @@ main > h2 {
 }
 
 
-
-
-/* Shared buttons */
-
-.button {
-    display: inline-block;
-    background-color: var(--color-primary);
-    color: var(--color-text);
-    text-decoration: none;
-    padding: 0.4rem 0.65rem;
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-}
-
-.button:hover {
-    background-color: var(--color-primary-dark);
-}
 
 
 /* Three steps */
@@ -430,7 +423,60 @@ main > h2 {
     font: inherit;
 }
 
-/* Dashboard */
+
+/* First sign up form ---------------*/
+
+.first_sign_up{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.first_sign_up_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-secondary);
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+.first_sign_up_form_box{
+    background-color: var(--color-secondary);
+    padding: 1rem;
+    border-radius: 20px;
+    
+}
+
+.first_sign_up_form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.first_sign_up_form input{
+    width:25rem;
+    border-radius: 0.8rem;
+    margin-top: -1rem;
+}
+
+.first_sign_up_form button{
+    width: 9rem;
+    align-self: center;
+    background-color: var(--color-primary);
+    border-radius: 0.8rem;
+    border: none;
+
+}
+
+
+
+
+
+/* Dashboard --------------------*/
 
 .todays_meals {
     background-color: var(--color-secondary);
@@ -519,11 +565,22 @@ main > h2 {
 /* Dashboard buttons */
 
 .dashboard_actions {
-    /* Add properties if needed */
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem auto;
 }
 
 .dashboard_button {
-    /* Add properties if needed */
+    display: flex;
+    background-color: var(--color-primary);
+    padding: 2rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    flex: 1;
+    justify-content: center;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--color-text);
 }
 
 
@@ -637,6 +694,10 @@ main > h2 {
     font-size: 12px;
     color: #30352b;
 }
+
+
+/* Manage household dashboard ---------- */
+
 
 
 

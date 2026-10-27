@@ -10,6 +10,8 @@ from app.helpers.date  import init_date_filters
 from app.helpers.error import init_error_handlers
 from app.helpers.cli   import register_commands
 
+from app.helpers.household import household_required
+
 __all__ = [
     'init_logging',
     'init_database',
@@ -24,4 +26,6 @@ __all__ = [
     'init_date_filters',
     'init_error_handlers',
     'register_commands',
+    
+    'household_required',
 ]
