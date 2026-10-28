@@ -243,6 +243,21 @@ meal to a meal plan you should be able to add any recipe to any time of day.
 ![config.py with no meal_type in recipe schema](screenshots/meal_type_recipe_gone.png)
 ![add recipe page without meal type radio buttons](screenshots/add_recipe_meal_type_gone.png)
 
+## Testing making a household twice
+
+In my testing I've discovered that if a user creates an account and then creates or joins a household, returns
+to the household create/join page and then creates or joins another household the original is overwritten and if the user
+created the household it is left orphaned
+
+### Changes / Improvements
+
+Added a check for whether the user is in a household by adding a boolean to the users session when they sign up
+
+Another issue arose here where if the user logged out and back in the session would reset and not contain the in_household boolean
+to fix this I added a check in the login route to query the household_members table to check if the user is in a household and if they 
+are then it makes the in_household session variable and sets it to true which is then checked in the same manner as the sign up solution
+
+
 # Edge cases and security
 
 ## Testing missing data when adding a recipe

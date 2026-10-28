@@ -1,5 +1,5 @@
 {#=====================================================
-  Recipes page
+Recipes page
 =====================================================#}
 
 {% extends 'pages/_base.jinja' %}
@@ -7,34 +7,35 @@
 
 {% block content %}
 
-   
-    <h1>Recipes</h1>
+<section class="manage_recipes">
+
+    <h1 class="recipes_title">Recipes</h1>
 
 
-    <article>
+    <article class=recipes>
 
         <ul>
             {% for recipe in recipes %}
 
-                <li>
-                    <a href="/recipe/{{ recipe.id }}">
-                        {{ recipe.title }}
-                        <img src="{{ recipe.image_path }}">
-                    </a>
-                </li>
+            <li>
+                <img src="{{ recipe.image_path }}">
+                <a href="/recipe/{{ recipe.id }}">
+                    {{ recipe.title }}    
+                </a>
+            
 
-                
-                    <a href="/recipe/delete/{{ recipe.id }}">delete</a>
-                
 
+            <a href="/recipe/delete/{{ recipe.id }}">delete</a>
+
+            </li>
             {% else %}
 
-                <p>None!</p>
+            <p>None!</p>
 
             {% endfor %}
         </ul>
 
     </article>
+</section>
 
-{% endblock %}
-
+    {% endblock %}

@@ -354,7 +354,7 @@ def add_a_recipe():
 
         flash(f"{title} added to recipes", "success")
 
-        return redirect("/")
+        return redirect("/dashboard")
 
 
 # -----------------------------------------------------------
@@ -392,6 +392,8 @@ def add_a_user():
         """
         params = (email, display_name, pass_hash)
         db.execute(sql, params)
+        
+        session["in_household"] = False
 
         flash("Account created. Please login", "success")
         return redirect("/")
@@ -441,6 +443,13 @@ def login_as_user():
                 "household_id": user["household_id"],
                 "household_name": user["household_name"],
             }
+            
+            with connect_db() as db:
+                sql = "SELECT user_id FROM household_members WHERE user_id=?"
+                params = (session["user"]["id"],)
+                user = db.execute(sql, params).fetchone()
+            if user:
+                session["in_household"] = True
 
             flash("Successfully logged in", "success")
 
@@ -481,6 +490,9 @@ def add_a_household():
     if not name:
         flash("Please enter a household name", "error")
         return redirect("/household")
+    if session["in_household"]: 
+        flash("You are already in a household", "error")
+        return redirect("/household")
     
     created_by = session["user"]["id"]
     
@@ -513,6 +525,8 @@ def add_a_household():
         """
         params = (household_id, created_by, "owner")
         db.execute(sql, params)
+        
+        session["in_household"] = True
 
         session["user"]["household_id"] = household_id
         session["user"]["household_name"] = name
@@ -537,7 +551,11 @@ def join_a_household():
     if not join_code:
         flash("Please enter a join code", "error")
         return redirect("/household")
-
+    
+    if session["in_household"]: 
+        flash("You are already in a household", "error")
+        return redirect("/household")
+    
     with connect_db() as db:
 
         sql = """
