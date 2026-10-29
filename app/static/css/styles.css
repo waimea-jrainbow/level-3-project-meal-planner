@@ -192,17 +192,6 @@ main > h2 {
     max-height: 20vh;
 }
 
-.member {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.member_info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
 
 
 /* Home page ------------------------------- */
@@ -744,6 +733,72 @@ main > h2 {
 
 .recipes a{
     text-decoration: none;
+    color: var(--color-text);
+}
+
+
+
+
+
+/* Manage household ------------------*/
+
+.household_title{
+    display: flex;
+    justify-content: center;
+}
+
+
+.members {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--color-secondary);
+    border: solid 20px var(--color-accent)
+}
+
+.member_info {
+    display: flex;
+    gap: 5rem;
+}
+
+.member_info p{
+    font-size: 1rem;
+}
+
+
+/* Join Code Box */
+.join_code_card {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2rem;
+    background-color: var(--color-secondary);
+    border-radius: 1.2rem;
+    padding: 0.8rem 1.2rem 1rem;
+    text-align: center;
+    width: max-content;
+    
+}
+
+.join_code_label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+.join_code_box {
+    background-color: white;
+    border-radius: 2rem;
+    padding: 0.3rem 0.8rem;
+    width: 25vw;
+}
+
+.join_code_input {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
     color: var(--color-text);
 }
 
