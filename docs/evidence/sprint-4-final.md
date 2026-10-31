@@ -52,6 +52,15 @@ Replace this text with notes any improvements you made as a result of the testin
 **PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
 
 
+## User feedback
+
+Asked end-user what design ideas they had for manage recipes page as it was quite bland in refined ui prototype
+
+Came up with this option here compared to original 
+
+![Image showing 2 manage recipe page designs](screenshots/manage_recipe_options.png)
+
+
 ## Testing FEATURE NAME HERE
 
 Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
