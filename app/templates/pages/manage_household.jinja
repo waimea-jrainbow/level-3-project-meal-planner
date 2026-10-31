@@ -1,5 +1,5 @@
 {#=====================================================
-  Manage household page
+Manage household page
 =====================================================#}
 {% extends 'pages/_base.jinja' %}
 
@@ -7,138 +7,122 @@
 
 <div>
 
-    <h1>{{ household.name }}</h1>
+    <h1 class="household_title">{{ household.name }}</h1>
 
-    
-
-    <h2>Household information</h2>
-
-    <p>
-        <strong>Join code:</strong>
-        {{ household.join_code }}
-        </p>
-
-        <p>
-            Share this code with people you want to invite to your household.
-        </p>
-
-    </section>
-
-
+    <div class="members">
         <h2>Members</h2>
 
         {% if members %}
 
-            {% for member in members %}
-
-                <div class="member">
-
-                    <div class="member-info">
-
-                        <strong>
-                            {{ member.display_name }}
-                        </strong>
-
-                        <span>
-                            {{ member.email }}
-                        </span>
-
-                        {% if member.role == "owner" %}
-                            <span class="member-role">
-                                Owner
-                            </span>
-                        {% else %}
-                            <span class="member-role">
-                                Member
-                            </span>
-                        {% endif %}
-
-                    </div>
+        {% for member in members %}
 
 
-                    {% if is_owner and member.role != "owner" %}
 
-                        <form
-                            method="POST"
-                            action="/household/transfer_owner/{{ member.id }}"
-                            onsubmit="return confirm('Transfer ownership to {{ member.display_name }}?');"
-                        >
-                            <button type="submit">
-                                Transfer ownership
-                            </button>
-                        </form>
-
-                        <form
-                            method="POST"
-                            action="/household/remove_member/{{ member.id }}"
-                            onsubmit="return confirm('Remove {{ member.display_name }} from this household?');"
-                        >
-                            <button type="submit">
-                                Remove
-                            </button>
-                        </form>
-
-                    {% endif %}
-
-
-                </div>
-
-            {% endfor %}
-
-        {% else %}
-
-            <p>No members found</p>
-
-        {% endif %}
-
-        <h2>Leave household</h2>
-
-        {% if is_owner %}
+        <div class="member_info">
 
             <p>
-                The household owner cannot leave the household.
-                Remove the household or transfer ownership first.
+                {{ member.display_name }}
             </p>
 
+            <p>
+                {{ member.email }}
+            </p>
+
+            {% if member.role == "owner" %}
+            <p class="member-role">
+                Owner
+            </p>
             {% else %}
-
-            <form
-                method="POST"
-                action="/household/leave"
-                onsubmit="return confirm('Are you sure you want to leave this household?');"
-            >
-        
-                <button type="submit">
-                    Leave household
-                </button>
-            </form>
-        {% endif %}
-
-        {% if is_owner %}
-
-        <h2>Delete household</h2>
-
-            <p>
-                Delete household
+            <p class="member-role">
+                Member
             </p>
+            {% endif %}
 
-            <form
-                method="POST"
-                action="/household/delete/{{ household.id }}"
-                onsubmit="return confirm('Are you sure you want to permanently delete this household? This cannot be undone.');"
-            >
-                <button type="submit">
-                    Delete household
-                </button>
-            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+        {% if is_owner and member.role != "owner" %}
+
+        <form method="POST" action="/household/transfer_owner/{{ member.id }}"
+            onsubmit="return confirm('Transfer ownership to {{ member.display_name }}?');">
+            <button type="submit">
+                Transfer ownership
+            </button>
+        </form>
+
+        <form method="POST" action="/household/remove_member/{{ member.id }}"
+            onsubmit="return confirm('Remove {{ member.display_name }} from this household?');">
+            <button type="submit">
+                Remove
+            </button>
+        </form>
 
         {% endif %}
 
 
+    </div>
 
+    {% endfor %}
 
+    {% else %}
 
+    <p>No members found</p>
+
+    {% endif %}
+
+    <section class="join_code_card">
+        <label class="join_code_label">Join code</label>
+        <div class="join_code_box">
+            <p class="join_code_input">{{ household.join_code }}</p>
+        </div>
     </section>
+
+    <h2>Leave household</h2>
+
+    {% if is_owner %}
+
+    <p>
+        The household owner cannot leave the household.
+        Remove the household or transfer ownership first.
+    </p>
+
+    {% else %}
+
+    <form method="POST" action="/household/leave"
+        onsubmit="return confirm('Are you sure you want to leave this household?');">
+
+        <button type="submit">
+            Leave household
+        </button>
+    </form>
+    {% endif %}
+
+
+
+    {% if is_owner %}
+
+    <h2>Delete household</h2>
+
+    <p>
+        Delete household
+    </p>
+
+    <form method="POST" action="/household/delete/{{ household.id }}"
+        onsubmit="return confirm('Are you sure you want to permanently delete this household? This cannot be undone.');">
+        <button type="submit">
+            Delete household
+        </button>
+    </form>
+
+    {% endif %}
+
 
 
 </div>
