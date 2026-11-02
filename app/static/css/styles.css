@@ -91,18 +91,53 @@ main {
 /* Buttons */
 
 .button {
-    display: inline-block;
-    background-color: var(--color-primary);
+    display: flex;
+    align-items: center;       
+    justify-content: center;    
     color: var(--color-text);
     text-decoration: none;
-    padding: 0.4rem 0.65rem;
+    padding: 0.4rem;        
+    border: none;    
     border-radius: 0.5rem;
     font-size: 0.85rem;
+    min-width: 2.2rem;           
+    min-height: 2.2rem;
+    box-sizing: border-box;
 }
 
-.button:hover {
-    background-color: var(--color-primary-dark);
+.button img{
+    width: 100%;
+    height: auto;
 }
+
+
+
+
+/* cancel/delete button */
+
+.delete_button {
+    background-color: var(--cancel) !important;
+       
+}
+
+.delete_button:hover {
+    border: 1px solid var(--cancel-darker) !important;
+}
+
+/* ownership button */
+
+.transfer_ownership_button {
+    background-color: gold !important;
+    
+       
+}
+
+.transfer_ownership_button:hover {
+    border: 1px solid goldenrod !important;
+}
+
+
+
 
 
 /* Header & Nav -----------------------------------------------*/
@@ -536,19 +571,7 @@ main > h2 {
 
    
 
-.delete_button {
-    background-color: var(--cancel) !important;
-    border: 1px solid var(--cancel-dark) !important;
-}
 
-.delete_button:hover {
-    border: 1px solid var(--cancel-darker) !important;
-}
-
-.delete_button img{
-    width: 100%;
-    height: auto;
-}
 
 
 /* Dashboard buttons */
@@ -782,7 +805,6 @@ main > h2 {
 }
 
 .members_card {
-    width: 100%;
     background-color: var(--color-secondary);
     border: 14px solid var(--color-accent);
     border-radius: 1.8rem;

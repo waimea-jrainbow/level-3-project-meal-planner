@@ -591,6 +591,7 @@ def join_a_household():
 
         session["user"]["household_id"] = household["id"]
         session["user"]["household_name"] = household["name"]
+        session["in_household"] = True
 
         flash(f"You joined {household['name']}", "success")
 
@@ -1126,6 +1127,8 @@ def leave_household():
         # Clear household information from the session
         session["user"]["household_id"] = None
         session["user"]["household_name"] = None
+        
+        session["in_household"] = False
 
         flash("You have left the household", "success")
 

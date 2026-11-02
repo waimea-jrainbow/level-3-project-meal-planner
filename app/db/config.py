@@ -31,8 +31,11 @@ class UserTable:
     SEED_DATA = """
         INSERT INTO users ("email", "password_hash", "display_name")
         VALUES
-            ("goober@gmail.com", "scrypt:32768:8:1$n7eJTucLbaGmUpAM$c1776374a8d456a6eaf61bccc08db5e1fcc4ff3b3983d364c45ab13074255eeae0a393afb11f99a9fe63fb1d980992ace17a72ba70324523b11e92e36cbe4252", "goober");
-    """
+            ("goober@gmail.com", "scrypt:32768:8:1$n7eJTucLbaGmUpAM$c1776374a8d456a6eaf61bccc08db5e1fcc4ff3b3983d364c45ab13074255eeae0a393afb11f99a9fe63fb1d980992ace17a72ba70324523b11e92e36cbe4252", "goober"),
+            ("user1@test.com", "scrypt:32768:8:1$n7eJTucLbaGmUpAM$c1776374a8d456a6eaf61bccc08db5e1fcc4ff3b3983d364c45ab13074255eeae0a393afb11f99a9fe63fb1d980992ace17a72ba70324523b11e92e36cbe4252", "user1"),
+            ("user2@test.com", "scrypt:32768:8:1$n7eJTucLbaGmUpAM$c1776374a8d456a6eaf61bccc08db5e1fcc4ff3b3983d364c45ab13074255eeae0a393afb11f99a9fe63fb1d980992ace17a72ba70324523b11e92e36cbe4252", "user2");  
+    
+    """       
 
 
 class HouseholdTable:
@@ -53,7 +56,8 @@ class HouseholdTable:
     SEED_DATA = """
         INSERT INTO households ("name", "join_code", "created_by")
         VALUES
-            ("Goobers house", 123456, 1);
+            ("Goobers house", 123456, 1),
+            ("testhouse", 136351, 2);
     """
 
 
@@ -77,7 +81,9 @@ class HouseholdMembersTable:
     SEED_DATA = """
         INSERT INTO household_members ("household_id", "user_id", "role")
         VALUES
-            (1, 1, "owner");
+            (1, 1, "owner"),
+            (2, 2, "owner"),
+            (2, 3, "member");
     """
 
 
@@ -118,7 +124,18 @@ class RecipeTable:
                 "Notes for noting",
                 "Goober meat",
                 "Cook goober meat"
+            ),
+            
+            (
+                2,
+                "test",
+                "",
+                "/static/uploads/3a835c1f521a_pizza.png",
+                "Notes for noting",
+                "Goober meat",
+                "Cook goober meat"
             );
+            
     """
 
 
@@ -143,7 +160,8 @@ class MealPlanTable:
     SEED_DATA = """
         INSERT INTO meal_plan ("household_id", "date", "meal_type", "recipe_id")
         VALUES
-            (1, "2026-08-13 08:00:00", "breakfast", 1);
+            (1, "2026-08-13", "breakfast", 1),
+            (2, "2026-11-03", "breakfast", 2);
     """
 
 
