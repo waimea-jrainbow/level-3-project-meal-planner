@@ -104,7 +104,7 @@ Use complex techniques to develop a digital media outcome means that, taking int
 
 4. You have applied user experience (UX) principles relevant to the purpose of your system:
    - [x] You have **identified key UX principles** that are relevant
-   - [ ] You **applied these UX principles** in your system's design and development
+   - [x] You **applied these UX principles** in your system's design and development
 
 5. You need to explain and address relevant implications:
    - [x] Identify the **implications most relevant** to your project

@@ -82,6 +82,16 @@ main {
     padding: 1rem;
 }
 
+.title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+    text-transform: capitalize;
+}
+
 
 /* Make cursor pointer hand on hover */
 .clickable {
@@ -121,7 +131,7 @@ main {
 }
 
 .delete_button:hover {
-    border: 1px solid var(--cancel-darker) !important;
+    background-color: var(--cancel-darker) !important;
 }
 
 /* ownership button */
@@ -133,12 +143,19 @@ main {
 }
 
 .transfer_ownership_button:hover {
-    border: 1px solid goldenrod !important;
+    background-color: goldenrod !important;
 }
 
 
+/* Submit/confirm button */
+.submit_button {
+    background-color: var(--color-primary) !important;
+       
+}
 
-
+.submit_button:hover {
+    background-color: var(--color-primary-dark) !important;
+}
 
 /* Header & Nav -----------------------------------------------*/
 
@@ -214,18 +231,6 @@ main > h2 {
 }
 
 
-
-
-#add_recipe {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 0;
-}
-
-.recipe_image{
-    max-width: 20vw;
-    max-height: 20vh;
-}
 
 
 
@@ -715,10 +720,6 @@ main > h2 {
     border-radius: 1rem;
 }
 
-.recipes_title{
-    display: flex;
-    justify-content: center;
-}
 
 .recipe_grid {
     display: grid;
@@ -762,35 +763,75 @@ main > h2 {
     gap: 0.4rem;
 }
 
-.recipe_card_title{
-    display: flex;
-    justify-content: center; 
-    gap: 0.4rem;
+
+
+
+
+/* Recipe */
+
+.recipe_detail_container {
+    max-width: 45rem;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
+.recipe_detail_card {
+    background-color: var(--color-secondary);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
 
-
-
-
-/* Manage household ------------------*/
-
-.household_title{
+.recipe_image_container {
     display: flex;
     justify-content: center;
 }
 
-
-
-
-.member_info {
-    display: flex;
-    gap: 5rem;
+.recipe_detail_card .recipe_image {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 1rem;
+    border: 5px solid var(--color-accent);
 }
 
-.member_info p{
-    font-size: 1rem;
+.recipe_notes_box {
+    background-color: var(--color-background);
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
+.recipe_main_detail {  
+    padding: 0.5rem 0;
+}
+
+.recipe_link {
+    text-align: center; 
+}
+.manual_recipe_section {
+    background-color: var(--color-background);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    margin: 1rem;
+    text-align: left;
+}
+
+.manual_recipe_section h2 {
+    font-size: 1.2rem;
+    color: var(--color-accent);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-accent-light);
+    padding-bottom: 0.3rem;
+}
+
+
+
+/* Manage household ------------------*/
 
 
 
@@ -804,6 +845,44 @@ main > h2 {
     padding: 0 1rem;
 }
 
+
+
+.member_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background-color: var(--color-background);
+    padding: 0.75rem 1.25rem;
+    border-radius: 1rem;
+}
+
+.member_info p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.member_info img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.member_info form {
+    display: flex;
+    margin: 0;
+}
+
+.member_actions_wrapper {
+    display: flex;
+    gap: 1rem;
+    min-width: 4.8rem;
+    justify-content: flex-end;
+}
+
+
+
 .members_card {
     background-color: var(--color-secondary);
     border: 14px solid var(--color-accent);
@@ -815,15 +894,22 @@ main > h2 {
     gap: 1.25rem;
 }
 
+.members_card h2{
+    display: flex;
+    justify-content: center;
+}
+
+
 
 /* Join Code Box */
 .join_code_card {
-    
     background-color: var(--color-secondary);
     border-radius: 1.2rem;
     padding: 0.8rem 1.2rem 1rem;
     text-align: center;
     box-sizing: border-box;
+    width:100% ;
+    max-width: 24rem;
 }
 
 .join_code_label {
@@ -833,19 +919,153 @@ main > h2 {
 }
 
 .join_code_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
     background-color: white;
-    border-radius: 2rem;
-    padding: 0.3rem 0.8rem;
-    width: 25vw;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    border: 2px dashed var(--color-accent);
 }
 
 .join_code_input {
-    text-align: center;
-    font-size: 1.2rem;
+    font-family: monospace, sans-serif;
+    font-size: 1.4rem;
     font-weight: bold;
-    width: 100%;
-    color: var(--color-text);
+    letter-spacing: 0.15em;      
+    color: var(--color-accent);
+    user-select: all;
 }
+
+
+/* Danger Zone - Delete and leave */
+
+.danger_zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--color-bg-dark);
+    border: 5px dashed var(--cancel-dark);
+    border-radius: 1.2rem;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    width: 100%;
+    max-width: 24rem;
+    box-sizing: border-box;
+}
+
+/* Add recipe ---------------------- */
+
+.add_recipe_container {
+    max-width: 38rem;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.add_recipe_card {
+    background-color: var(--color-secondary);
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+.add_recipe_form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+
+/* Recipe type toggle */
+.recipe_type_toggle {
+    display: flex;
+    background-color: white;
+    border: 5px solid var(--color-accent);
+    border-radius: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+}
+
+
+.toggle_radio {
+    display: none;
+}
+
+.toggle_btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    border-radius: 1.5rem;
+    font-weight: 600; 
+    color: var(--color-text);
+    user-select: none;
+}
+
+.toggle_btn:hover {
+    background-color: var(--color-bg-light);
+}
+
+.toggle_radio:checked + .toggle_btn {
+    background-color: var(--color-primary);
+}
+
+/* Forms */
+.form_section{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0.5rem;
+}
+
+.form_section label{
+    font-size: 1rem;
+}
+
+
+
+.form_section input[type="text"],
+.form_section input[type="url"],
+.form_section textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-accent-light);
+    border-radius: 0.8rem;
+    margin-top: -0.8rem;
+    
+    
+}
+
+.form_section textarea {
+    resize: vertical;
+    min-height: 5rem;
+}
+
+.file_upload{
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: white;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-accent-light);
+    border-radius: 0.8rem;
+}
+
+.recipe_image {
+    flex: 1;
+}
+
+.form_actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    
+}
+
+.form_actions button{
+    font-size: large;
+}
+
+
 
 /* Footer -------------------------- */
 

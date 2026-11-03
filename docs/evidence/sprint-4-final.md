@@ -61,6 +61,16 @@ Came up with this option here compared to original
 ![Image showing 2 manage recipe page designs](screenshots/manage_recipe_options.png)
 
 
+## User feedback
+
+Showed end user progress on manage members section of manage household. Received feedback that it didn't seem quite right
+after some ideation came up with a crown or person icon on the left side of the name to designate owner or member
+
+
+![Screenshot of first iteration of member info section](screenshots/1st_member_info.png)
+
+![Screenshot of second iteration of member info section](screenshots/2nd_member_info.png)
+
 ## Testing FEATURE NAME HERE
 
 Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing

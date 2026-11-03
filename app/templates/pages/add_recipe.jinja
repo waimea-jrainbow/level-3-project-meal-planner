@@ -1,5 +1,5 @@
 {#=====================================================
- Add recipe page
+Add recipe page
 =====================================================#}
 
 {% extends 'pages/_base.jinja' %}
@@ -7,92 +7,75 @@
 
 {% block content %}
 
+<div class="add_recipe_container">
+    <article class="add_recipe_card">
 
-    <article>
+        <h1 class="title">Add recipe</h1>
 
-        <h1>Add recipe</h1>
+        {# TODO if time remaining make add recipe a floating dialog #}
 
-        <div>
+        <div class="recipe_type_toggle">
 
-            <button
-                type="button"
-                hx-get="/recipe/fields/link"
-                hx-target="#recipe-fields"
-                hx-swap="innerHTML"
-            >
+            <input type="radio" id="toggle_link" name="recipe_mode" class="toggle_radio" autocomplete="off" checked>
+            <label for="toggle_link" class="toggle_btn clickable" hx-get="/recipe/fields/link"
+                hx-target="#recipe_fields" hx-swap="innerHTML">
                 Add with a link
-            </button>
+            </label>
 
-            <button
-                type="button"
-                hx-get="/recipe/fields/manual"
-                hx-target="#recipe-fields"
-                hx-swap="innerHTML"
-            >
+            <input type="radio" id="toggle_manual" name="recipe_mode" class="toggle_radio" autocomplete="off">
+            <label for="toggle_manual" class="toggle_btn clickable" hx-get="/recipe/fields/manual"
+                hx-target="#recipe_fields" hx-swap="innerHTML">
                 Add manually
-            </button>
+            </label>
 
         </div>
 
 
 
-        <form action="/recipe" method="POST" enctype="multipart/form-data" id="add_recipe">
+        <form action="/recipe" method="POST" enctype="multipart/form-data" id="add_recipe_form">
 
-            <input
-                type="text"
-                name="title"
-                placeholder="Name of the recipe"
-                required
-            >
+            <div class="form_section">
+                <label for="title">
+                    Name of the recipe
+                </label>
+                <input type="text" name="title" placeholder="Name of the recipe" required>
+            </div>
 
-            <div id="recipe-fields">
-
-
+            <div id="recipe_fields" class="form_section">
                 <label for="link">
                     Link to the recipe
                 </label>
 
-                <input
-                    type="url"
-                    name="link"
-                    id="link"
-                    placeholder="Link to the recipe"
-                    required
-                >
+                <input type="url" name="link" id="link" placeholder="Link to the recipe" required>
 
             </div>
-            
-            <div id="recipe_image">
-                <input
-                    name="image"
-                    type="file"
-                    accept="image/png, image/jpeg, image/webp"
-                    id="image"
-                    required
-                >
-            </div>  
 
-            <button
-                type="button"
-                hx-get="/recipe/image_reset"
-                hx-target="#recipe_image"
-                hx-swap="innerHTML"
-            >
-                Clear
-            </button>
-            
+            <div class="form_section">
+                <label for="image">Recipe image</label>
+                <div class="file_upload">
+                    <div class="recipe_image">
+                        <input name="image" type="file" accept="image/png, image/jpeg, image/webp" id="image" required>
+                    </div>
+                    <button type="button" class="button clickable delete_button" hx-get="/recipe/image_reset"
+                        hx-target="#recipe_image" hx-swap="innerHTML">
+                        Clear image
+                    </button>
+                </div>
+            </div>
 
-            <label>Notes:</label>
-            <textarea
-                name="notes"
-                id="notes"
-            ></textarea>
+            <div class="form_section">
+                <label>Notes:</label>
+                <textarea name="notes" id="notes" rows="4"
+                    placeholder="Optional notes, variations, or tips..."></textarea>
+            </div>
 
-            <button>Add the recipe</button>
-
+            <div class="form_actions">
+                <button class="button clickable submit_button">Add the recipe</button>
+            </div>
         </form>
 
     </article>
 
-{% endblock %}
+</div>
 
+{% endblock %}

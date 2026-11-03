@@ -1,25 +1,27 @@
 {#=====================================================
-  Meal Plan
+Meal Plan
 =====================================================#}
 
 {% extends 'pages/_base.jinja' %}
 
 {% block content %}
 
-    <h1>Meal Plan</h1>
-    <p>{{ start_date.format("DD/MM/YYYY") }}  {{ end_date.format("DD/MM/YYYY") }}</p>
+<div class="meal_plan_container">
 
-    <p>------------------</p>
+    <div class="meal_plan_header">
+        <h1>Meal Plan</h1>
+        <p>{{ start_date.format("DD/MM/YYYY") }} - {{ end_date.format("DD/MM/YYYY") }}</p>
+    </div>
 
-    {% for i in range(7) %}
+    <div class="week_container">
+        {% for i in range(7) %}
 
-        <p>{{ week_dates[i].format("DD/MM/YYYY") }} {{ week_dates[i].format('dddd') }}</p>
-        
-        {# plans[i] is plans in a day at i week date#}
-        {% if plans[i] %} 
+        <div class="day_card">
+            {# plans[i] is plans in a day at i week date#}
+            {% if plans[i] %}
 
-        <ul>
-            {% for meal in plans[i] %}
+            <ul>
+                {% for meal in plans[i] %}
 
                 <li>
                     <strong>{{ meal.meal_type }}</strong>:
@@ -35,20 +37,23 @@
                     </form>
                 </li>
 
+                {% endfor %}
+            </ul>
+
+            {% else %}
+
+            <p>No meal planned</p>
+
+            {% endif %}
+
             {% endfor %}
-        </ul>
+        </div>
 
-    {% else %}
+    </div>
 
-        <p>No meal planned</p>
+    <a href="/meal_plan/new">
+        <button type="button">Add Meal</button>
+    </a>
 
-    {% endif %}
-
-{% endfor %}
-
-
-            <a href="/meal_plan/new">
-                <button type="button">Add Meal</button>
-            </a>
-
+</div>
 {% endblock %}

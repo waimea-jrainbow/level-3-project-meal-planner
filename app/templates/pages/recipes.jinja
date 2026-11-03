@@ -9,13 +9,13 @@ Recipes page
 
 <section class="manage_recipes">
 
-    <h1 class="recipes_title">Recipes</h1>
+    <h1 class="title">Recipes</h1>
     {% if recipes %}
     <div class="recipe_grid">
         {% for recipe in recipes %}
         <article class="recipe_card">
             <a href="/recipe/{{ recipe.id }}" class="recipe_card_link">
-                <h2 class="recipe_card_title">{{ recipe.title }}</h2>
+                <h2 class="title">{{ recipe.title }}</h2>
                 <img src="{{ recipe.image_path }}" class="recipe_card_image">
                 
 

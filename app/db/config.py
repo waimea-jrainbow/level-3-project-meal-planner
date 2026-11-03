@@ -96,7 +96,7 @@ class RecipeTable:
         `household_id` INTEGER NOT NULL, 
         `title` TEXT NOT NULL,
         `url` TEXT,
-        `image_path` TEXT,
+        `image_path` TEXT REQUIRED, 
         `notes` TEXT,
         `ingredients` TEXT,
         `method` TEXT,
@@ -130,10 +130,22 @@ class RecipeTable:
                 2,
                 "test",
                 "",
-                "/static/uploads/3a835c1f521a_pizza.png",
+                "/static/uploads/e929426126ed_generic_canned_food.jpg",
                 "Notes for noting",
-                "Goober meat",
-                "Cook goober meat"
+                "test 
+                 test2",
+                "test 
+                 test2"
+            ),
+            
+            (
+                2,
+                "test2",
+                "https://www.w3schools.com/",
+                "/static/uploads/78f384ae99d7_generic_ice_cream.jpg",
+                "Notes for noting",
+                "",
+                ""
             );
             
     """

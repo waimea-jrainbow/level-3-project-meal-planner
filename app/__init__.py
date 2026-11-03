@@ -41,6 +41,18 @@ def close_form():
     return ""
 
 
+# ===========================================================
+# Flash message for when join code is copied
+# ===========================================================
+@app.get("/household/copy_flash")
+@login_required
+def copy_flash():
+    flash("Join code copied to clipboard!", "success")
+    response = make_response("", 200)
+    response.headers["HX-Redirect"] = "/household/manage"
+    return response
+
+
 # -----------------------------------------------------------
 # Home page
 # -----------------------------------------------------------
@@ -453,6 +465,7 @@ def login_as_user():
 
             flash("Successfully logged in", "success")
 
+            # Stops HTMX from inserting page as partial
             response = make_response("", 200)
             response.headers["HX-Redirect"] = "/dashboard"
             return response
@@ -660,6 +673,8 @@ def household_dashboard():
         )
 
 
+
+
 # -----------------------------------------------------------
 # Route to remove a user from a household as owner
 # -----------------------------------------------------------
@@ -703,6 +718,60 @@ def remove_household_member(user_id):
         flash("Member removed", "success")
         return redirect("/household/manage")
 
+
+# -----------------------------------------------------------
+# Route for regenerating a household's join code
+# -----------------------------------------------------------
+@app.post("/household/regenerate_code")
+@login_required
+@household_required
+def regenerate_join_code():
+
+    with connect_db() as db:
+
+        # Check if the current user is the owner
+        sql = """
+            SELECT created_by
+            FROM households
+            WHERE id=?
+        """
+
+        params = (session["user"]["household_id"],)
+
+        result = db.execute(sql, params)
+        household = result.fetchone()
+
+        if household["created_by"] != session["user"]["id"]:
+            flash("Only the household owner can reset the join code", "error")
+            return redirect("/household/manage")
+
+        # Generate a new unique 6-digit join code
+        while True:
+            new_join_code = str(uuid.uuid4().int)[:6]
+
+            sql = """
+                SELECT id 
+                FROM households 
+                WHERE join_code=?
+            """
+            params = (new_join_code,)
+            existing = db.execute(sql, params).fetchone()
+
+            if not existing:
+                break
+
+        # Update the household's join code
+        sql = """
+            UPDATE households
+            SET join_code=?
+            WHERE id=?
+        """
+
+        params = (new_join_code, session["user"]["household_id"])
+        db.execute(sql, params)
+
+        flash("Join code updated", "success")
+        return redirect("/household/manage")
 
 # -----------------------------------------------------------
 # Route for deleting a household
