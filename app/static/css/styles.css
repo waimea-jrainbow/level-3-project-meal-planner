@@ -299,12 +299,18 @@ main > h2 {
 
 .steps {
     display: flex;
-    gap: 1.25rem;
+    flex-direction: column; 
+    gap: 1.5rem;            
     margin: 0 -1rem;
     padding: 2rem 2rem;
-
     background-color: var(--color-bg-light);
     border-radius: 1.5rem;
+}
+
+/* Move horizontal flex properties to the wrapper */
+.step_cards_container {
+    display: flex;
+    gap: 1.25rem;
 }
 
 .step_card {
@@ -484,9 +490,11 @@ main > h2 {
 }
 
 .first_sign_up_form input{
-    width:25rem;
+    width:100%;
+    max-width: 25rem;
+    box-sizing: border-box;
     border-radius: 0.8rem;
-    margin-top: -1rem;
+    margin-top: 0rem;
 }
 
 .first_sign_up_form button{
@@ -696,8 +704,8 @@ main > h2 {
     align-items: center;
     justify-content: center;
     border-radius: 4px;
-    padding: 0.6rem 60%;
-    width: 100%; 
+    padding: 0.4rem 0.5rem;
+    width: 100%;
     box-sizing: border-box;
     text-transform: capitalize;
 }
@@ -845,9 +853,10 @@ main > h2 {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    max-width: 50%;
+    max-width: 50rem;
     margin: 1.5rem auto;
     padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 
@@ -1046,6 +1055,7 @@ main > h2 {
 }
 
 .file_upload{
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -1057,12 +1067,13 @@ main > h2 {
 
 .recipe_image {
     flex: 1;
+    min-width: 0;
 }
 
 .form_actions {
     display: flex;
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
     
 }
 
@@ -1117,7 +1128,9 @@ main > h2 {
     gap: 1rem;
     flex-direction: column;
     margin-bottom: 0;
-    width: 60% ;
+    width: 100% ;
+    max-width: 60rem;
+    box-sizing: border-box;
 }
 
 
@@ -1160,6 +1173,30 @@ main > h2 {
 .recipe_title:hover {
     color: var(--color-accent);
     text-decoration: underline;
+}
+
+
+/* Add meal to meal plan --------------- */
+
+.form_section select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-accent-light);
+    border-radius: 0.8rem;
+    margin-top: -0.8rem;
+    background-color: white;
+    font: inherit;
+    color: var(--color-text);
+    width: 100%;
+    
+}
+
+.form_section input[type="date"] {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-accent-light);
+    border-radius: 0.8rem;
+    margin-top: -0.8rem;
+    background-color: white;
+    color: var(--color-text);
 }
 
 /* Footer -------------------------- */
@@ -1207,4 +1244,26 @@ main > h2 {
 
 .site_footer nav .button:hover {
     background-color: var(--color-primary-dark);
+}
+
+
+/* Mobile responsive */
+
+@media (max-width: 768px) {
+    .steps, .week_grid, .dashboard_actions, .form_buttons {
+        flex-direction: column;
+    }
+    .dashboard_button {
+        margin: 0.5rem 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    nav{
+        flex-direction: column;
+    }
+
+    .meal_indicator{
+        width: 100%;
+    }
 }

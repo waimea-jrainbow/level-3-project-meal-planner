@@ -3,6 +3,8 @@ Login Form
 =====================================================#}
 
 <article>
+    {# Show flash messages from any previous events #}
+    {% include "partials/messages.jinja" %}
 
     <h1>Login to Abode and Appetite</h1>
 
@@ -14,7 +16,8 @@ Login Form
 
         <div class="form_buttons">
             <button class="button submit_button">Login</button>
-            <button class="button delete_button" type="button" hx-get="/close" hx-target="#floating_form" hx-swap="innerHTML">
+            <button class="button delete_button" type="button" hx-get="/close" hx-target="#floating_form"
+                hx-swap="innerHTML">
                 Cancel
             </button>
         </div>

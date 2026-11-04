@@ -67,6 +67,31 @@ after some ideation came up with a crown or person icon on the left side of the 
 
 
 
+## Validation - !["W3schools validator"](https://validator.w3.org/#validate_by_input)
+
+### Homepage
+36 errors and warnings however 24 of these were because the validator doesn't recognise HTMX syntax
+
+For example:
+![Example of W3Schools validator not knowing what HTMX is](screenshots/w3HTMXerror.png)
+
+### Dashboard
+1 Warning that there is an h2 but no h1 above it, was easily fixed so no errors or warnings for this page
+
+### Meal plan
+No errors
+
+### Manage recipes
+2 missing alt texts for images, easy to fix so no errors
+
+### Add new recipe
+No errors
+
+### Add meal to meal plan
+A bunch of errors that were all fixed by fixing the first one which was a missing > on a div tag
+
+
+
 ## Sprint Review
 
 This sprint was went very well as I've produced an aesthetic and layout that I am very happy
