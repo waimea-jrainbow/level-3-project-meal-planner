@@ -1,8 +1,7 @@
-{#=====================================================
+{# =====================================================
 Base template
 - Used as the basis of all pages
-=====================================================#}
-
+===================================================== #}
 <!DOCTYPE html>
 
 <html lang="en" data-theme="light">
@@ -61,7 +60,7 @@ Base template
             <a href="/logout">Logout</a>
             {% else %}
             <a class="clickable" hx-get="/login" hx-target="#floating_form" hx-swap="innerHTML">Login</a>
-            <a id="sign_up_button" class="button clickable submit_button" type="button" hx-get="/user/new"
+            <a id="sign_up_button" class="button clickable submit_button"  hx-get="/user/new"
                 hx-target="#floating_form" hx-swap="innerHTML">
                 Start your meal plan</a>
             {% endif %}
@@ -90,7 +89,7 @@ Base template
             <a href="/logout">Logout</a>
             {% else %}
             <a class="clickable" hx-get="/login" hx-target="#floating_form" hx-swap="innerHTML">Login</a>
-            <a class="button clickable" type="button" hx-get="/user/new" hx-target="#floating_form" hx-swap="innerHTML">
+            <a class="button clickable" hx-get="/user/new" hx-target="#floating_form" hx-swap="innerHTML">
                 Start your meal plan
             </a>
             {% endif %}

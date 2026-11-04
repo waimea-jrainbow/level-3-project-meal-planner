@@ -394,7 +394,8 @@ def add_a_user():
 
         if user:
             flash(f"An account using the email address {email} already exists", "error")
-            return redirect("/user/new")
+            
+            return render_template("partials/signup_form.jinja")
 
         pass_hash = generate_password_hash(password)
 

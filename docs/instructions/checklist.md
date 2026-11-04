@@ -93,7 +93,7 @@ Use complex techniques to develop a digital media outcome means that, taking int
 2. You must use appropriate complex tools and techniques, for example:
    - [x] You have used **non-core functionality** of tools / libraries (i.e. you have extended these beyond their supplied defaults)
    - [x] You have applied **industry standards or guidelines** (e.g. PEP 8 style guide for Python)
-   - [ ] Your UI uses a **responsive design** for use on multiple devices
+   - [x] Your UI uses a **responsive design** for use on multiple devices
    - [x] You have **integrated original media assets** into your work, as needed
    - [x] You **handle data dynamically**, making your system interactive
    - [x] You have **automated aspects of your system** through scripts (e.g. Python)

@@ -7,7 +7,7 @@
 
 
 
-    <form action="/user" method="POST" id="add_user">
+    <form hx-post="/user" hx-target="#floating_form" hx-swap="innerHTML" id="add_user">
 
         <input type="email" name="email" placeholder="Email" required>
 
