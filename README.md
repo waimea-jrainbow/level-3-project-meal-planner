@@ -35,13 +35,20 @@ The site is hosted on **Render.com** and can be [accessed live at this link](htt
 
 The following user accounts have been created to demonstrate the features of the system:
 
+Goober
+- Username: goober
+- Email: goober@gmail.com
+- Password test
+
 Test User 1:
-- Username: xxxxx
-- Password: xxxxx
+- Username: user1
+- Email: user1@test.com
+- Password: test
 
 Test User 2:
-- Username: xxxxx
-- Password: xxxxx
+- Username: user2
+- Email: user2@test.com
+- Password: test
 
 ...
 
@@ -52,4 +59,6 @@ Test User 2:
 - [Python](https://www.python.org/) as the programming language used
 - [SQLite](https://sqlite.org/) for the database
 - [Jinja2](https://jinja.palletsprojects.com/templates/) for page templating
+- [HTMX](https://htmx.org/) an HTML extension for partial page requests
+- [Pendulum](https://pendulum.eustace.io/) a drop in replacement for python datetime that simplifies manipulation of datetimes
 

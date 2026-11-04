@@ -98,7 +98,6 @@ within the database of the app
 
 I will make sure that I only ever collect necessary data for the operation of the app. Passwords will not be
 stored instead I will store hashes of the passwords so not even I/the app will know the password.
-I will also add a clear privacy note explaining what data is collected and why
 
 ## End-user
 

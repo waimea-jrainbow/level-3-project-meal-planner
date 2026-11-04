@@ -43,13 +43,7 @@ Changed the HTMX to innerHTML so it only replaces the contents of the div instea
 Added a dashboard for when the user is logged in. Needs to show fields for joining and creating a household
 when user isn't in a household and show household details when they are in a household
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+![Screenshot of dashboard](screenshots/dashboard_refined.png)
 
 
 ## User feedback
@@ -71,23 +65,10 @@ after some ideation came up with a crown or person icon on the left side of the 
 
 ![Screenshot of second iteration of member info section](screenshots/2nd_member_info.png)
 
-## Testing FEATURE NAME HERE
-
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
-
-
-## ETC...
 
 
 ## Sprint Review
 
-Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
+This sprint was went very well as I've produced an aesthetic and layout that I am very happy
+with but because of my very verbose testing in previous sprints I've struggled to find things to test in this sprint
 
