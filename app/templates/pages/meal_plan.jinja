@@ -13,47 +13,68 @@ Meal Plan
         <p>{{ start_date.format("DD/MM/YYYY") }} - {{ end_date.format("DD/MM/YYYY") }}</p>
     </div>
 
+    <div class="meal_plan_buttons">
+        <a class="button submit_button" href="/meal_plan/new">
+            Add Meal
+        </a>
+
+        <a class="button submit_button" href="/recipes">
+            Manage recipes
+        </a>
+    </div>
+
     <div class="week_container">
-        {% for i in range(7) %}
+        {% for i in range(0, 7) %}
 
-        <div class="day_card">
-            {# plans[i] is plans in a day at i week date#}
-            {% if plans[i] %}
+        <div class="day_card_plan">
 
-            <ul>
-                {% for meal in plans[i] %}
+            <div class="day_header">
+                <p>{{ week_dates[i].format('dddd') }}</p>
+                <p>{{ week_dates[i].format("DD/MM/YYYY") }}</p>
+            </div>
 
-                <li>
-                    <strong>{{ meal.meal_type }}</strong>:
+            <div class="day_content">
+                {# plans[i] is plans in a day at i week date #}
+                {% if plans[i] %}
 
-                    <a href="/recipe/{{ meal.recipe_id }}">
-                        {{ meal.recipe_title }}
-                    </a>
+                <ul class="meal_list">
+                    {% for meal in plans[i] %}
 
-                    <form action="/meal_plan/delete/" method="post">
-                        <input type="hidden" name="date" value="{{ meal.date }}">
-                        <input type="hidden" name="meal_type" value="{{ meal.meal_type }}">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
+                    <li class="meal">
 
-                {% endfor %}
-            </ul>
+                        <p>{{ meal.meal_type }}</p>
+                        <a class="recipe_title" href="/recipe/{{ meal.recipe_id }}">
+                            {{ meal.recipe_title }}
+                        </a>
 
-            {% else %}
+                        <form action="/meal_plan/delete/" method="post">
+                            <input type="hidden" name="date" value="{{ meal.date }}">
+                            <input type="hidden" name="meal_type" value="{{ meal.meal_type }}">
+                            <button class="button clickable delete_button" type="submit"><img
+                                    src="{{ url_for('static', filename='images/icons/trash_red.svg') }}"
+                                    alt="Delete meal from meal plan"></button>
+                        </form>
+                    </li>
 
-            <p>No meal planned</p>
+                    {% endfor %}
+                </ul>
 
-            {% endif %}
+                {% else %}
 
-            {% endfor %}
+                <p>No meal planned</p>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+        {% endfor %}
+        <div class="meal_plan_buttons">
+            <a class="button submit_button" href="/meal_plan/new">
+                Add Meal
+            </a>
         </div>
 
     </div>
-
-    <a href="/meal_plan/new">
-        <button type="button">Add Meal</button>
-    </a>
-
 </div>
 {% endblock %}

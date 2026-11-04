@@ -27,15 +27,15 @@
             required
             >
 
-            <div>
-                <button class="button cancel"
+            <div class="form_buttons">
+                <button class="button clickable submit_button">Add user</button>
+                <button class="button clickable delete_button"
                     type="button"
                     hx-get="/close"
                     hx-target="#floating_form"
                     hx-swap="innerHTML">
                     Cancel
                 </button>
-                <button class="button confirm">Add user</button>
             </div>
 
         </form>

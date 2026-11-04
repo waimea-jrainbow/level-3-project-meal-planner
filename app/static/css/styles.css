@@ -100,10 +100,7 @@ main {
 
 /* Buttons */
 
-.button {
-    display: flex;
-    align-items: center;       
-    justify-content: center;    
+.button {   
     color: var(--color-text);
     text-decoration: none;
     padding: 0.4rem;        
@@ -600,6 +597,15 @@ main > h2 {
     color: var(--color-text);
 }
 
+/* form buttons */
+
+.form_buttons{
+    display: flex;
+    flex:1;
+    width: 100%;
+    justify-content: center;
+    gap: 3rem;
+}
 
 /* Weekly meals dashboard */
 
@@ -675,7 +681,6 @@ main > h2 {
 
 .day_card p {
     font-size: 12px;
-    margin: 0 0 12px;
 }
 
 .day_meals {
@@ -1065,7 +1070,97 @@ main > h2 {
     font-size: large;
 }
 
+/* Meal plan ----------------------- */
 
+.meal_plan_container{
+    display: flex;
+    flex-direction: column;
+}
+
+.meal_plan_header{
+    text-align: center;
+    background-color: var(--color-secondary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 1.25rem;
+    border: 2px solid var(--color-accent);
+    margin-bottom: 1rem;
+}
+
+.meal_plan_buttons{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.meal_plan_buttons .button  {
+    padding: 0.8rem 2rem 0.8rem 2rem !important;
+}
+
+.day_header{
+    display: flex;
+    gap: 2rem;
+    
+}
+
+.day_header p{
+    font-size: 1rem;
+}
+
+.day_card_plan{
+    display: flex;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-secondary-dark);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    gap: 1rem;
+    flex-direction: column;
+    margin-bottom: 0;
+    width: 60% ;
+}
+
+
+.week_container{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    gap:0.5rem;
+    
+}
+
+.meal{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background-color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-secondary);
+}
+
+.meal_list{
+    padding: 0;
+}
+
+.meal p{
+    text-transform: capitalize;
+    font-size: 1rem;
+    width: 5rem;
+}
+
+.recipe_title{
+    text-decoration: none;
+    color: var(--color-text);
+    text-transform: capitalize;
+    margin-left: -3rem;
+}
+
+.recipe_title:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
 
 /* Footer -------------------------- */
 
