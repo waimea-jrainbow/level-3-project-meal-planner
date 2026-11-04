@@ -1,44 +1,28 @@
 <article>
 
-        <h1>Sign up for an Abode and Appetite account</h1>
+    {# Show flash messages from any previous events #}
+    {% include "partials/messages.jinja" %}
 
-        
+    <h1>Sign up for an Abode and Appetite account</h1>
 
-        <form action="/user" method="POST" id="add_user">
 
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-            >
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                required
-            >
+    <form action="/user" method="POST" id="add_user">
 
-            <input
-            name="display_name"
-            type="text"
-            placeholder="username"
-            required
-            >
+        <input type="email" name="email" placeholder="Email" required>
 
-            <div class="form_buttons">
-                <button class="button clickable submit_button">Add user</button>
-                <button class="button clickable delete_button"
-                    type="button"
-                    hx-get="/close"
-                    hx-target="#floating_form"
-                    hx-swap="innerHTML">
-                    Cancel
-                </button>
-            </div>
+        <input type="password" name="password" placeholder="Password" required>
 
-        </form>
+        <input name="display_name" type="text" placeholder="username" required>
+
+        <div class="form_buttons">
+            <button class="button clickable submit_button">Add user</button>
+            <button class="button clickable delete_button" type="button" hx-get="/close" hx-target="#floating_form"
+                hx-swap="innerHTML">
+                Cancel
+            </button>
+        </div>
+
+    </form>
 
 </article>
-

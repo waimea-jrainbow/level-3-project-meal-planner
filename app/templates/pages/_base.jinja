@@ -1,6 +1,6 @@
 {#=====================================================
-  Base template
-  - Used as the basis of all pages
+Base template
+- Used as the basis of all pages
 =====================================================#}
 
 <!DOCTYPE html>
@@ -8,10 +8,10 @@
 <html lang="en" data-theme="light">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Abode and Appetite {% block title %}{% endblock %}</title>
+    <title>Abode and Appetite {% block title %}{% endblock %}</title>
 
     <link rel="icon" href="/static/images/note.svg">
 
@@ -29,48 +29,42 @@
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/messages.css">
     <link rel="stylesheet" href="/static/css/styles.css">
-    
 
-    
+
+
 </head>
 
 <body>
 
     <header>
         {% if session .logged_in %}
-            <a href="/dashboard" id="nav_title">
-                Abode <br> & <br> Appetite
-            </a>
+        <a href="/dashboard" id="nav_title">
+            Abode <br> & <br> Appetite
+        </a>
 
         {% else %}
-            <a href="/" id="nav_title">
-                Abode <br> & <br> Appetite
-            </a>
+        <a href="/" id="nav_title">
+            Abode <br> & <br> Appetite
+        </a>
         {% endif %}
 
         <nav>
             {% if session.logged_in %}
-                Welcome, {{ session.user.display_name }} -
+            Welcome, {{ session.user.display_name }} -
 
-                {% if session.user.household_name %}
-                    <a href="/meal_plan">View meal plan -</a>
-                    <a href="/household/manage">Manage household - </a> 
-                {% endif %}
-                
-                
-                <a href="/logout">Logout</a>
+            {% if session.user.household_name %}
+            <a href="/meal_plan">View meal plan -</a>
+            <a href="/household/manage">Manage household - </a>
+            {% endif %}
+
+
+            <a href="/logout">Logout</a>
             {% else %}
-                <a class="clickable"
-                    hx-get="/login"
-                    hx-target="#floating_form"
-                    hx-swap="innerHTML">Login</a>
-                <a id="sign_up_button" class="button clickable submit_button" 
-                    type="button"
-                    hx-get="/user/new"
-                    hx-target="#floating_form"
-                    hx-swap="innerHTML">
-                    Start your meal plan</a>
-            {% endif %}  
+            <a class="clickable" hx-get="/login" hx-target="#floating_form" hx-swap="innerHTML">Login</a>
+            <a id="sign_up_button" class="button clickable submit_button" type="button" hx-get="/user/new"
+                hx-target="#floating_form" hx-swap="innerHTML">
+                Start your meal plan</a>
+            {% endif %}
         </nav>
     </header>
 
@@ -93,20 +87,12 @@
 
         <nav>
             {% if session.logged_in %}
-                <a href="/logout">Logout</a>
+            <a href="/logout">Logout</a>
             {% else %}
-                <a class="clickable"
-                    hx-get="/login"
-                    hx-target="#floating_form"
-                    hx-swap="innerHTML">Login</a>
-                <a 
-                    class="button clickable" 
-                    type="button"
-                    hx-get="/user/new"
-                    hx-target="#floating_form"
-                    hx-swap="innerHTML">
-                    Start your meal plan
-                </a>
+            <a class="clickable" hx-get="/login" hx-target="#floating_form" hx-swap="innerHTML">Login</a>
+            <a class="button clickable" type="button" hx-get="/user/new" hx-target="#floating_form" hx-swap="innerHTML">
+                Start your meal plan
+            </a>
             {% endif %}
         </nav>
 
@@ -116,4 +102,3 @@
 </body>
 
 </html>
-

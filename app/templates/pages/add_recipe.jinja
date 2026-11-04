@@ -58,8 +58,10 @@ Add recipe page
                     </div>
                     <button type="button" class="button clickable delete_button" hx-get="/recipe/image_reset"
                         hx-target="#recipe_image" hx-swap="innerHTML">
-                        Clear image
+                        <img src="{{ url_for('static', filename='images/icons/trash_red.svg') }}"
+                            alt="Delete meal from meal plan">
                     </button>
+
                 </div>
             </div>
 
