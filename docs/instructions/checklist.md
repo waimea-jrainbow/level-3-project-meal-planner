@@ -125,8 +125,8 @@ Use complex techniques to develop an informed digital media outcome means **all 
    - [x] Show the **improvements made** as a result
 
 2. You have used testing tools to help improve your web site:
-   - [ ] You have used **code validation** tools for generated HTML and CSS
-   - [ ] You have **fixed any issues** identified
+   - [x] You have used **code validation** tools for generated HTML and CSS
+   - [x] You have **fixed any issues** identified
 
 3. You have applied user experience (UX) principles to improve the quality of your web site:
    - [x] Show evidence that you **tested your system against identified UX principles** during development
